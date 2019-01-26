@@ -123,6 +123,10 @@ To download, build and install (or upgrade) mailsend-go, run:
 ```
 go get -u github.com/muquit/mailsend-go
 ```
+If you see the error message `go: cannot find main module; see 'go help
+modules'`, make sure GO111MODULE env variable is not set to on. Unset it by
+typing `unset $GO111MODULE`.
+
 
 To compile yourself:
 

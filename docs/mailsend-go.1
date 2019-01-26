@@ -167,6 +167,11 @@ go\ get\ \-u\ github.com/muquit/mailsend\-go
 \f[]
 .fi
 .PP
+If you see the error message
+\f[C]go:\ cannot\ find\ main\ module;\ see\ \[aq]go\ help\ modules\[aq]\f[],
+make sure GO111MODULE env variable is not set to on.
+Unset it by typing \f[C]unset\ $GO111MODULE\f[].
+.PP
 To compile yourself:
 .IP \[bu] 2
 If you are using very old version of go, install dependecies by typing:
