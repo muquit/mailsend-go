@@ -33,5 +33,13 @@ export GO111MODULE=on
 make
 ```
 
+As mailsend-go uses go modules, it can be built outside $GOPATH e.g.
+```
+cd /tmp
+git clone https://github.com/muquit/mailsend-go.git
+cd mailsend-go
+make
+```
+
 Type `make help` for more targets:
 
