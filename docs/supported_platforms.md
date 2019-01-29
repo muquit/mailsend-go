@@ -1,7 +1,7 @@
 # Supported Platforms
 
 It is written in [go](https://golang.org/), therefore, it can be compiled
-in many platforms verify easily. The compiled bianries for the following 
+in many platforms verify easily. The compiled binaries for the following 
 platforms are supplied:
 
 * Linux

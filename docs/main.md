@@ -2,6 +2,8 @@
 
 @[:markdown](intro.md)
 
+@[:markdown](contribute.md)
+
 @[:markdown](features.md)
 
 @[:markdown](supported_platforms.md)

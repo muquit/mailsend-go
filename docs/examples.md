@@ -68,7 +68,7 @@ not repeat, if specified more than once, the last one will be used.
      body \
        -msg "hello, world!"
 ```                    
-The environament variable "SMTP_USER_PASS" can be used instead of the flag
+The environment variable "SMTP_USER_PASS" can be used instead of the flag
 `-pass`.
 
 ## Send mail with a HTML message
@@ -84,7 +84,7 @@ The environament variable "SMTP_USER_PASS" can be used instead of the flag
 ```
 
 ## Attach a PDF file
-MIME type will be detected. Content-Disposition will be set to "attchment",
+MIME type will be detected. Content-Disposition will be set to "attachment",
 Content-Transfer-Encoding will be "Base64". Notice, "attach" is a command it
 took -file as an arg. The command "attach" can repeat.
 ```
@@ -117,8 +117,8 @@ Notice, the "attach" command is repeated here.
      -file "/path/file.png"
 ```
 ## Attach a PDF file and embed an image
-Content-Dispositon for the image will be set to "inline". It's an hint to the
-mail redear to display the image on the page. Note: it is just a hint, it is
+Content-Disposition for the image will be set to "inline". It's an hint to the
+mail reader to display the image on the page. Note: it is just a hint, it is
 up to the mail reader to respect it or ignore it.
 ```
     mailsend-go -sub "Test"  \
