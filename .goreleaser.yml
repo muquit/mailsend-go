@@ -24,8 +24,6 @@ changelog:
     exclude:
     - '^docs:'
     - '^test:'
-git:
-  short_hash: true
 nfpm:
   name_template: '{{ .ProjectName }}_{{ .Arch }}'
   homepage:  https://muquit.com/
