@@ -18,6 +18,7 @@ archive:
   files:
     - README.md
     - docs/*
+  wrap_in_directory: mailsend-go-dir
 changelog:
   sort: asc
   filters:
