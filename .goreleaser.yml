@@ -13,7 +13,7 @@ archive:
     linux: linux
     windows: windows
   format_overrides:
-    - goos: Windows
+    - goos: windows
       format: zip
   files:
     - README.md
