@@ -5,7 +5,6 @@
 PROGNAME= mailsend-go
 PROGNAME_WIN= $(PROGNAME).exe
 DESTDIR=
-ODIR=./builds
 VERSION=1.0.1
 BUILD_OPTIONS = -ldflags "-X main.Version=$(VERSION)"
 BINDIR= /usr/local/bin
