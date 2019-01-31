@@ -38,5 +38,5 @@ nfpm:
   bindir: /usr/local/bin
   files:
       "docs/mailsend-go.1": "/usr/local/share/man/man1/mailsend-go.1"
-      "docs/*": "/usr/local/share/docs/mailsend-go/*"
+      "docs/*": "/usr/local/share/docs/mailsend-go/"
 
