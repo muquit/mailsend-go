@@ -35,6 +35,9 @@ nfpm:
   formats:
   - deb
   - rpm
+  replacements:
+    amd64: 64-bit
+    linux: linux
   bindir: /usr/local/bin
   files:
       "docs/mailsend-go.1": "/usr/local/share/man/man1/mailsend-go.1"
