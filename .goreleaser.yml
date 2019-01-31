@@ -36,7 +36,7 @@ nfpm:
   - deb
   - rpm
   replacements:
-    amd64: 64-bit
+    amd64: linux_64-bit
     linux: linux
   bindir: /usr/local/bin
   files:
