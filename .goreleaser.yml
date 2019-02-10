@@ -16,9 +16,9 @@ archive:
     - goos: windows
       format: zip
   files:
-      "docs/mailsend-go.1": "/usr/local/share/man/man1/mailsend-go.1"
-      "README.md": "/usr/local/share/docs/mailsend-go/README.md"
-      "LICENSE.txt": "/usr/local/share/docs/mailsend-go/LICENSE.txt"
+      "docs/mailsend-go.1"
+      "README.md"
+      "LICENSE.txt"
   wrap_in_directory: mailsend-go-dir
 changelog:
   sort: asc
