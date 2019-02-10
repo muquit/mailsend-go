@@ -521,8 +521,6 @@ func parseBodyCommandParams(args []string, command string) int {
 			}
 			body.mimeType = args[i]
 			j = i
-		} else {
-			fatalError("Unknown option %s for command %s\n", arg, command)
 		}
 	}
 	if len(body.content) == 0 {
@@ -559,13 +557,13 @@ func showUsageAndExit() {
   -info                  - Print info about SMTP server
   -ssl                   - SMTP over SSL. Default is StartTLS
   -verifyCert            - Verify Certificate in connection. Default is No
-  auth                   - Auth Command
-	-user username*      - username for ESMTP authentication. Required
-	-pass password*      - password for EMSPTP authentication. Required
   -ex                    - show examples
   -help                  - show this help
   -q                     - quiet
   -V                     - show version and exit
+  auth                   - Auth Command
+	-user username*      - username for ESMTP authentication. Required
+	-pass password*      - password for EMSPTP authentication. Required
   body                   - body command for attachment for mail body
 	-msg msg             - message to show as body 
 	-file path           - or path of a text/HTML file
@@ -581,6 +579,7 @@ func showUsageAndExit() {
 	-value value		 - Header value
 
 The options with * are required. 
+
 Environment variables:
    SMTP_USER_PASS for auth password (-pass)
 	`
