@@ -12,7 +12,10 @@
     - [Inspect the package content](#inspect-the-package-content)
     - [Install](#install)
     - [Uninstall](#uninstall)
-  - [Install from RPM](#install-from-rpm)
+  - [Install the RPM package](#install-the-rpm-package)
+    - [Inspect the package content](#inspect-the-package-content)
+    - [Install](#install)
+    - [Uninstall](#uninstall)
   - [Install from archive](#install-from-archive)
     - [Linux](#linux)
     - [Windows](#windows)
@@ -95,13 +98,13 @@ Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would
   -debug                 - Print debug messages
   -sub subject           - Subject
   -tname                 - name of recipient
-  -t to,to..*            - email adderss/es of the recipient/s. Required
+  -t to,to..*            - email address/es of the recipient/s. Required
   -list file             - file with list of email addresses. 
                            Syntax is: Name, email_address
   -fname name            - name of sender
   -f address*            - email address of the sender. Required
   -cc cc,cc..            - carbon copy addresses
-  -bcc bcc,bcc..         - blind carbon copy addersses
+  -bcc bcc,bcc..         - blind carbon copy addresses
   -smtp host/IP*         - hostname/IP address of the SMTP server. Required
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
@@ -110,7 +113,7 @@ Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would
   -verifyCert            - Verify Certificate in connection. Default is No
   auth                   - Auth Command
     -user username*      - username for ESMTP authentication. Required
-    -pass password*      - password for EMSPTP autnentication. Required
+    -pass password*      - password for EMSPTP authentication. Required
   -ex                    - show examples
   -help                  - show this help
   -q                     - quiet
@@ -123,7 +126,7 @@ Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would
     -file path*          - path of the attachment. Required
     -name name           - name of the attachment. Default is filename
     -mime-type type      - MIME-Type of the attachment. Default is detected
-    -inline              - Set Content-Dispotion to "inline". 
+    -inline              - Set Content-Disposition to "inline". 
                            Default is "attachment"
   header                 - Header Command. Repeat for multiple headers
     -name header         - Header name
@@ -180,10 +183,15 @@ content.
 
 ## Installing using Homebrew on Mac
 
+You will need to install [Homebrew](https://brew.sh/) first.
+
 ### Install
+
+First install the custom tap.
+
 ```
-	brew tap muquit/mailsend-go https://github.com/muquit/mailsend-go.git
-  	brew install mailsend-go
+    brew tap muquit/mailsend-go https://github.com/muquit/mailsend-go.git
+    rew install mailsend-go
 ```
 
 ### Uninstall
@@ -212,10 +220,24 @@ content.
     sudo dpkg -r mailsend-go_linux_64-bit.deb 
 ```
 
-## Install from RPM
+## Install the RPM package
 
+### Inspect the package content
+```
+    rpm -qlp dist/mailsend-go_linux_64-bit.rpm
+    /usr/local/bin/mailsend-go
+    /usr/local/share/docs/mailsend-go/LICENSE.txt
+    /usr/local/share/docs/mailsend-go/README.md
+    /usr/local/share/man/man1/mailsend-go.1
+```
+### Install
 ```
     sudo rpm -Uvh mailsend-go_linux_64-bit.rpm
+```
+### Uninstall
+
+```
+    sudo rpm -e mailsend-go
 ```
 
 ## Install from archive
@@ -229,11 +251,11 @@ content.
 
 ### Windows
 
-Unzip mailsend-go_1.0.1_windows_64-bit.zip and copy `mailsend-go-dir\mailsend-go.exe` somewhere in yoru PATH or run it from the directory.
+Unzip mailsend-go_1.0.1_windows_64-bit.zip and copy `mailsend-go-dir\mailsend-go.exe` somewhere in your PATH or run it from the directory.
 
 # Compiling
 
-Compiling from scratch requires the [Go programming language toolchain](https://golang.org/dl/) and git.
+Compiling from scratch requires the [Go programming language toolchain](https://golang.org/dl/) and git. Note: *mailsend-go* uses [go modules](https://github.com/golang/go/wiki/Modules) for dependency management.
 
 To download, build and install (or upgrade) mailsend-go, run:
 
@@ -275,7 +297,7 @@ As mailsend-go uses go modules, it can be built outside $GOPATH e.g.
     $ ./mailsend-go -V
     @(#) mailsend-go v1.0.1
 ```
-* List the packages used:
+* List the packages used (if you are outside $GOPATH)
 ```
     $ go list -m "all"
     github.com/muquit/mailsend-go
@@ -531,4 +553,5 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Original [mailsend](https://github.com/muquit/mailsend) (in C)
 
 ---
-This README.md is assembled with [markdown_helper](https://github.com/BurdetteLamar/markdown_helper)
+This README.md is assembled with [markdown_helper](https://github.com/BurdetteLamar/markdown_helper). The software is 
+released with [goreleaser](https://goreleaser.com/)

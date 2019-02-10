@@ -36,7 +36,15 @@ Install
 Uninstall
 .RE
 .IP \[bu] 2
-Install from RPM
+Install the RPM package
+.RS 2
+.IP \[bu] 2
+Inspect the package content
+.IP \[bu] 2
+Install
+.IP \[bu] 2
+Uninstall
+.RE
 .IP \[bu] 2
 Install from archive
 .RS 2
@@ -158,13 +166,13 @@ you would need binaries for any other platforms.
 \ \ \-debug\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ Print\ debug\ messages
 \ \ \-sub\ subject\ \ \ \ \ \ \ \ \ \ \ \-\ Subject
 \ \ \-tname\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ name\ of\ recipient
-\ \ \-t\ to,to..*\ \ \ \ \ \ \ \ \ \ \ \ \-\ email\ adderss/es\ of\ the\ recipient/s.\ Required
+\ \ \-t\ to,to..*\ \ \ \ \ \ \ \ \ \ \ \ \-\ email\ address/es\ of\ the\ recipient/s.\ Required
 \ \ \-list\ file\ \ \ \ \ \ \ \ \ \ \ \ \ \-\ file\ with\ list\ of\ email\ addresses.\ 
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Syntax\ is:\ Name,\ email_address
 \ \ \-fname\ name\ \ \ \ \ \ \ \ \ \ \ \ \-\ name\ of\ sender
 \ \ \-f\ address*\ \ \ \ \ \ \ \ \ \ \ \ \-\ email\ address\ of\ the\ sender.\ Required
 \ \ \-cc\ cc,cc..\ \ \ \ \ \ \ \ \ \ \ \ \-\ carbon\ copy\ addresses
-\ \ \-bcc\ bcc,bcc..\ \ \ \ \ \ \ \ \ \-\ blind\ carbon\ copy\ addersses
+\ \ \-bcc\ bcc,bcc..\ \ \ \ \ \ \ \ \ \-\ blind\ carbon\ copy\ addresses
 \ \ \-smtp\ host/IP*\ \ \ \ \ \ \ \ \ \-\ hostname/IP\ address\ of\ the\ SMTP\ server.\ Required
 \ \ \-port\ port\ \ \ \ \ \ \ \ \ \ \ \ \ \-\ port\ of\ SMTP\ server.\ Default\ is\ 587
 \ \ \-domain\ domain\ \ \ \ \ \ \ \ \ \-\ domain\ name\ for\ SMTP\ HELO.\ Default\ is\ localhost
@@ -173,7 +181,7 @@ you would need binaries for any other platforms.
 \ \ \-verifyCert\ \ \ \ \ \ \ \ \ \ \ \ \-\ Verify\ Certificate\ in\ connection.\ Default\ is\ No
 \ \ auth\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ Auth\ Command
 \ \ \ \ \-user\ username*\ \ \ \ \ \ \-\ username\ for\ ESMTP\ authentication.\ Required
-\ \ \ \ \-pass\ password*\ \ \ \ \ \ \-\ password\ for\ EMSPTP\ autnentication.\ Required
+\ \ \ \ \-pass\ password*\ \ \ \ \ \ \-\ password\ for\ EMSPTP\ authentication.\ Required
 \ \ \-ex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ show\ examples
 \ \ \-help\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ show\ this\ help
 \ \ \-q\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ quiet
@@ -186,7 +194,7 @@ you would need binaries for any other platforms.
 \ \ \ \ \-file\ path*\ \ \ \ \ \ \ \ \ \ \-\ path\ of\ the\ attachment.\ Required
 \ \ \ \ \-name\ name\ \ \ \ \ \ \ \ \ \ \ \-\ name\ of\ the\ attachment.\ Default\ is\ filename
 \ \ \ \ \-mime\-type\ type\ \ \ \ \ \ \-\ MIME\-Type\ of\ the\ attachment.\ Default\ is\ detected
-\ \ \ \ \-inline\ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ Set\ Content\-Dispotion\ to\ "inline".\ 
+\ \ \ \ \-inline\ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ Set\ Content\-Disposition\ to\ "inline".\ 
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Default\ is\ "attachment"
 \ \ header\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ Header\ Command.\ Repeat\ for\ multiple\ headers
 \ \ \ \ \-name\ header\ \ \ \ \ \ \ \ \ \-\ Header\ name
@@ -277,12 +285,16 @@ When the tgz or zip archives are extracted they create a directory
 \f[]
 .fi
 .SS Installing using Homebrew on Mac
+.PP
+You will need to install Homebrew (https://brew.sh/) first.
 .SS Install
+.PP
+First install the custom tap.
 .IP
 .nf
 \f[C]
 \ \ \ \ brew\ tap\ muquit/mailsend\-go\ https://github.com/muquit/mailsend\-go.git
-\ \ \ \ brew\ install\ mailsend\-go
+\ \ \ \ rew\ install\ mailsend\-go
 \f[]
 .fi
 .SS Uninstall
@@ -315,11 +327,30 @@ When the tgz or zip archives are extracted they create a directory
 \ \ \ \ sudo\ dpkg\ \-r\ mailsend\-go_linux_64\-bit.deb\ 
 \f[]
 .fi
-.SS Install from RPM
+.SS Install the RPM package
+.SS Inspect the package content
+.IP
+.nf
+\f[C]
+\ \ \ \ rpm\ \-qlp\ dist/mailsend\-go_linux_64\-bit.rpm
+\ \ \ \ /usr/local/bin/mailsend\-go
+\ \ \ \ /usr/local/share/docs/mailsend\-go/LICENSE.txt
+\ \ \ \ /usr/local/share/docs/mailsend\-go/README.md
+\ \ \ \ /usr/local/share/man/man1/mailsend\-go.1
+\f[]
+.fi
+.SS Install
 .IP
 .nf
 \f[C]
 \ \ \ \ sudo\ rpm\ \-Uvh\ mailsend\-go_linux_64\-bit.rpm
+\f[]
+.fi
+.SS Uninstall
+.IP
+.nf
+\f[C]
+\ \ \ \ sudo\ rpm\ \-e\ mailsend\-go
 \f[]
 .fi
 .SS Install from archive
@@ -335,12 +366,15 @@ When the tgz or zip archives are extracted they create a directory
 .SS Windows
 .PP
 Unzip mailsend\-go_1.0.1_windows_64\-bit.zip and copy
-\f[C]mailsend\-go\-dir\\mailsend\-go.exe\f[] somewhere in yoru PATH or
+\f[C]mailsend\-go\-dir\\mailsend\-go.exe\f[] somewhere in your PATH or
 run it from the directory.
 .SH Compiling
 .PP
 Compiling from scratch requires the Go programming language
 toolchain (https://golang.org/dl/) and git.
+Note: \f[I]mailsend\-go\f[] uses go
+modules (https://github.com/golang/go/wiki/Modules) for dependency
+management.
 .PP
 To download, build and install (or upgrade) mailsend\-go, run:
 .IP
@@ -397,7 +431,7 @@ As mailsend\-go uses go modules, it can be built outside $GOPATH e.g.
 \f[]
 .fi
 .IP \[bu] 2
-List the packages used:
+List the packages used (if you are outside $GOPATH)
 .IP
 .nf
 \f[C]
@@ -694,4 +728,5 @@ Original mailsend (https://github.com/muquit/mailsend) (in C)
    *   *   *   *   *
 .PP
 This README.md is assembled with
-markdown_helper (https://github.com/BurdetteLamar/markdown_helper)
+markdown_helper (https://github.com/BurdetteLamar/markdown_helper).
+The software is released with goreleaser (https://goreleaser.com/)

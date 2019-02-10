@@ -11,6 +11,8 @@ if [[ $ARGC == 1 && $1 == "ok" ]]; then
     echo "Publish..."
     : ${GITHUB_TOKEN:?"Need to set GITHUB_TOKEN"}
     goreleaser
+elif [[ $ARGC == 1 && $1 == "snap" ]]; then
+    goreleaser --snapshot --skip-publish --rm-dist
 else
     echo "Dryrun.."
     goreleaser release --skip-publish

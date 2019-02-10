@@ -1,6 +1,6 @@
 # Compiling
 
-Compiling from scratch requires the [Go programming language toolchain](https://golang.org/dl/) and git.
+Compiling from scratch requires the [Go programming language toolchain](https://golang.org/dl/) and git. Note: *mailsend-go* uses [go modules](https://github.com/golang/go/wiki/Modules) for dependency management.
 
 To download, build and install (or upgrade) mailsend-go, run:
 
@@ -42,7 +42,7 @@ As mailsend-go uses go modules, it can be built outside $GOPATH e.g.
     $ ./mailsend-go -V
     @(#) mailsend-go v1.0.1
 ```
-* List the packages used:
+* List the packages used (if you are outside $GOPATH)
 ```
     $ go list -m "all"
     github.com/muquit/mailsend-go

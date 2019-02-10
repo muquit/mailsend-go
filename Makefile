@@ -51,6 +51,8 @@ mac:
 # generate examples.go from examples.txt for -ex flag
 gen: example doc
 
+dev: gen all
+
 doc:
 	@./scripts/mkdocs.sh
 	@echo " - Generate docs/mailsend-go.1"
@@ -63,7 +65,10 @@ install: install-bin
 
 help:
 	@echo "============================================================"
-	@echo " make gen   - assemble document, create usage.txt and examples.go"
+	@echo " make gen   - assemble document, create usage.txt and examples.
+	
+	
+	go"
 	@echo " make       - build native client"
 	@echo " make linux - build linux client"
 	@echo " make mac   - build mac client"

@@ -43,10 +43,15 @@ content.
 
 ## Installing using Homebrew on Mac
 
+You will need to install [Homebrew](https://brew.sh/) first.
+
 ### Install
+
+First install the custom tap.
+
 ```
-	brew tap muquit/mailsend-go https://github.com/muquit/mailsend-go.git
-  	brew install mailsend-go
+    brew tap muquit/mailsend-go https://github.com/muquit/mailsend-go.git
+    rew install mailsend-go
 ```
 
 ### Uninstall
@@ -75,10 +80,24 @@ content.
     sudo dpkg -r mailsend-go_linux_64-bit.deb 
 ```
 
-## Install from RPM
+## Install the RPM package
 
+### Inspect the package content
+```
+    rpm -qlp dist/mailsend-go_linux_64-bit.rpm
+    /usr/local/bin/mailsend-go
+    /usr/local/share/docs/mailsend-go/LICENSE.txt
+    /usr/local/share/docs/mailsend-go/README.md
+    /usr/local/share/man/man1/mailsend-go.1
+```
+### Install
 ```
     sudo rpm -Uvh mailsend-go_linux_64-bit.rpm
+```
+### Uninstall
+
+```
+    sudo rpm -e mailsend-go
 ```
 
 ## Install from archive
@@ -92,4 +111,4 @@ content.
 
 ### Windows
 
-Unzip mailsend-go_1.0.1_windows_64-bit.zip and copy `mailsend-go-dir\mailsend-go.exe` somewhere in yoru PATH or run it from the directory.
+Unzip mailsend-go_1.0.1_windows_64-bit.zip and copy `mailsend-go-dir\mailsend-go.exe` somewhere in your PATH or run it from the directory.

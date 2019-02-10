@@ -546,13 +546,13 @@ func showUsageAndExit() {
   -debug                 - Print debug messages
   -sub subject           - Subject
   -tname				 - name of recipient
-  -t to,to..*            - email adderss/es of the recipient/s. Required
+  -t to,to..*            - email address/es of the recipient/s. Required
   -list file             - file with list of email addresses. 
                            Syntax is: Name, email_address
   -fname name            - name of sender
   -f address*            - email address of the sender. Required
   -cc cc,cc..            - carbon copy addresses
-  -bcc bcc,bcc..		 - blind carbon copy addersses
+  -bcc bcc,bcc..		 - blind carbon copy addresses
   -smtp host/IP*         - hostname/IP address of the SMTP server. Required
   -port port             - port of SMTP server. Default is 587
   -domain domain		 - domain name for SMTP HELO. Default is localhost
@@ -561,7 +561,7 @@ func showUsageAndExit() {
   -verifyCert            - Verify Certificate in connection. Default is No
   auth                   - Auth Command
 	-user username*      - username for ESMTP authentication. Required
-	-pass password*      - password for EMSPTP autnentication. Required
+	-pass password*      - password for EMSPTP authentication. Required
   -ex                    - show examples
   -help                  - show this help
   -q                     - quiet
@@ -574,7 +574,7 @@ func showUsageAndExit() {
 	-file path*          - path of the attachment. Required
 	-name name           - name of the attachment. Default is filename
 	-mime-type type      - MIME-Type of the attachment. Default is detected
-	-inline              - Set Content-Dispotion to "inline". 
+	-inline              - Set Content-Disposition to "inline". 
 						   Default is "attachment"
   header				 - Header Command. Repeat for multiple headers
 	-name header         - Header name
