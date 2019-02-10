@@ -2,9 +2,9 @@
 
 @[:markdown](intro.md)
 
-@[:markdown](contribute.md)
-
 @[:markdown](features.md)
+
+@[:markdown](contribute.md)
 
 @[:markdown](supported_platforms.md)
 

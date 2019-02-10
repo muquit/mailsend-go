@@ -1,7 +1,7 @@
 ## Page Contents
 - [Introduction](#introduction)
-- [Contributing](#contributing)
 - [Features](#features)
+- [Contributing](#contributing)
 - [Supported Platforms](#supported-platforms)
 - [Synopsis](#synopsis)
 - [Downloading and Installing](#downloading-and-installing)
@@ -53,6 +53,16 @@ If you have any question, request or suggestion, please enter it in the
 [Issues](https://github.com/muquit/mailsend-go/issues) with appropriate label.
 
 
+# Features
+
+* Add a mail body
+* Support Multiple Attachments
+* Supports ESMTP Authentication
+* Supports StartTLS and SSL
+* Send mail to a list of users
+* Show SMTP server info
+* Fixes [issues of mailsend](https://github.com/muquit/mailsend#known-issues)
+
 # Contributing
 
 Please send a pull request if you add features, fix bugs or update the documentation. 
@@ -64,29 +74,17 @@ assembling the individual Markdown files in the _docs/_ directory. If you
 would like to generate README.md, type `make gen` (you will need required tools of
 course)
 
-# Features
-
-* Add mail body
-* Multiple Attachments
-* ESMTP Authentication
-* Supports StartTLS and SSL
-* Send mail to a list of users
-* Show SMTP server info
-* Fixes [issues of mailsend](https://github.com/muquit/mailsend#known-issues)
-
 # Supported Platforms
 
-*mailsend-go* is written in [go](https://golang.org/), therefore, it can be cross compiled
+`mailsend-go` is written in [go](https://golang.org/), therefore, it can be cross compiled
 for many platforms from one platform. This is the motivation for me to write it in
-[go](https://golang.org/) as usually I do no have time to maintain multiple 
-versions of [mailsend written in C](https://github.com/muquit/mailsend) and as
-a result bugs were not getting fixed in timely manner.
+[go](https://golang.org/). 
 
 The compiled binaries for the following platforms are supplied:
 
-* Linux
-* Windows
-* MacOS
+* Linux (tgz, debian and rpm)
+* Windows (zip)
+* MacOS (tgz, Homebrew)
 
 Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would need binaries for any other platforms.
 

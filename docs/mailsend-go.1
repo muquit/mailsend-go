@@ -7,9 +7,9 @@
 .IP \[bu] 2
 Introduction
 .IP \[bu] 2
-Contributing
-.IP \[bu] 2
 Features
+.IP \[bu] 2
+Contributing
 .IP \[bu] 2
 Supported Platforms
 .IP \[bu] 2
@@ -108,6 +108,22 @@ mailsend (https://github.com/muquit/mailsend).
 If you have any question, request or suggestion, please enter it in the
 Issues (https://github.com/muquit/mailsend-go/issues) with appropriate
 label.
+.SH Features
+.IP \[bu] 2
+Add a mail body
+.IP \[bu] 2
+Support Multiple Attachments
+.IP \[bu] 2
+Supports ESMTP Authentication
+.IP \[bu] 2
+Supports StartTLS and SSL
+.IP \[bu] 2
+Send mail to a list of users
+.IP \[bu] 2
+Show SMTP server info
+.IP \[bu] 2
+Fixes issues of
+mailsend (https://github.com/muquit/mailsend#known-issues)
 .SH Contributing
 .PP
 Please send a pull request if you add features, fix bugs or update the
@@ -122,38 +138,19 @@ gem by assembling the individual Markdown files in the \f[I]docs/\f[R]
 directory.
 If you would like to generate README.md, type \f[C]make gen\f[R] (you
 will need required tools of course)
-.SH Features
-.IP \[bu] 2
-Add mail body
-.IP \[bu] 2
-Multiple Attachments
-.IP \[bu] 2
-ESMTP Authentication
-.IP \[bu] 2
-Supports StartTLS and SSL
-.IP \[bu] 2
-Send mail to a list of users
-.IP \[bu] 2
-Show SMTP server info
-.IP \[bu] 2
-Fixes issues of
-mailsend (https://github.com/muquit/mailsend#known-issues)
 .SH Supported Platforms
 .PP
-\f[I]mailsend-go\f[R] is written in go (https://golang.org/), therefore,
+\f[C]mailsend-go\f[R] is written in go (https://golang.org/), therefore,
 it can be cross compiled for many platforms from one platform.
-This is the motivation for me to write it in go (https://golang.org/) as
-usually I do no have time to maintain multiple versions of mailsend
-written in C (https://github.com/muquit/mailsend) and as a result bugs
-were not getting fixed in timely manner.
+This is the motivation for me to write it in go (https://golang.org/).
 .PP
 The compiled binaries for the following platforms are supplied:
 .IP \[bu] 2
-Linux
+Linux (tgz, debian and rpm)
 .IP \[bu] 2
-Windows
+Windows (zip)
 .IP \[bu] 2
-MacOS
+MacOS (tgz, Homebrew)
 .PP
 Please add an issue (https://github.com/muquit/mailsend-go/issues) if
 you would need binaries for any other platforms.
