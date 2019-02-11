@@ -1,3 +1,10 @@
+brew:
+    github:
+        owner: muquit
+        name: mailsend-go
+    folder: Formula
+    homepage: https://github.com/muquit/mailsend-go
+    description: "Command line tool to send mail via SMTP protocol"
 builds:
  - goos:
      - darwin
