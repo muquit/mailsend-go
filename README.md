@@ -151,10 +151,11 @@ page.
 
 | Files | Platform |
 | :-------| :--------|
-| mailsend-go_1.0.1_checksums.txt| SHA256 checksum files for the binaries|
-| mailsend-go_1.0.1_windows_64-bit.zip | Windows 64 bit |
-| mailsend-go_1.0.1_linux_64-bit.tar.gz | Linux 64 bit|
-| mailsend-go_1.0.1_mac_64-bit.tar.gz |  Mac OS X 64 bit |
+| mailsend-go_x.x.x_checksums.txt| SHA256 checksum files for the binaries|
+| mailsend-go_x.x.x_windows_32-bit.zip | Windows 32 bit |
+| mailsend-go_x.x.x_windows_64-bit.zip | Windows 64 bit |
+| mailsend-go_x.x.x_linux_64-bit.tar.gz | Linux 64 bit|
+| mailsend-go_x.x.x_mac_64-bit.tar.gz |  Mac OS X 64 bit |
 | mailsend-go_linux_64-bit.rpm | RPM for Linux 64 bit |
 | mailsend-go_linux_64-bit.deb | Debian package for Linux 64 bit |
 
@@ -166,7 +167,7 @@ content.
 **Example**
 
 ```
-    $ tar -tvf mailsend-go_1.0.1_linux_64-bit.tar.gz
+    $ tar -tvf mailsend-go_x.x.x_linux_64-bit.tar.gz
 	-rw-r--r--  0 muquit staff    1081 Jan 26 15:21 mailsend-go-dir/LICENSE.txt
 	-rw-r--r--  0 muquit staff   14242 Jan 27 13:47 mailsend-go-dir/README.md
 	-rw-r--r--  0 muquit staff   16866 Jan 27 13:47 mailsend-go-dir/docs/mailsend-go.1
@@ -174,8 +175,8 @@ content.
 ```
 
 ```
-	$ unzip -l mailsend-go_1.0.1_windows_64-bit.zip
-	Archive:  mailsend-go_1.0.1_windows_64-bit.zip
+	$ unzip -l mailsend-go_x.x.x_windows_64-bit.zip
+	Archive:  mailsend-go_x.x.x_windows_64-bit.zip
 	  Length      Date    Time    Name
 	---------  ---------- -----   ----
 		 1081  01-26-2019 15:21   mailsend-go-dir/LICENSE.txt
@@ -231,10 +232,10 @@ First install the custom tap.
 	Selecting previously unselected package mailsend-go.
 	(Reading database ... 4039 files and directories currently installed.)
 	Preparing to unpack mailsend-go_linux_64-bit.deb ...
-	Unpacking mailsend-go (1.0.1) ...
-	Setting up mailsend-go (1.0.1) ...
+	Unpacking mailsend-go (x.x.x) ...
+	Setting up mailsend-go (x.x.x) ...
     $ mailsend-go -V
-    @(#) mailsend-go v1.0.1
+    @(#) mailsend-go vx.x.x
 ```
 
 ### Uninstall
@@ -257,7 +258,7 @@ First install the custom tap.
 ```
     # rpm -Uvh mailsend-go_linux_64-bit.rpm
     # mailsend-go -V
-    @(#) mailsend-go v1.0.1
+    @(#) mailsend-go vx.x.x
 ```
 ### Uninstall
 ```
@@ -268,7 +269,7 @@ First install the custom tap.
 
 ### Inspect the content
 ```
-    $ tar -tvf mailsend-go_1.0.1_linux_64-bit.tar.gz
+    $ tar -tvf mailsend-go_x.x.x_linux_64-bit.tar.gz
     -rw-r--r--  0 muquit staff    1081 Jan 26 15:21 mailsend-go-dir/LICENSE.txt
     -rw-r--r--  0 muquit staff   14242 Jan 27 13:47 mailsend-go-dir/README.md
     -rw-r--r--  0 muquit staff   16866 Jan 27 13:47 mailsend-go-dir/docs/mailsend-go.1
@@ -276,8 +277,8 @@ First install the custom tap.
 ```
 
 ```
-    $ unzip -l mailsend-go_1.0.1_windows_64-bit.zip
-    Archive:  mailsend-go_1.0.1_windows_64-bit.zip
+    $ unzip -l mailsend-go_x.x.x_windows_64-bit.zip
+    Archive:  mailsend-go_x.x.x_windows_64-bit.zip
       Length      Date    Time    Name
     ---------  ---------- -----   ----
      1081  01-26-2019 15:21   mailsend-go-dir/LICENSE.txt
@@ -290,14 +291,14 @@ First install the custom tap.
 
 ### Install Linux
 ```
-    $ tar -xf mailsend-go_1.0.1_linux_64-bit.tar.gz
+    $ tar -xf mailsend-go_x.x.x_linux_64-bit.tar.gz
     $ sudo cp mailsend-go-dir/mailsend-go /usr/local/bin
     $ sudo cp mailsend-go-dir/doc/mailsend-go.1 /usr/local/share/man/man1
 ```
 
 ### Install Windows
 
-Unzip mailsend-go_1.0.1_windows_64-bit.zip and copy `mailsend-go-dir\mailsend-go.exe` somewhere in your PATH or run it from the directory.
+Unzip mailsend-go_x.x.x_windows_64-bit.zip and copy `mailsend-go-dir\mailsend-go.exe` somewhere in your PATH or run it from the directory.
 
 # Compiling
 
