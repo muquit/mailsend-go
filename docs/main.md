@@ -12,6 +12,7 @@
 ```
 @[:markdown](usage.txt)
 ```
+@[:markdown](version.md)
 
 @[:markdown](downloading.md)
 

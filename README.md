@@ -4,6 +4,7 @@
 - [Contributing](#contributing)
 - [Supported Platforms](#supported-platforms)
 - [Synopsis](#synopsis)
+- [Version](#version)
 - [Downloading and Installing](#downloading-and-installing)
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
     - [Install](#install)
@@ -137,6 +138,10 @@ Environment variables:
    SMTP_USER_PASS for auth password (-pass)
     
 ```
+# Version
+The current version of mailsend-go is v1.0.2, released on Feb-14-2019.
+
+Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
 # Downloading and Installing
 
