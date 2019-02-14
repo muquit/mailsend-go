@@ -1,4 +1,4 @@
- Version: @($) mailsend-go v1.0.1
+ Version: @($) mailsend-go v1.0.2
 
  mailsend-go [options]
   Where the options are:

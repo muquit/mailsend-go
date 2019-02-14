@@ -91,7 +91,7 @@ Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.1
+ Version: @($) mailsend-go v1.0.2
 
  mailsend-go [options]
   Where the options are:
