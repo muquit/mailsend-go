@@ -22,6 +22,7 @@ archive:
   format: tar.gz
   replacements:
     amd64: 64-bit
+    386: 32-bit
     darwin: mac
     linux: linux
     windows: windows
