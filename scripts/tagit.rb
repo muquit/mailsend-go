@@ -41,7 +41,7 @@ begin
   end
 
   system(cmd)
-  cmd = "git push -f origin #{tag}"
+  cmd = "git push origin #{tag}"
   puts "> #{cmd}"
   system(cmd)
   
