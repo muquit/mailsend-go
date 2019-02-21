@@ -1,7 +1,7 @@
 # v1.0.3
 
 * Code for comma separated to, cc and bcc was not there.
-(Issue #3)
+Fix Issue #2
 
 * Remove -tname option for now. It creates trouble if multiple recipients are specifed.
 
