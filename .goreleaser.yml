@@ -34,12 +34,6 @@ archive:
       - README.md
       - LICENSE.txt
   wrap_in_directory: mailsend-go-dir
-changelog:
-  sort: asc
-  filters:
-    exclude:
-    - '^docs:'
-    - '^test:'
 nfpm:
   name_template: '{{ .ProjectName }}_{{ .Arch }}'
   homepage:  https://muquit.com/

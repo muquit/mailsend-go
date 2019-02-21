@@ -3,12 +3,15 @@
 readonly DIR=$(dirname $0)
 source ${DIR}/env.txt
 
+echo $Cc
+echo $BCC
+
 $MAILSEND -debug \
         -subject "Testing Cc and Bcc" \
         -from "${FROM}" \
         -to "$TO" \
-        -cc "muquit@muquit.com" \
-        -bcc "muquit2@comcast.net" \
+        -cc "$Cc" \
+        -bcc "$BCc" \
         -smtp "$SMTP_SERVER" \
         -port $TLS_PORT \
         auth -user "$SMTP_USER" -pass "$SMTP_USER_PASS" \

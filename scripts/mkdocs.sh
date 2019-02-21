@@ -12,5 +12,6 @@ fi
 pushd $DOC_DIR >/dev/null 
 echo " - Assembling README.md"
 ${MH} include --pristine main.md ../README.md
+${MH} include --pristine chl.md ../ChangeLog.md
 popd >/dev/null
 

@@ -49,7 +49,7 @@ import (
 )
 
 const (
-	version = "1.0.2"
+	version = "1.0.3"
 )
 
 var (
@@ -543,7 +543,6 @@ func showUsageAndExit() {
   Where the options are:
   -debug                 - Print debug messages
   -sub subject           - Subject
-  -tname				 - name of recipient
   -t to,to..*            - email address/es of the recipient/s. Required
   -list file             - file with list of email addresses. 
                            Syntax is: Name, email_address
@@ -589,6 +588,20 @@ Environment variables:
 	os.Exit(0)
 }
 
+// create slice of addresses from comma sepearated address
+func makeRecipientAddresses(to string) []string {
+	var addresses []string
+	addrs := strings.Split(to, ",")
+	for i := range addrs {
+		addr := addrs[i]
+		if len(addr) > 0 {
+			// remove leading and trailing spaces
+			addresses = append(addresses, strings.TrimSpace(addr))
+		}
+	}
+	return addresses
+}
+
 func constructMail(fromName string, fromAddress string, toName string, toAddress string) *gomail.Message {
 	m := gomail.NewMessage()
 	if len(fromName) > 0 {
@@ -598,30 +611,53 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 	}
 
 	if len(toName) > 0 {
-		m.SetAddressHeader("To", toAddress, toName)
+		m.SetAddressHeader("To", toAddress, toName) // Off for now
 	} else {
-		m.SetHeader("To", toAddress)
+		recipients := makeRecipientAddresses(toAddress)
+		addresses := make([]string, len(recipients))
+		for i, to := range recipients {
+			logDebug(" To: %s\n", to)
+			addresses[i] = m.FormatAddress(to, "")
+		}
+		// Issue #2
+		m.SetHeader("To", addresses...)
 	}
 
 	o := mailsend.options
+	if len(o.Cc) > 0 {
+		logDebug("Setting Carbon Copy: %s\n", o.Cc)
+		recipients := makeRecipientAddresses(o.Cc)
+		addresses := make([]string, len(recipients))
+		for i, cc := range recipients {
+			logDebug(" Cc: %s\n", cc)
+			addresses[i] = m.FormatAddress(cc, "")
+		}
+		// Issue #2
+		m.SetHeader("Cc", addresses...)
+	} else {
+		logDebug("No CC.......................\n")
+	}
+
+	if len(o.Bcc) > 0 {
+		logDebug("Setting Bind Carbon Copy: %s\n", o.Bcc)
+		recipients := makeRecipientAddresses(o.Bcc)
+		addresses := make([]string, len(recipients))
+		for i, bcc := range recipients {
+			logDebug(" Bcc: %s\n", bcc)
+			addresses[i] = m.FormatAddress(bcc, "")
+		}
+		// Issue #2
+		m.SetHeader("Bcc", addresses...)
+	}
+
 	m.SetHeader("Subject", o.Subject)
 	xmailer := fmt.Sprintf(" @(#) mailsend-go v%s, %s", version, runtime.GOOS)
-	m.SetHeader("X-Mailder", xmailer)
+	m.SetHeader("X-Mailer", xmailer)
 	m.SetHeader("X-Copyright", "MIT. It is illegal to use this software for Spamming")
 
 	// set custom headers if specified
 	for _, h := range mailsend.headers {
 		m.SetHeader(h.name, h.value)
-	}
-
-	if len(o.Cc) > 0 {
-		logDebug("Setting Carbon Copy: %s\n", o.Cc)
-		m.SetHeader("Cc", o.Cc)
-	}
-
-	if len(o.Bcc) > 0 {
-		logDebug("Setting Bind Carbon Copy: %s\n", o.Bcc)
-		m.SetHeader("Bcc", o.Bcc)
 	}
 
 	if len(mailsend.body.content) > 0 {
@@ -659,7 +695,7 @@ func sendMail() {
 	logDebug("Subject: %s\n", o.Subject)
 	logDebug("From: %s\n", o.From)
 	logDebug("To: %s\n", o.To)
-	logDebug("To Name: %s\n", o.ToName)
+	//	logDebug("To Name: %s\n", o.ToName)
 	logDebug("SMTP server: %s\n", o.SMTPServer)
 	logDebug("SMTP Port: %d\n", o.Port)
 	logDebug("Setting From with name: %s,%s\n", o.From, o.FromName)
@@ -761,6 +797,15 @@ func parseAddressListFile(listFile string) {
 	}
 }
 
+/*
+	} else if arg == "-tname" || arg == "--tname" {
+		i++
+		if i == argc {
+			fatalError("Missing value for %s\n", arg)
+		}
+		mailsend.options.ToName = args[i]
+*/
+
 func main() {
 	args := os.Args
 	if len(args) == 0 {
@@ -782,12 +827,6 @@ func main() {
 			mailsend.options.Domain = args[i]
 		} else if arg == "-ex" || arg == "--ex" || arg == "-example" || arg == "--example" {
 			showExamplesAndExit()
-		} else if arg == "-tname" || arg == "--tname" {
-			i++
-			if i == argc {
-				fatalError("Missing value for %s\n", arg)
-			}
-			mailsend.options.ToName = args[i]
 		} else if arg == "-t" || arg == "-to" || arg == "--t" || arg == "--to" {
 			i++
 			if i == argc {

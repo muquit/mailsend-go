@@ -91,13 +91,12 @@ Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.2
+ Version: @($) mailsend-go v1.0.3
 
  mailsend-go [options]
   Where the options are:
   -debug                 - Print debug messages
   -sub subject           - Subject
-  -tname                 - name of recipient
   -t to,to..*            - email address/es of the recipient/s. Required
   -list file             - file with list of email addresses. 
                            Syntax is: Name, email_address
