@@ -4,7 +4,7 @@ class MailsendGo < Formula
   homepage "https://github.com/muquit/mailsend-go"
   url "https://github.com/muquit/mailsend-go/releases/download/v1.0.3/mailsend-go_1.0.3_mac_64-bit.tar.gz"
   version "1.0.3"
-  sha256 "b979861822d83300bcfa8b46635b9a0e208404662266b293a4c81c0ea99e1f6e"
+  sha256 "a662b5af4dc035051eafaa79818e0c609817d71f05c2e293f68a5d389c32fedb"
 
   def install
     bin.install "mailsend-go"
