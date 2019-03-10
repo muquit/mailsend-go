@@ -4,6 +4,7 @@
 
 PROGNAME= mailsend-go
 PROGNAME_WIN= $(PROGNAME).exe
+PROGNAME_PI= $(PROGNAME)-raspberry-pi
 DESTDIR=
 VERSION=1.0.1
 BUILD_OPTIONS = -ldflags "-X main.Version=$(VERSION)"
@@ -45,6 +46,12 @@ mac:
 	@echo "- Building $(PROGNAME) for Mac amd64"
 	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(PROGNAME)_mac
 	/bin/ls -lt $(PROGNAME)_mac
+	@echo ""
+
+pi: 
+	@echo "- Building $(PROGNAME) for raspberry pi"
+	GOOS=linux GOARCH=arm GOARM=5 go build -o $(PROGNAME_PI)
+	/bin/ls -lt $(PROGNAME_PI)
 	@echo ""
 
 # generate files/examples.txt from docs/examples.md
