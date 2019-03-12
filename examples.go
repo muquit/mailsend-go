@@ -151,19 +151,6 @@ hint, it is up to the mail reader to respect it or ignore it.
          -inline
 
 
-Set Sender and Recipient’s name
-
-        mailsend-go -sub "Testing -fname and -tname"  \
-        -smtp smtp.gmail.com -port 587 \
-        auth \
-         -user example@gmail.com -pass "secret" \
-         -to jsoe@example.com \
-         -tname "John Soe" \
-         -fname "Example Foo" \
-         -f "example@gmail.com" \
-         body -msg "Testing Recipient and Sender's name"
-
-
 Set Carbon Copy and Blind Carbon copy
 
         mailsend-go -sub "Testing -cc and -bcc" \

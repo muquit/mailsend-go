@@ -10,6 +10,7 @@ ${MAILSEND} \
         -to "${TO}" \
         -smtp "$SMTP_SERVER" \
         -port $TLS_PORT \
+        -rt jsnow@examp.com \
         auth \
         -user "$FROM" \
         -pass "$SMTP_USER_PASS" \

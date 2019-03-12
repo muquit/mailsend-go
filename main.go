@@ -49,7 +49,7 @@ import (
 )
 
 const (
-	version = "1.0.3"
+	version = "1.0.4"
 )
 
 var (
@@ -734,6 +734,13 @@ func sendMail() {
 
 	// send mail to a list of users
 	if len(mailsend.addressList) > 0 {
+		// Issue #6
+		// Send to To first
+		m := constructMail(o.FromName, o.From, o.ToName, o.To)
+		if err := gomail.Send(s, m); err != nil {
+			log.Printf("ERROR: Could not send mail to %q: %v\n", o.To, err)
+		}
+		m.Reset()
 		for _, r := range mailsend.addressList {
 			m := constructMail(o.FromName, o.From, r.name, r.address)
 			if err := gomail.Send(s, m); err != nil {
@@ -794,9 +801,14 @@ func parseAddressListFile(listFile string) {
 		} else if error != nil {
 			fatalError("Error parsing address list CSV file: %s", error)
 		}
+		// If line starts with # ignore. Issue #6
+		comment := strings.HasPrefix(line[0], "#")
+		if comment {
+			continue
+		}
 		al := NewAddressList()
 		al.name = line[0]
-		al.address = line[1]
+		al.address = strings.TrimSpace(line[1])
 		mailsend.addressList = append(mailsend.addressList, *al)
 	}
 }

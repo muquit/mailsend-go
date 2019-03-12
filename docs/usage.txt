@@ -1,4 +1,4 @@
- Version: @($) mailsend-go v1.0.3
+ Version: @($) mailsend-go v1.0.4
 
  mailsend-go [options]
   Where the options are:
@@ -11,6 +11,7 @@
   -f address*            - email address of the sender. Required
   -cc cc,cc..            - carbon copy addresses
   -bcc bcc,bcc..         - blind carbon copy addresses
+  -rt rt                 - reply to address
   -smtp host/IP*         - hostname/IP address of the SMTP server. Required
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost

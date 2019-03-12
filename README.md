@@ -31,7 +31,6 @@
   - [Attach a PDF file](#attach-a-pdf-file)
   - [Attach a PDF file and an image](#attach-a-pdf-file-and-an-image)
   - [Attach a PDF file and embed an image](#attach-a-pdf-file-and-embed-an-image)
-  - [Set Sender and Recipient's name](#set-sender-and-recipients-name)
   - [Set Carbon Copy and Blind Carbon copy](#set-carbon-copy-and-blind-carbon-copy)
   - [Send mail to a list of users](#send-mail-to-a-list-of-users)
   - [Add Custom Headers](#add-custom-headers)
@@ -91,7 +90,7 @@ Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.3
+ Version: @($) mailsend-go v1.0.4
 
  mailsend-go [options]
   Where the options are:
@@ -104,6 +103,7 @@ Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would
   -f address*            - email address of the sender. Required
   -cc cc,cc..            - carbon copy addresses
   -bcc bcc,bcc..         - blind carbon copy addresses
+  -rt rt                 - reply to address
   -smtp host/IP*         - hostname/IP address of the SMTP server. Required
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
@@ -489,18 +489,6 @@ up to the mail reader to respect it or ignore it.
     attach \
      -file "/path/file.png" \
      -inline
-```
-## Set Sender and Recipient's name
-```
-    mailsend-go -sub "Testing -fname and -tname"  \
-    -smtp smtp.gmail.com -port 587 \
-    auth \
-     -user example@gmail.com -pass "secret" \
-     -to jsoe@example.com \
-     -tname "John Soe" \
-     -fname "Example Foo" \
-     -f "example@gmail.com" \
-     body -msg "Testing Recipient and Sender's name"
 ```
 ## Set Carbon Copy and Blind Carbon copy
 ```
