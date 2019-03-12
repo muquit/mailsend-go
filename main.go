@@ -550,6 +550,7 @@ func showUsageAndExit() {
   -f address*            - email address of the sender. Required
   -cc cc,cc..            - carbon copy addresses
   -bcc bcc,bcc..		 - blind carbon copy addresses
+  -rt rt				 - reply to address
   -smtp host/IP*         - hostname/IP address of the SMTP server. Required
   -port port             - port of SMTP server. Default is 587
   -domain domain		 - domain name for SMTP HELO. Default is localhost
@@ -634,8 +635,6 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 		}
 		// Issue #2
 		m.SetHeader("Cc", addresses...)
-	} else {
-		logDebug("No CC.......................\n")
 	}
 
 	if len(o.Bcc) > 0 {
@@ -648,6 +647,11 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 		}
 		// Issue #2
 		m.SetHeader("Bcc", addresses...)
+	}
+
+	if len(o.ReplyToAddress) > 0 {
+		logDebug("Setting ReplyTo: %s\n", o.ReplyToAddress)
+		m.SetHeader("reply-to", m.FormatAddress(o.ReplyToAddress, ""))
 	}
 
 	m.SetHeader("Subject", o.Subject)
@@ -845,6 +849,12 @@ func main() {
 				fatalError("Missing value for %s\n", arg)
 			}
 			mailsend.options.Bcc = args[i]
+		} else if arg == "-rt" || arg == "--rt" {
+			i++
+			if i == argc {
+				fatalError("Missing value for %s\n", arg)
+			}
+			mailsend.options.ReplyToAddress = args[i]
 		} else if arg == "-f" || arg == "-from" || arg == "--f" || arg == "--from" {
 			i++
 			if i == argc {
