@@ -13,6 +13,9 @@ builds:
    goarch:
      - 386
      - amd64
+     - arm
+   goarm:
+     - 7
    ignore:
      - goos: darwin
        goarch: 386
@@ -20,12 +23,14 @@ builds:
        goarch: 386
 archive:
   format: tar.gz
+  name_template: "{{ .ProjectName }}_{{.Os}}-{{ .Arch }}"
   replacements:
-    amd64: 64-bit
-    386: 32-bit
+    amd64: 64bit
+    386: 32bit
     darwin: mac
     linux: linux
     windows: windows
+    arm: ARM
   format_overrides:
     - goos: windows
       format: zip
@@ -35,18 +40,19 @@ archive:
       - LICENSE.txt
   wrap_in_directory: mailsend-go-dir
 nfpm:
-  name_template: '{{ .ProjectName }}_{{ .Arch }}'
-  homepage:  https://muquit.com/
-  description: Command like tool to send email via SMTP protocol
-  maintainer: Muhammad Muquit <muquit@muquit.com>
-  license: MIT
-  vendor: muquit.com
+  name_template: "{{ .ProjectName }}_{{.Os}}-{{ .Arch }}"
+  homepage:  "https://muquit.com/"
+  description: "Command like tool to send email via SMTP protocol"
+  maintainer: "Muhammad Muquit <muquit@muquit.com>"
+  license: "MIT"
+  vendor: "muquit.com"
   formats:
   - deb
   - rpm
   replacements:
-    amd64: linux_64-bit
+    amd64: 64bit
     linux: linux
+    arm: ARM
   bindir: /usr/local/bin
   files:
       "docs/mailsend-go.1": "/usr/local/share/man/man1/mailsend-go.1"

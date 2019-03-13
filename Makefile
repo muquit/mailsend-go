@@ -50,7 +50,7 @@ mac:
 
 pi: 
 	@echo "- Building $(PROGNAME) for raspberry pi"
-	GOOS=linux GOARCH=arm GOARM=5 go build -o $(PROGNAME_PI)
+	GOOS=linux GOARCH=arm GOARM=7 go build -o $(PROGNAME_PI)
 	/bin/ls -lt $(PROGNAME_PI)
 	@echo ""
 
