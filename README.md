@@ -2,14 +2,13 @@
 - [Introduction](#introduction)
 - [Features](#features)
 - [Contributing](#contributing)
-- [Supported Platforms](#supported-platforms)
 - [Synopsis](#synopsis)
 - [Version](#version)
 - [Downloading and Installing](#downloading-and-installing)
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
     - [Install](#install)
     - [Uninstall](#uninstall)
-  - [Installing the debian package on Ubuntu/Debian](#installing-the-debian-package-on-ubuntu-debian)
+  - [Installing the debian package on Ubuntu/Debian/Rasberry pi](#installing-the-debian-package-on-ubuntu-debian-rasberry-pi)
     - [Inspect the package content](#inspect-the-package-content)
     - [Install](#install)
     - [Uninstall](#uninstall)
@@ -74,20 +73,6 @@ assembling the individual Markdown files in the _docs/_ directory. If you
 would like to generate README.md, type `make gen` (you will need required tools of
 course)
 
-# Supported Platforms
-
-`mailsend-go` is written in [go](https://golang.org/), therefore, it can be cross compiled
-for many platforms from one platform. This is the motivation for me to write it in
-[go](https://golang.org/). 
-
-The compiled binaries for the following platforms are supplied:
-
-* Linux (tgz, debian and rpm)
-* Windows (zip)
-* MacOS (tgz, Homebrew)
-
-Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would need binaries for any other platforms.
-
 # Synopsis
 ```
  Version: @($) mailsend-go v1.0.4
@@ -138,25 +123,24 @@ Environment variables:
     
 ```
 # Version
-The current version of mailsend-go is v1.0.3, released on Feb-20-2019.
+The current version of mailsend-go is v1.0.4, released on Mar-26-2019
+Mar-26-2019 
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
 # Downloading and Installing
 
-Pre-compiled `mailsend-go` binaries for Windows, Linux and MacOS can be
-downloaded from the [releases](https://github.com/muquit/mailsend-go/releases)
+Pre-compiled `mailsend-go` binaries are available for the following platforms:
+
+* Windows - 32 and 64 bit (zip)
+* Linux - 64 bit (tgz, debian and rpm)
+* MacOS - 64 bit (tgz, Homebrew)
+* Raspberry pi - 32 bit (debian, rpm)
+
+Please download the binaries from the [releases](https://github.com/muquit/mailsend-go/releases)
 page.  
 
-| Files | Platform |
-| :-------| :--------|
-| mailsend-go_x.x.x_checksums.txt| SHA256 checksum files for the binaries|
-| mailsend-go_x.x.x_windows_32-bit.zip | Windows 32 bit |
-| mailsend-go_x.x.x_windows_64-bit.zip | Windows 64 bit |
-| mailsend-go_x.x.x_linux_64-bit.tar.gz | Linux 64 bit|
-| mailsend-go_x.x.x_mac_64-bit.tar.gz |  Mac OS X 64 bit |
-| mailsend-go_linux_64-bit.rpm | RPM for Linux 64 bit |
-| mailsend-go_linux_64-bit.deb | Debian package for Linux 64 bit |
+Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would need binaries for any other         platforms.
 
 Before installing, please make sure to verify the checksum.
 
@@ -205,7 +189,7 @@ First install the custom tap.
 ```
 
 
-## Installing the debian package on Ubuntu/Debian
+## Installing the debian package on Ubuntu/Debian/Rasberry pi
 
 ### Inspect the package content
 ```
@@ -509,9 +493,12 @@ Cc addresses will be visible to the recipients but Bcc address will not be.
 Create a file with list of users. The syntax is ```Name,email_address``` in a line. Name can be empty but comma must be specified. Example of a list file:
 
 ```
-John Snow,jsnow@example.com
-Mary Jane,mjane@example.com
-,foobar@example.com
+    # This is a comment.
+    # The syntax is Name,email address in a line. Name can be empty but comma 
+    # must be specified
+    John Snow,jsnow@example.com
+    Mary Jane,mjane@example.com
+    ,foobar@example.com
 ```
 
 Specify the list file with ```-list``` flag. 

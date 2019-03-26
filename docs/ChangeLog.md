@@ -1,3 +1,17 @@
+# v1.0.4
+
+* The To address specified with -t was ignored when a list file was specified with -list. 
+
+* Start a line with # to specify comment in the adderss list file.
+
+Fix Issue #6
+
+* Add binaries for Raspberr pi. Tested on Raspberry pi 3 b+
+
+* Add the flag -rt to specify reply-to header. Thaks to Dominik G.
+
+(Mar-26-2019)
+
 # v1.0.3
 
 * Code for comma separated to, cc and bcc was not there.

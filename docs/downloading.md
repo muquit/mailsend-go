@@ -1,18 +1,16 @@
 # Downloading and Installing
 
-Pre-compiled `mailsend-go` binaries for Windows, Linux and MacOS can be
-downloaded from the [releases](https://github.com/muquit/mailsend-go/releases)
+Pre-compiled `mailsend-go` binaries are available for the following platforms:
+
+* Windows - 32 and 64 bit (zip)
+* Linux - 64 bit (tgz, debian and rpm)
+* MacOS - 64 bit (tgz, Homebrew)
+* Raspberry pi - 32 bit (debian, rpm)
+
+Please download the binaries from the [releases](https://github.com/muquit/mailsend-go/releases)
 page.  
 
-| Files | Platform |
-| :-------| :--------|
-| mailsend-go_x.x.x_checksums.txt| SHA256 checksum files for the binaries|
-| mailsend-go_x.x.x_windows_32-bit.zip | Windows 32 bit |
-| mailsend-go_x.x.x_windows_64-bit.zip | Windows 64 bit |
-| mailsend-go_x.x.x_linux_64-bit.tar.gz | Linux 64 bit|
-| mailsend-go_x.x.x_mac_64-bit.tar.gz |  Mac OS X 64 bit |
-| mailsend-go_linux_64-bit.rpm | RPM for Linux 64 bit |
-| mailsend-go_linux_64-bit.deb | Debian package for Linux 64 bit |
+Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would need binaries for any other         platforms.
 
 Before installing, please make sure to verify the checksum.
 
@@ -61,7 +59,7 @@ First install the custom tap.
 ```
 
 
-## Installing the debian package on Ubuntu/Debian
+## Installing the debian package on Ubuntu/Debian/Rasberry pi
 
 ### Inspect the package content
 ```

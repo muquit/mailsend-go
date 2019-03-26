@@ -11,6 +11,7 @@ create_chl() {
     v=$(git describe --abbrev=0 --tags)
     tag=$(git describe --abbrev=0 --tags|sed -e 's/\.//g')
     echo "Plese look at [ChangeLog](ChangeLog.md#$tag) for changes in ${v}" > $TF
+    ./scripts/mk_binlist.rb >> $TF
 }
 create_chl
 

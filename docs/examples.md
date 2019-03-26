@@ -154,9 +154,12 @@ Cc addresses will be visible to the recipients but Bcc address will not be.
 Create a file with list of users. The syntax is ```Name,email_address``` in a line. Name can be empty but comma must be specified. Example of a list file:
 
 ```
-John Snow,jsnow@example.com
-Mary Jane,mjane@example.com
-,foobar@example.com
+    # This is a comment.
+    # The syntax is Name,email address in a line. Name can be empty but comma 
+    # must be specified
+    John Snow,jsnow@example.com
+    Mary Jane,mjane@example.com
+    ,foobar@example.com
 ```
 
 Specify the list file with ```-list``` flag. 

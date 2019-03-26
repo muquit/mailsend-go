@@ -6,8 +6,6 @@
 
 @[:markdown](contribute.md)
 
-@[:markdown](supported_platforms.md)
-
 # Synopsis
 ```
 @[:markdown](usage.txt)
