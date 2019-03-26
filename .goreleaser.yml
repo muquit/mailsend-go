@@ -23,7 +23,7 @@ builds:
        goarch: 386
 archive:
   format: tar.gz
-  name_template: "{{ .ProjectName }}_{{.Os}}-{{ .Arch }}"
+  name_template: "{{ .ProjectName }}_{{ .Version}}_{{.Os}}-{{ .Arch }}"
   replacements:
     amd64: 64bit
     386: 32bit
@@ -40,7 +40,7 @@ archive:
       - LICENSE.txt
   wrap_in_directory: mailsend-go-dir
 nfpm:
-  name_template: "{{ .ProjectName }}_{{.Os}}-{{ .Arch }}"
+  name_template: "{{ .ProjectName }}_{{ .Version}}_{{.Os}}-{{ .Arch }}"
   homepage:  "https://muquit.com/"
   description: "Command like tool to send email via SMTP protocol"
   maintainer: "Muhammad Muquit <muquit@muquit.com>"
