@@ -53,6 +53,18 @@ Inspect the content
 Install Linux
 .IP \[bu] 2
 Install Windows
+.RS 2
+.IP \[bu] 2
+Installing using Scoop on Windows
+.RS 2
+.IP \[bu] 2
+Install
+.IP \[bu] 2
+Uninstall
+.RE
+.IP \[bu] 2
+Installing Manually
+.RE
 .RE
 .RE
 .IP \[bu] 2
@@ -370,8 +382,27 @@ First install the custom tap.
 \f[R]
 .fi
 .SS Install Windows
+.SS Installing using Scoop on Windows
 .PP
-Unzip mailsend-go_x.x.x_windows_64-bit.zip and copy
+You will need to install Scoop (https://scoop.sh/) first.
+.SS Install
+.IP
+.nf
+\f[C]
+c:\[rs]> scoop install mailsend-go
+\f[R]
+.fi
+.SS Uninstall
+.IP
+.nf
+\f[C]
+c:\[rs]> scoop uninstall mailsend-go
+\f[R]
+.fi
+.SS Installing Manually
+.PP
+After downloading the latest .zip file (e.g.,
+mailsend-go_x.x.x_windows_64-bit.zip), unzip it, and copy
 \f[C]mailsend-go-dir\[rs]mailsend-go.exe\f[R] somewhere in your PATH or
 run it from the directory.
 .SH Compiling
