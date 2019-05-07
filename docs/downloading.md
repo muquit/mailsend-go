@@ -2,7 +2,7 @@
 
 Pre-compiled `mailsend-go` binaries are available for the following platforms:
 
-* Windows - 32 and 64 bit (zip)
+* Windows - 32 and 64 bit (zip, Scoop)
 * Linux - 64 bit (tgz, debian and rpm)
 * MacOS - 64 bit (tgz, Homebrew)
 * Raspberry pi - 32 bit (debian, rpm)
