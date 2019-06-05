@@ -49,7 +49,7 @@ import (
 )
 
 const (
-	version = "1.0.4"
+	version = "1.0.5"
 )
 
 var (
@@ -117,6 +117,7 @@ type Options struct {
 	ReturnPathAddress        string
 	Ssl                      bool
 	Quiet                    bool
+	LogfilePath              string
 	VerifyCert               bool
 	PrintSMTPInfo            bool
 }
@@ -218,9 +219,20 @@ func logDebug(format string, a ...interface{}) {
 	}
 }
 
+func logInfo(format string, a ...interface{}) {
+	log.Printf(format, a...)
+}
+
+func logFile(format string, a ...interface{}) {
+	if len(mailsend.options.LogfilePath) > 0 {
+		log.Printf(format, a...)
+	}
+}
+
 func fatalError(format string, a ...interface{}) {
 	msg := fmt.Sprintf(format, a...)
 	fmt.Fprintf(os.Stderr, "ERROR: %s\n", msg)
+	log.Printf("ERROR: %s\n", msg)
 	os.Exit(1)
 }
 
@@ -549,40 +561,41 @@ func showUsageAndExit() {
   -fname name            - name of sender
   -f address*            - email address of the sender. Required
   -cc cc,cc..            - carbon copy addresses
-  -bcc bcc,bcc..		 - blind carbon copy addresses
-  -rt rt				 - reply to address
+  -bcc bcc,bcc..         - blind carbon copy addresses
+  -rt rt                 - reply to address
   -smtp host/IP*         - hostname/IP address of the SMTP server. Required
   -port port             - port of SMTP server. Default is 587
-  -domain domain		 - domain name for SMTP HELO. Default is localhost
+  -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server
   -ssl                   - SMTP over SSL. Default is StartTLS
   -verifyCert            - Verify Certificate in connection. Default is No
   -ex                    - show examples
   -help                  - show this help
   -q                     - quiet
+  -log filePath          - write log messages to this file
   -V                     - show version and exit
   auth                   - Auth Command
-	-user username*      - username for ESMTP authentication. Required
-	-pass password*      - password for EMSPTP authentication. Required
+   -user username*       - username for ESMTP authentication. Required
+   -pass password*       - password for EMSPTP authentication. Required
   body                   - body command for attachment for mail body
-	-msg msg             - message to show as body 
-	-file path           - or path of a text/HTML file
-	-mime-type type      - MIME type of the body content. Default is detected
+   -msg msg              - message to show as body 
+   -file path            - or path of a text/HTML file
+   -mime-type type       - MIME type of the body content. Default is detected
   attach                 - attach command. Repeat for multiple attachments
-	-file path*          - path of the attachment. Required
-	-name name           - name of the attachment. Default is filename
-	-mime-type type      - MIME-Type of the attachment. Default is detected
-	-inline              - Set Content-Disposition to "inline". 
-						   Default is "attachment"
-  header				 - Header Command. Repeat for multiple headers
-	-name header         - Header name
-	-value value		 - Header value
+   -file path*           - path of the attachment. Required
+   -name name            - name of the attachment. Default is filename
+   -mime-type type       - MIME-Type of the attachment. Default is detected
+   -inline               - Set Content-Disposition to "inline". 
+                           Default is "attachment"
+  header                 - Header Command. Repeat for multiple headers
+   -name header          - Header name
+   -value value          - Header value
 
 The options with * are required. 
 
 Environment variables:
    SMTP_USER_PASS for auth password (-pass)
-	`
+`
 
 	usage = strings.Replace(usage, "\t", "    ", -1)
 	fmt.Printf("%s\n\n%s\n", v, usage)
@@ -695,14 +708,23 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 }
 
 func sendMail() {
+	logFile("- mailsend-go v%s starts -\n", version)
 	o := mailsend.options
 	logDebug("Subject: %s\n", o.Subject)
 	logDebug("From: %s\n", o.From)
 	logDebug("To: %s\n", o.To)
+
+	logFile("Subject: %s\n", o.Subject)
+	logFile("From: %s\n", o.From)
+	logFile("To: %s\n", o.To)
 	//	logDebug("To Name: %s\n", o.ToName)
 	logDebug("SMTP server: %s\n", o.SMTPServer)
 	logDebug("SMTP Port: %d\n", o.Port)
 	logDebug("Setting From with name: %s,%s\n", o.From, o.FromName)
+
+	logFile("SMTP server: %s\n", o.SMTPServer)
+	logFile("SMTP Port: %d\n", o.Port)
+	logFile("Setting From with name: %s,%s\n", o.From, o.FromName)
 
 	var d *gomail.Dialer
 	if mailsend.auth.Username != "" && mailsend.auth.Password != "" {
@@ -731,6 +753,7 @@ func sendMail() {
 		fatalError("%s\n", err)
 	}
 	logDebug("Sending mail...")
+	logFile("Sending mail...")
 
 	// send mail to a list of users
 	if len(mailsend.addressList) > 0 {
@@ -759,7 +782,9 @@ func sendMail() {
 	if !mailsend.options.Quiet {
 		fmt.Printf("Mail Sent Successfully\n")
 	}
+	logFile("Mail Sent Successfully\n")
 
+	logFile("- mailsend-go v%s ends -\n", version)
 }
 
 // return content of the file as string
@@ -813,14 +838,16 @@ func parseAddressListFile(listFile string) {
 	}
 }
 
-/*
-	} else if arg == "-tname" || arg == "--tname" {
-		i++
-		if i == argc {
-			fatalError("Missing value for %s\n", arg)
+func openLogfile() {
+	path := mailsend.options.LogfilePath
+	if len(path) > 0 {
+		f, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+		if err != nil {
+			fatalError("Could not open log file %s for writing: %v", path, err)
 		}
-		mailsend.options.ToName = args[i]
-*/
+		log.SetOutput(f)
+	}
+}
 
 func main() {
 	args := os.Args
@@ -913,6 +940,12 @@ func main() {
 			for _, al := range mailsend.addressList {
 				fmt.Printf("Name: '%s', Email: '%s'\n", al.name, al.address)
 			}
+		} else if arg == "-log" || arg == "--log" {
+			i++
+			if i == argc {
+				fatalError("Missing value for %s\n", arg)
+			}
+			mailsend.options.LogfilePath = args[i]
 		} else if arg == "-V" || arg == "--V" {
 			fmt.Printf("@(#) mailsend-go v%s\n", version)
 			os.Exit(0)
@@ -960,5 +993,6 @@ func main() {
 		fmt.Printf("\nRun with -h for help\n\n")
 		os.Exit(1)
 	}
+	openLogfile()
 	sendMail()
 }

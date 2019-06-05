@@ -1,3 +1,4 @@
+export MAILSEND="./mailsend-go"
 export TO=muquit@example.com
 export SMTP_SERVER=localhost
 export SMTP_USER_PASS="secret"

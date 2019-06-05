@@ -1,4 +1,4 @@
- Version: @($) mailsend-go v1.0.4
+ Version: @($) mailsend-go v1.0.5
 
  mailsend-go [options]
   Where the options are:
@@ -21,26 +21,27 @@
   -ex                    - show examples
   -help                  - show this help
   -q                     - quiet
+  -log filePath          - write log messages to this file
   -V                     - show version and exit
   auth                   - Auth Command
-    -user username*      - username for ESMTP authentication. Required
-    -pass password*      - password for EMSPTP authentication. Required
+   -user username*       - username for ESMTP authentication. Required
+   -pass password*       - password for EMSPTP authentication. Required
   body                   - body command for attachment for mail body
-    -msg msg             - message to show as body 
-    -file path           - or path of a text/HTML file
-    -mime-type type      - MIME type of the body content. Default is detected
+   -msg msg              - message to show as body 
+   -file path            - or path of a text/HTML file
+   -mime-type type       - MIME type of the body content. Default is detected
   attach                 - attach command. Repeat for multiple attachments
-    -file path*          - path of the attachment. Required
-    -name name           - name of the attachment. Default is filename
-    -mime-type type      - MIME-Type of the attachment. Default is detected
-    -inline              - Set Content-Disposition to "inline". 
+   -file path*           - path of the attachment. Required
+   -name name            - name of the attachment. Default is filename
+   -mime-type type       - MIME-Type of the attachment. Default is detected
+   -inline               - Set Content-Disposition to "inline". 
                            Default is "attachment"
   header                 - Header Command. Repeat for multiple headers
-    -name header         - Header name
-    -value value         - Header value
+   -name header          - Header name
+   -value value          - Header value
 
 The options with * are required. 
 
 Environment variables:
    SMTP_USER_PASS for auth password (-pass)
-    
+

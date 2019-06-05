@@ -4,7 +4,8 @@ readonly DIR=$(dirname $0)
 source $DIR/env.txt
 
 ${MAILSEND} \
-        -debug \
+    -q \
+        -log /tmp/mailsend-go.log \
         -subject "this is a test" \
         -from "${FROM}" \
         -to "${TO}" \

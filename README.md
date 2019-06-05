@@ -37,6 +37,7 @@
   - [Set Carbon Copy and Blind Carbon copy](#set-carbon-copy-and-blind-carbon-copy)
   - [Send mail to a list of users](#send-mail-to-a-list-of-users)
   - [Add Custom Headers](#add-custom-headers)
+  - [Write logs to a file](#write-logs-to-a-file)
 - [License (is MIT)](#license-is-mit)
 - [See Also](#see-also)
 
@@ -79,7 +80,7 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.4
+ Version: @($) mailsend-go v1.0.5
 
  mailsend-go [options]
   Where the options are:
@@ -102,29 +103,30 @@ course)
   -ex                    - show examples
   -help                  - show this help
   -q                     - quiet
+  -log filePath          - write log messages to this file
   -V                     - show version and exit
   auth                   - Auth Command
-    -user username*      - username for ESMTP authentication. Required
-    -pass password*      - password for EMSPTP authentication. Required
+   -user username*       - username for ESMTP authentication. Required
+   -pass password*       - password for EMSPTP authentication. Required
   body                   - body command for attachment for mail body
-    -msg msg             - message to show as body 
-    -file path           - or path of a text/HTML file
-    -mime-type type      - MIME type of the body content. Default is detected
+   -msg msg              - message to show as body 
+   -file path            - or path of a text/HTML file
+   -mime-type type       - MIME type of the body content. Default is detected
   attach                 - attach command. Repeat for multiple attachments
-    -file path*          - path of the attachment. Required
-    -name name           - name of the attachment. Default is filename
-    -mime-type type      - MIME-Type of the attachment. Default is detected
-    -inline              - Set Content-Disposition to "inline". 
+   -file path*           - path of the attachment. Required
+   -name name            - name of the attachment. Default is filename
+   -mime-type type       - MIME-Type of the attachment. Default is detected
+   -inline               - Set Content-Disposition to "inline". 
                            Default is "attachment"
   header                 - Header Command. Repeat for multiple headers
-    -name header         - Header name
-    -value value         - Header value
+   -name header          - Header name
+   -value value          - Header value
 
 The options with * are required. 
 
 Environment variables:
    SMTP_USER_PASS for auth password (-pass)
-    
+
 ```
 # Version
 The current version of mailsend-go is 1.0.4, released on Mar-26-2019.
@@ -551,7 +553,7 @@ repeated.
     -smtp smtp.gmail.com -port 587 \
     auth \
      -user example@gmail.com -pass "secret" \
-     -to jsoe@example.com \
+     -to jdoe@example.com \
      -f "example@gmail.com" \
      body -msg "Testing adding Custom headers"
      header \
@@ -560,6 +562,24 @@ repeated.
          -name "X-MyHeader-2" -value "Value of X-MyHeader-2"
 
 ```
+
+## Write logs to a file
+
+Use the flag `-log path_of_log_file.txt`
+
+```
+    mailsend-go -sub "test log" \
+     -smtp smtp.example.com -port 587 \
+     auth \
+      -user example@gmail.com -pass "secret" \
+      -to jdoe@example.com \
+      -f "example@gmail.com" \
+      body -msg "Testing log file" \
+      -log "/tmp/mailsend-go.log"
+
+
+```
+
 ---
 
 (Generated from docs/examples.md)

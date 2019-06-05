@@ -96,6 +96,8 @@ Set Carbon Copy and Blind Carbon copy
 Send mail to a list of users
 .IP \[bu] 2
 Add Custom Headers
+.IP \[bu] 2
+Write logs to a file
 .RE
 .IP \[bu] 2
 License (is MIT)
@@ -151,7 +153,7 @@ will need required tools of course)
 .IP
 .nf
 \f[C]
-\ Version:\ \@($)\ mailsend\-go\ v1.0.4
+\ Version:\ \@($)\ mailsend\-go\ v1.0.5
 
 \ mailsend\-go\ [options]
 \ \ Where\ the\ options\ are:
@@ -174,29 +176,29 @@ will need required tools of course)
 \ \ \-ex\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ show\ examples
 \ \ \-help\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ show\ this\ help
 \ \ \-q\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ quiet
+\ \ \-log\ filePath\ \ \ \ \ \ \ \ \ \ \-\ write\ log\ messages\ to\ this\ file
 \ \ \-V\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ show\ version\ and\ exit
 \ \ auth\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ Auth\ Command
-\ \ \ \ \-user\ username*\ \ \ \ \ \ \-\ username\ for\ ESMTP\ authentication.\ Required
-\ \ \ \ \-pass\ password*\ \ \ \ \ \ \-\ password\ for\ EMSPTP\ authentication.\ Required
+\ \ \ \-user\ username*\ \ \ \ \ \ \ \-\ username\ for\ ESMTP\ authentication.\ Required
+\ \ \ \-pass\ password*\ \ \ \ \ \ \ \-\ password\ for\ EMSPTP\ authentication.\ Required
 \ \ body\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ body\ command\ for\ attachment\ for\ mail\ body
-\ \ \ \ \-msg\ msg\ \ \ \ \ \ \ \ \ \ \ \ \ \-\ message\ to\ show\ as\ body\ 
-\ \ \ \ \-file\ path\ \ \ \ \ \ \ \ \ \ \ \-\ or\ path\ of\ a\ text/HTML\ file
-\ \ \ \ \-mime\-type\ type\ \ \ \ \ \ \-\ MIME\ type\ of\ the\ body\ content.\ Default\ is\ detected
+\ \ \ \-msg\ msg\ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ message\ to\ show\ as\ body\ 
+\ \ \ \-file\ path\ \ \ \ \ \ \ \ \ \ \ \ \-\ or\ path\ of\ a\ text/HTML\ file
+\ \ \ \-mime\-type\ type\ \ \ \ \ \ \ \-\ MIME\ type\ of\ the\ body\ content.\ Default\ is\ detected
 \ \ attach\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ attach\ command.\ Repeat\ for\ multiple\ attachments
-\ \ \ \ \-file\ path*\ \ \ \ \ \ \ \ \ \ \-\ path\ of\ the\ attachment.\ Required
-\ \ \ \ \-name\ name\ \ \ \ \ \ \ \ \ \ \ \-\ name\ of\ the\ attachment.\ Default\ is\ filename
-\ \ \ \ \-mime\-type\ type\ \ \ \ \ \ \-\ MIME\-Type\ of\ the\ attachment.\ Default\ is\ detected
-\ \ \ \ \-inline\ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ Set\ Content\-Disposition\ to\ "inline".\ 
+\ \ \ \-file\ path*\ \ \ \ \ \ \ \ \ \ \ \-\ path\ of\ the\ attachment.\ Required
+\ \ \ \-name\ name\ \ \ \ \ \ \ \ \ \ \ \ \-\ name\ of\ the\ attachment.\ Default\ is\ filename
+\ \ \ \-mime\-type\ type\ \ \ \ \ \ \ \-\ MIME\-Type\ of\ the\ attachment.\ Default\ is\ detected
+\ \ \ \-inline\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ Set\ Content\-Disposition\ to\ "inline".\ 
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Default\ is\ "attachment"
 \ \ header\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \-\ Header\ Command.\ Repeat\ for\ multiple\ headers
-\ \ \ \ \-name\ header\ \ \ \ \ \ \ \ \ \-\ Header\ name
-\ \ \ \ \-value\ value\ \ \ \ \ \ \ \ \ \-\ Header\ value
+\ \ \ \-name\ header\ \ \ \ \ \ \ \ \ \ \-\ Header\ name
+\ \ \ \-value\ value\ \ \ \ \ \ \ \ \ \ \-\ Header\ value
 
 The\ options\ with\ *\ are\ required.\ 
 
 Environment\ variables:
 \ \ \ SMTP_USER_PASS\ for\ auth\ password\ (\-pass)
-\ \ \ \ 
 \f[]
 .fi
 .SH Version
@@ -706,13 +708,29 @@ The command \[lq]header\[rq] can be repeated.
 \ \ \ \ \-smtp\ smtp.gmail.com\ \-port\ 587\ \\
 \ \ \ \ auth\ \\
 \ \ \ \ \ \-user\ example\@gmail.com\ \-pass\ "secret"\ \\
-\ \ \ \ \ \-to\ jsoe\@example.com\ \\
+\ \ \ \ \ \-to\ jdoe\@example.com\ \\
 \ \ \ \ \ \-f\ "example\@gmail.com"\ \\
 \ \ \ \ \ body\ \-msg\ "Testing\ adding\ Custom\ headers"
 \ \ \ \ \ header\ \\
 \ \ \ \ \ \ \ \ \ \-name\ "X\-MyHeader\-1"\ \-value\ "Value\ of\ X\-MyHeader\-1"\ \\
 \ \ \ \ \ header\ \\
 \ \ \ \ \ \ \ \ \ \-name\ "X\-MyHeader\-2"\ \-value\ "Value\ of\ X\-MyHeader\-2"
+\f[]
+.fi
+.SS Write logs to a file
+.PP
+Use the flag \f[C]\-log\ path_of_log_file.txt\f[]
+.IP
+.nf
+\f[C]
+\ \ \ \ mailsend\-go\ \-sub\ "test\ log"\ \\
+\ \ \ \ \ \-smtp\ smtp.example.com\ \-port\ 587\ \\
+\ \ \ \ \ auth\ \\
+\ \ \ \ \ \ \-user\ example\@gmail.com\ \-pass\ "secret"\ \\
+\ \ \ \ \ \ \-to\ jdoe\@example.com\ \\
+\ \ \ \ \ \ \-f\ "example\@gmail.com"\ \\
+\ \ \ \ \ \ body\ \-msg\ "Testing\ log\ file"\ \\
+\ \ \ \ \ \ \-log\ "/tmp/mailsend\-go.log"
 \f[]
 .fi
 .PP

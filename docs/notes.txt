@@ -1,0 +1,12 @@
+My personal note
+================
+* Update version in code
+* Update latest version in markdown docs/version.md
+* Generate docs, Update usage (make dev;make clean;make)
+* Compile
+* Test
+* commit
+* push
+* tagit
+* push tag
+* Release
