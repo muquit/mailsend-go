@@ -19,5 +19,7 @@ $MAILSEND \
     body -msg "This is a test" \
     -smtp $SMTP_SERVER -port $TLS_PORT \
     -log ${LOGFILE}
+echo "--------------------------logfile--"
 cat $LOGFILE
+echo "--------------------------logfile--"
 /bin/rm -f ${LOGFILE}

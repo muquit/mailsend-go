@@ -1,3 +1,10 @@
+# v1.0.5
+* Add the flag -log filePath to write log messages to this path
+
+Fix Issue #5
+
+(Jul-06-2019)
+
 # v1.0.4
 
 * The To address specified with -t was ignored when a list file was specified with -list. 
