@@ -11,5 +11,7 @@ My personal note
   It will force push the tag. Go and remove tag from github if needed.
 * Release
   ./scripts/release.sh snap - to test
+  - Final publish
+  set GITHUB_TOKEN env var and then
   ./scripts/release.sh ok to publish
   
