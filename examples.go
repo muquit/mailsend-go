@@ -207,13 +207,27 @@ be repeated.
         -smtp smtp.gmail.com -port 587 \
         auth \
          -user example@gmail.com -pass "secret" \
-         -to jsoe@example.com \
+         -to jdoe@example.com \
          -f "example@gmail.com" \
          body -msg "Testing adding Custom headers"
          header \
              -name "X-MyHeader-1" -value "Value of X-MyHeader-1" \
          header \
              -name "X-MyHeader-2" -value "Value of X-MyHeader-2"
+
+
+Write logs to a file
+
+Use the flag -log path_of_log_file.txt
+
+        mailsend-go -sub "test log" \
+         -smtp smtp.example.com -port 587 \
+         auth \
+          -user example@gmail.com -pass "secret" \
+          -to jdoe@example.com \
+          -f "example@gmail.com" \
+          body -msg "Testing log file" \
+          -log "/tmp/mailsend-go.log"
 
 ------------------------------------------------------------------------
 

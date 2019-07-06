@@ -1,8 +1,16 @@
 ## Contents
+- [v1.0.5](#v105)
 - [v1.0.4](#v104)
 - [v1.0.3](#v103)
 - [v1.0.2](#v102)
 - [v1.0.1](#v101)
+
+# v1.0.5
+* Add the flag -log filePath to write log messages to this path.
+
+Fix Issue #5
+
+(Jul-06-2019)
 
 # v1.0.4
 

@@ -1,5 +1,5 @@
 # v1.0.5
-* Add the flag -log filePath to write log messages to this path
+* Add the flag -log filePath to write log messages to this path.
 
 Fix Issue #5
 
