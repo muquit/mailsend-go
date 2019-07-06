@@ -7,6 +7,9 @@ My personal note
 * Test
 * commit
 * push
-* tagit
-* push tag
+* tag and push tag by running ./scripts/tagit.sh
+  It will force push the tag. Go and remove tag from github if needed.
 * Release
+  ./scripts/release.sh snap - to test
+  ./scripts/release.sh ok to publish
+  
