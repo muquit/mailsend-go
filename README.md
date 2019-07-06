@@ -8,7 +8,7 @@
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
     - [Install](#install)
     - [Uninstall](#uninstall)
-  - [Installing the debian package on Ubuntu/Debian/Raspberry pi](#installing-the-debian-package-on-ubuntu-debian-raspberry-pi)
+  - [Installing the debian package on Ubuntu or Debian or Raspberry pi](#installing-the-debian-package-on-ubuntu-or-debian-or-raspberry-pi)
     - [Inspect the package content](#inspect-the-package-content)
     - [Install](#install)
     - [Uninstall](#uninstall)
@@ -194,7 +194,7 @@ First install the custom tap.
 ```
 
 
-## Installing the debian package on Ubuntu/Debian/Raspberry pi
+## Installing the debian package on Ubuntu or Debian or Raspberry pi
 
 ### Inspect the package content
 ```

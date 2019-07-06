@@ -59,7 +59,7 @@ First install the custom tap.
 ```
 
 
-## Installing the debian package on Ubuntu/Debian/Raspberry pi
+## Installing the debian package on Ubuntu or Debian or Raspberry pi
 
 ### Inspect the package content
 ```
