@@ -2,9 +2,9 @@
 class MailsendGo < Formula
   desc "Command line tool to send mail via SMTP protocol"
   homepage "https://github.com/muquit/mailsend-go"
-  url "https://github.com/muquit/mailsend-go/releases/download/v1.0.4/mailsend-go_1.0.4_mac-64bit.tar.gz"
-  version "1.0.4"
-  sha256 "5e826054f8ae60cd595e09aab9dc200a9c6a438a6c5f399aaa534112823d700b"
+  url "https://github.com/muquit/mailsend-go/releases/download/v1.0.5/mailsend-go_1.0.5_mac-64bit.tar.gz"
+  version "1.0.5"
+  sha256 "fb26c3ee96615cc34169a138fcbc01d640165234bbb74aa1af9cd7e930e79858"
 
   def install
     bin.install "mailsend-go"
