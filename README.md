@@ -8,7 +8,7 @@
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
     - [Install](#install)
     - [Uninstall](#uninstall)
-  - [Installing the debian package on Ubuntu/Debian/Raspberry pi](#installing-the-debian-package-on-ubuntu-debian-raspberry-pi)
+  - [Installing the debian package on Ubuntu/Debian/Raspberry pi](#installing-the-debian-package-on-ubuntudebianraspberry-pi)
     - [Inspect the package content](#inspect-the-package-content)
     - [Install](#install)
     - [Uninstall](#uninstall)
