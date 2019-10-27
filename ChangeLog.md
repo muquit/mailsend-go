@@ -1,9 +1,18 @@
 ## Contents
+- [v1.0.6](#v106)
 - [v1.0.5](#v105)
 - [v1.0.4](#v104)
 - [v1.0.3](#v103)
 - [v1.0.2](#v102)
 - [v1.0.1](#v101)
+
+# v1.0.6
+* Add the flag -cs charser to specify a character set for text or HTML.
+The default character set is utf-8.
+
+Fix Issue #12
+
+(Oct-27-2019)
 
 # v1.0.5
 * Add the flag -log filePath to write log messages to this path.

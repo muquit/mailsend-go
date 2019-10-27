@@ -6,9 +6,10 @@ source $DIR/env.txt
 ${MAILSEND} \
         -log /tmp/mailsend-go.log \
         -subject "this is a test" \
-        -from "${FROM}" \
+        -from "noreply@example.com" \
         -to "${TO}" \
         -smtp "$SMTP_SERVER" \
+        -cs "ISO-8859-1" \
         -port $TLS_PORT \
         auth \
         -user "$FROM" \

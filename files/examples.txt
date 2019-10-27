@@ -219,6 +219,21 @@ Use the flag -log path_of_log_file.txt
           body -msg "Testing log file" \
           -log "/tmp/mailsend-go.log"
 
+
+Specify a different character set
+
+The default character set is utf-8
+
+        mailsend-go -sub "test character set" \
+         -smtp smtp.example.com -port 587 \
+         auth \
+          -user example@gmail.com -pass "secret" \
+          -to jdoe@example.com \
+          -from "example@gmail.com" \
+          -subject "Testing Big5 Charset" \
+          -cs "Big5" \
+          body -msg "中文測試"
+
 ------------------------------------------------------------------------
 
 (Generated from docs/examples.md)

@@ -1,4 +1,4 @@
- Version: @($) mailsend-go v1.0.5
+ Version: @($) mailsend-go v1.0.6
 
  mailsend-go [options]
   Where the options are:
@@ -22,6 +22,7 @@
   -help                  - show this help
   -q                     - quiet
   -log filePath          - write log messages to this file
+  -cs charset            - Character set for text/HTML. Default is utf-8
   -V                     - show version and exit
   auth                   - Auth Command
    -user username*       - username for ESMTP authentication. Required

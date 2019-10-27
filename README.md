@@ -38,6 +38,7 @@
   - [Send mail to a list of users](#send-mail-to-a-list-of-users)
   - [Add Custom Headers](#add-custom-headers)
   - [Write logs to a file](#write-logs-to-a-file)
+  - [Specify a different character set](#specify-a-different-character-set)
 - [License (is MIT)](#license-is-mit)
 - [See Also](#see-also)
 
@@ -80,7 +81,7 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.5
+ Version: @($) mailsend-go v1.0.6
 
  mailsend-go [options]
   Where the options are:
@@ -104,6 +105,7 @@ course)
   -help                  - show this help
   -q                     - quiet
   -log filePath          - write log messages to this file
+  -cs charset            - Character set for text/HTML. Default is utf-8
   -V                     - show version and exit
   auth                   - Auth Command
    -user username*       - username for ESMTP authentication. Required
@@ -129,7 +131,7 @@ Environment variables:
 
 ```
 # Version
-The current version of mailsend-go is 1.0.5, released on Jul-06-2019 
+The current version of mailsend-go is 1.0.6, released on Oct-27-2019 
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
@@ -576,7 +578,22 @@ Use the flag `-log path_of_log_file.txt`
       -f "example@gmail.com" \
       body -msg "Testing log file" \
       -log "/tmp/mailsend-go.log"
+```
 
+## Specify a different character set
+
+The default character set is utf-8
+
+```
+    mailsend-go -sub "test character set" \
+     -smtp smtp.example.com -port 587 \
+     auth \
+      -user example@gmail.com -pass "secret" \
+      -to jdoe@example.com \
+      -from "example@gmail.com" \
+      -subject "Testing Big5 Charset" \
+      -cs "Big5" \
+      body -msg "中文測試"
 
 ```
 

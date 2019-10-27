@@ -54,6 +54,13 @@ pi:
 	/bin/ls -lt $(PROGNAME_PI)
 	@echo ""
 
+pijessie: 
+	@echo "- Building $(PROGNAME) for raspberry pi"
+	GOARM=6 GOARCH=arm GOOS=linux go build -o $(PROGNAME_PI)
+	/bin/ls -lt $(PROGNAME_PI)
+	@echo ""
+
+
 # generate files/examples.txt from docs/examples.md
 # generate examples.go from examples.txt for -ex flag
 gen: example doc

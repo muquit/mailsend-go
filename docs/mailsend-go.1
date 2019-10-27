@@ -98,6 +98,8 @@ Send mail to a list of users
 Add Custom Headers
 .IP \[bu] 2
 Write logs to a file
+.IP \[bu] 2
+Specify a different character set
 .RE
 .IP \[bu] 2
 License (is MIT)
@@ -153,7 +155,7 @@ will need required tools of course)
 .IP
 .nf
 \f[C]
- Version: \[at]($) mailsend-go v1.0.5
+ Version: \[at]($) mailsend-go v1.0.6
 
  mailsend-go [options]
   Where the options are:
@@ -177,6 +179,7 @@ will need required tools of course)
   -help                  - show this help
   -q                     - quiet
   -log filePath          - write log messages to this file
+  -cs charset            - Character set for text/HTML. Default is utf-8
   -V                     - show version and exit
   auth                   - Auth Command
    -user username*       - username for ESMTP authentication. Required
@@ -203,7 +206,7 @@ Environment variables:
 .fi
 .SH Version
 .PP
-The current version of mailsend-go is 1.0.5, released on Jul-06-2019
+The current version of mailsend-go is 1.0.6, released on Oct-27-2019
 .PP
 Please look at ChangeLog (ChangeLog.md) for what has changed in the
 current version.
@@ -731,7 +734,23 @@ Use the flag \f[C]-log path_of_log_file.txt\f[R]
       -f \[dq]example\[at]gmail.com\[dq] \[rs]
       body -msg \[dq]Testing log file\[dq] \[rs]
       -log \[dq]/tmp/mailsend-go.log\[dq]
-
+\f[R]
+.fi
+.SS Specify a different character set
+.PP
+The default character set is utf-8
+.IP
+.nf
+\f[C]
+    mailsend-go -sub \[dq]test character set\[dq] \[rs]
+     -smtp smtp.example.com -port 587 \[rs]
+     auth \[rs]
+      -user example\[at]gmail.com -pass \[dq]secret\[dq] \[rs]
+      -to jdoe\[at]example.com \[rs]
+      -from \[dq]example\[at]gmail.com\[dq] \[rs]
+      -subject \[dq]Testing Big5 Charset\[dq] \[rs]
+      -cs \[dq]Big5\[dq] \[rs]
+      body -msg \[dq]\[u4E2D]\[u6587]\[u6E2C]\[u8A66]\[dq]
 \f[R]
 .fi
 .PP

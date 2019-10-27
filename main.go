@@ -49,7 +49,7 @@ import (
 )
 
 const (
-	version = "1.0.5"
+	version = "1.0.6"
 )
 
 var (
@@ -63,7 +63,6 @@ type Attachment struct {
 	MimeType       string
 	EncodingType   string
 	Inline         bool
-	CharacterSet   string
 }
 
 // Body ...
@@ -120,6 +119,7 @@ type Options struct {
 	LogfilePath              string
 	VerifyCert               bool
 	PrintSMTPInfo            bool
+	CharacterSet             string
 }
 
 // AddressList ...
@@ -573,6 +573,7 @@ func showUsageAndExit() {
   -help                  - show this help
   -q                     - quiet
   -log filePath          - write log messages to this file
+  -cs charset            - Character set for text/HTML. Default is utf-8
   -V                     - show version and exit
   auth                   - Auth Command
    -user username*       - username for ESMTP authentication. Required
@@ -617,7 +618,13 @@ func makeRecipientAddresses(to string) []string {
 }
 
 func constructMail(fromName string, fromAddress string, toName string, toAddress string) *gomail.Message {
+	o := mailsend.options
 	m := gomail.NewMessage()
+
+	if len(o.CharacterSet) > 0 {
+		m = gomail.NewMessage(gomail.SetCharset(o.CharacterSet))
+	}
+
 	if len(fromName) > 0 {
 		m.SetAddressHeader("From", fromAddress, fromName)
 	} else {
@@ -637,7 +644,6 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 		m.SetHeader("To", addresses...)
 	}
 
-	o := mailsend.options
 	if len(o.Cc) > 0 {
 		logDebug("Setting Carbon Copy: %s\n", o.Cc)
 		recipients := makeRecipientAddresses(o.Cc)
@@ -946,6 +952,12 @@ func main() {
 				fatalError("Missing value for %s\n", arg)
 			}
 			mailsend.options.LogfilePath = args[i]
+		} else if arg == "-cs" || arg == "--cs" {
+			i++
+			if i == argc {
+				fatalError("Missing value for %s\n", arg)
+			}
+			mailsend.options.CharacterSet = args[i]
 		} else if arg == "-V" || arg == "--V" {
 			fmt.Printf("@(#) mailsend-go v%s\n", version)
 			os.Exit(0)
