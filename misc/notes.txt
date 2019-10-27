@@ -10,6 +10,7 @@ How to release notes for myself
 * Test
 * commit
 * git push
-* tagit
-* push tag
-* Release
+* tagit ./scripts/tagit.rb
+  tag will be pushed
+* Release 
+  GITHUB_TOKEN=XXX ./scripts/release.sh ok
