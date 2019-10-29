@@ -5,6 +5,7 @@
 PROGNAME= mailsend-go
 PROGNAME_WIN= $(PROGNAME).exe
 PROGNAME_PI= $(PROGNAME)-raspberry-pi
+PROGNAME_PI_JESSIE= $(PROGNAME)-raspberry-pi-jessie
 DESTDIR=
 VERSION=1.0.1
 BUILD_OPTIONS = -ldflags "-X main.Version=$(VERSION)"
@@ -55,9 +56,9 @@ pi:
 	@echo ""
 
 pijessie: 
-	@echo "- Building $(PROGNAME) for raspberry pi"
-	GOARM=6 GOARCH=arm GOOS=linux go build -o $(PROGNAME_PI)
-	/bin/ls -lt $(PROGNAME_PI)
+	@echo "- Building $(PROGNAME) for raspberry pi jessie"
+	GOARM=6 GOARCH=arm GOOS=linux go build -o $(PROGNAME_PI_JESSIE)
+	/bin/ls -lt $(PROGNAME_PI_JESSIE)
 	@echo ""
 
 
