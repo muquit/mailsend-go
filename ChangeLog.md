@@ -7,7 +7,7 @@
 - [v1.0.1](#v101)
 
 # v1.0.6
-* Add the flag -cs charser to specify a character set for text or HTML.
+* Add the flag ```-cs charset``` to specify a character set for text or HTML.
 The default character set is utf-8.
 
 Fix Issue #12
