@@ -8,16 +8,12 @@ import "fmt"
 const (
     examples = `
 
-
-
-EXAMPLES
-
+Examples
 
 Each example mailsend-go command is a single line. In Unix back slash  
 can be used to continue in the next line. Also in Unix, use single
 quotes instead of double quotes, otherwise if input has any shell
 character like $ etc, it will get expanded by the shell.
-
 
 Show SMTP server information
 
@@ -62,7 +58,6 @@ Use SSL. Note the port is different
 
       mailsend-go -info -smtp smtp.gmail.com -port 465 -ssl
 
-
 Send mail with a text message
 
 Notice “auth” is a command and it takes -user and -pass arguments.
@@ -80,7 +75,6 @@ will be used.
 The environment variable “SMTP_USER_PASS” can be used instead of the
 flag -pass.
 
-
 Send mail with a HTML message
 
         mailsend-go -sub "Test"  \
@@ -91,7 +85,6 @@ Send mail with a HTML message
         -to  "mjane@example.com" -from "jsnow@gmail.com" \
         body \
          -msg "<b>hello, world!</b>"
-
 
 Attach a PDF file
 
@@ -111,7 +104,6 @@ repeat.
         attach \
          -file "/path/file.pdf"
 
-
 Attach a PDF file and an image
 
 Notice, the “attach” command is repeated here.
@@ -128,7 +120,6 @@ Notice, the “attach” command is repeated here.
          -file "/path/file.pdf" \
         attach \
          -file "/path/file.png"
-
 
 Attach a PDF file and embed an image
 
@@ -150,7 +141,6 @@ hint, it is up to the mail reader to respect it or ignore it.
          -file "/path/file.png" \
          -inline
 
-
 Set Carbon Copy and Blind Carbon copy
 
         mailsend-go -sub "Testing -cc and -bcc" \
@@ -165,7 +155,6 @@ Set Carbon Copy and Blind Carbon copy
 
 Cc addresses will be visible to the recipients but Bcc address will not
 be.
-
 
 Send mail to a list of users
 
@@ -197,7 +186,6 @@ Specify the list file with -list flag.
                 -inline \
              -list "list.txt"
 
-
 Add Custom Headers
 
 Use the command “header” to add custom headers. The command “header” can
@@ -215,7 +203,6 @@ be repeated.
          header \
              -name "X-MyHeader-2" -value "Value of X-MyHeader-2"
 
-
 Write logs to a file
 
 Use the flag -log path_of_log_file.txt
@@ -228,7 +215,6 @@ Use the flag -log path_of_log_file.txt
           -f "example@gmail.com" \
           body -msg "Testing log file" \
           -log "/tmp/mailsend-go.log"
-
 
 Specify a different character set
 

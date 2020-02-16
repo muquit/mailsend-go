@@ -1,4 +1,5 @@
 ## Contents
+- [v1.0.7](#v107)
 - [v1.0.6](#v106)
 - [v1.0.5](#v105)
 - [v1.0.4](#v104)
@@ -6,8 +7,15 @@
 - [v1.0.2](#v102)
 - [v1.0.1](#v101)
 
+# v1.0.7
+* If -q was used with -info, the messages were still printed on stdout.
+
+Fix Issue #19
+
+(Feb-16-2020)
+
 # v1.0.6
-* Add the flag ```-cs charset``` to specify a character set for text or HTML.
+* Add the flag -cs charser to specify a character set for text or HTML.
 The default character set is utf-8.
 
 Fix Issue #12

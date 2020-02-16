@@ -40,7 +40,6 @@ func smtpAddr(host string, port int) string {
 
 // muquit@muquit.com - 2018-10-26 12:20:59
 func printSMTPInfo(server string, port int, ssl bool, verifyCert bool) {
-
 	addr := smtpAddr(server, port)
 	var (
 		conn       net.Conn
@@ -74,7 +73,7 @@ func printSMTPInfo(server string, port int, ssl bool, verifyCert bool) {
 		text.Close()
 		log.Fatal(err)
 	}
-	fmt.Printf("[S] %d %s\n", code, msg)
+	printMsg("[S] %d %s\n", code, msg)
 
 	c := &smtpClient{
 		Text:       text,
@@ -84,7 +83,7 @@ func printSMTPInfo(server string, port int, ssl bool, verifyCert bool) {
 	_, c.tls = conn.(*tls.Conn)
 
 	// HELO
-	fmt.Printf("[C] HELO %s\n", c.localName)
+	printMsg("[C] HELO %s\n", c.localName)
 	_, _, err = c.cmd(250, "HELO %s", c.localName)
 	if err != nil {
 		text.Close()
@@ -94,7 +93,7 @@ func printSMTPInfo(server string, port int, ssl bool, verifyCert bool) {
 	if doStartTLS {
 		startTLS, _ = c.Extension("STARTTLS")
 		if startTLS {
-			fmt.Printf("[C] STARTTLS\n")
+			printMsg("[C] STARTTLS\n")
 			config := &tls.Config{
 				InsecureSkipVerify: !verifyCert,
 				ServerName:         c.serverName,
@@ -117,14 +116,14 @@ func printSMTPInfo(server string, port int, ssl bool, verifyCert bool) {
 }
 
 func printCertInfo(cert *x509.Certificate, serverName string) {
-	fmt.Printf("Certificate of %s:\n", serverName)
-	fmt.Printf(" Version: %d (%#x)\n", cert.Version, cert.Version)
-	fmt.Printf(" Serial Number: %d (%#x)\n", cert.SerialNumber, cert.SerialNumber)
-	fmt.Printf(" Signature Algorithm: %s\n", cert.SignatureAlgorithm)
-	fmt.Printf(" Subject: %s\n", cert.Subject)
-	fmt.Printf(" Issuer: %s\n", cert.Issuer.CommonName)
-	fmt.Printf(" Not before: %s\n", cert.NotBefore.String())
-	fmt.Printf(" Not after: %s\n", cert.NotAfter.String())
+	printMsg("Certificate of %s:\n", serverName)
+	printMsg(" Version: %d (%#x)\n", cert.Version, cert.Version)
+	printMsg(" Serial Number: %d (%#x)\n", cert.SerialNumber, cert.SerialNumber)
+	printMsg(" Signature Algorithm: %s\n", cert.SignatureAlgorithm)
+	printMsg(" Subject: %s\n", cert.Subject)
+	printMsg(" Issuer: %s\n", cert.Issuer.CommonName)
+	printMsg(" Not before: %s\n", cert.NotBefore.String())
+	printMsg(" Not after: %s\n", cert.NotAfter.String())
 
 }
 
@@ -156,7 +155,7 @@ func (c *smtpClient) StartTLS(config *tls.Config) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("[S] %d-%s\n", code, msg)
+	printMsg("[S] %d-%s\n", code, msg)
 	//	fmt.Printf("code %d, str: %s\n", code, str)
 	c.conn = tls.Client(c.conn, config)
 	c.Text = textproto.NewConn(c.conn)
@@ -177,11 +176,16 @@ func (c *smtpClient) hello() error {
 	}
 	return c.helloError
 }
+func printMsg(format string, a ...interface{}) {
+	if !mailsend.options.Quiet {
+		fmt.Printf(format, a...)
+	}
+}
 
 // ehlo sends the EHLO (extended hello) greeting to the server. It
 // should be the preferred greeting for servers that support it.
 func (c *smtpClient) ehlo() error {
-	fmt.Printf("[C] EHLO %s\n", c.localName)
+	printMsg("[C] EHLO %s\n", c.localName)
 	code, msg, err := c.cmd(250, "EHLO %s", c.localName)
 	if err != nil {
 		return err
@@ -192,7 +196,7 @@ func (c *smtpClient) ehlo() error {
 	re := regexp.MustCompile(`r?\n`)
 	fmsg := re.ReplaceAllString(msg, "\n[S] 250-")
 
-	fmt.Printf("[S] %d-%s\n", code, fmsg)
+	printMsg("[S] %d-%s\n", code, fmsg)
 	ext := make(map[string]string)
 	extList := strings.Split(msg, "\n")
 	if len(extList) > 1 {
@@ -254,11 +258,11 @@ func (c *smtpClient) Quit() error {
 	if err := c.hello(); err != nil {
 		return err
 	}
-	fmt.Printf("[C] QUIT\n")
+	printMsg("[C] QUIT\n")
 	code, msg, err := c.cmd(221, "QUIT")
 	if err != nil {
 		return err
 	}
-	fmt.Printf("[S] %d-%s\n", code, msg)
+	printMsg("[S] %d-%s\n", code, msg)
 	return c.Text.Close()
 }
