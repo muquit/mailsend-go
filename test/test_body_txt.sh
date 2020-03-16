@@ -14,4 +14,4 @@ $MAILSEND -smtp $SMTP_SERVER -port $TLS_PORT \
     -t "${TO}" \
     -f "${FROM}" \
     auth -user "${FROM}" -pass "${SMTP_USER_PASS}" \
-    body -msg 'This is a text message in mail body'
+    body -msg 'This is a text message in mail body.\nThis is a new line.\nThis another new line'

@@ -685,7 +685,9 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 
 	if len(mailsend.body.content) > 0 {
 		logDebug("Attach body\n")
-		m.SetBody(mailsend.body.mimeType, mailsend.body.content)
+		// Replace \n with real new line. Issue #22
+		msg := strings.Replace(mailsend.body.content, `\n`, "\n", -1)
+		m.SetBody(mailsend.body.mimeType, msg)
 	}
 
 	for _, a := range mailsend.attachments {
