@@ -3,8 +3,10 @@
 be repalced with real new line. Example: 
   body -msg "This is line1.\nThis is line2." 
 The message will look like:
+```
 This is line1.
 This is line2.
+```
 
 Fix Issue #22
 
