@@ -60,7 +60,10 @@ will be used.
           -user jsnow@gmail.com -pass "secret" \
          -from "jsnow@gmail.com" -to  "mjane@example.com" \
          body \
-           -msg "hello, world!"
+           -msg "hello, world!\nThis is a message"
+
+The embedded new line \n will be converted to a real newline and the
+final message will show up as two lines.
 
 The environment variable “SMTP_USER_PASS” can be used instead of the
 flag -pass.

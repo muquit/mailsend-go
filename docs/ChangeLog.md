@@ -1,3 +1,15 @@
+# v1.0.8
+* One line message can have embedded new line with \n. If \n is found, it will
+be repalced with real new line. Example: 
+  body -msg "This is line1.\nThis is line2." 
+The message will look like:
+This is line1.
+This is line2.
+
+Fix Issue #22
+
+(Mar-17-2020)
+
 # v1.0.7
 * If -q was used with -info, the messages were still printed on stdout.
 

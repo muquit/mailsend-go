@@ -81,7 +81,7 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.7
+ Version: @($) mailsend-go v1.0.8
 
  mailsend-go [options]
   Where the options are:
@@ -131,7 +131,7 @@ Environment variables:
 
 ```
 # Version
-The current version of mailsend-go is 1.0.7, released on Feb-16-2020 
+The current version of mailsend-go is 1.0.8, released on Mar-19-2020 
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
@@ -430,8 +430,11 @@ not repeat, if specified more than once, the last one will be used.
       -user jsnow@gmail.com -pass "secret" \
      -from "jsnow@gmail.com" -to  "mjane@example.com" \
      body \
-       -msg "hello, world!"
+       -msg "hello, world!\nThis is a message"
 ```                    
+The embedded new line \\n will be converted to a real newline and the final
+message will show up as two lines.
+
 The environment variable "SMTP_USER_PASS" can be used instead of the flag
 `-pass`.
 

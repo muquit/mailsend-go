@@ -155,7 +155,7 @@ will need required tools of course)
 .IP
 .nf
 \f[C]
- Version: \[at]($) mailsend-go v1.0.7
+ Version: \[at]($) mailsend-go v1.0.8
 
  mailsend-go [options]
   Where the options are:
@@ -206,7 +206,7 @@ Environment variables:
 .fi
 .SH Version
 .PP
-The current version of mailsend-go is 1.0.7, released on Feb-16-2020
+The current version of mailsend-go is 1.0.8, released on Mar-19-2020
 .PP
 Please look at ChangeLog for what has changed in the current version.
 .SH Downloading and Installing
@@ -557,9 +557,12 @@ the last one will be used.
       -user jsnow\[at]gmail.com -pass \[dq]secret\[dq] \[rs]
      -from \[dq]jsnow\[at]gmail.com\[dq] -to  \[dq]mjane\[at]example.com\[dq] \[rs]
      body \[rs]
-       -msg \[dq]hello, world!\[dq]
+       -msg \[dq]hello, world!\[rs]nThis is a message\[dq]
 \f[R]
 .fi
+.PP
+The embedded new line \[rs]n will be converted to a real newline and the
+final message will show up as two lines.
 .PP
 The environment variable \[lq]SMTP_USER_PASS\[rq] can be used instead of
 the flag \f[C]-pass\f[R].
