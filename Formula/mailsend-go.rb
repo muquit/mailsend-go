@@ -2,16 +2,16 @@
 class MailsendGo < Formula
   desc "Command line tool to send mail via SMTP protocol"
   homepage "https://github.com/muquit/mailsend-go"
-  version "1.0.8"
+  version "1.0.9"
   bottle :unneeded
 
   if OS.mac?
-    url "https://github.com/muquit/mailsend-go/releases/download/v1.0.8/mailsend-go_1.0.8_mac-64bit.tar.gz"
-    sha256 "e6a5f01793035ce562c192d7d40f5b2bb19ea4e50be19e660ce03eb2b3b193b5"
+    url "https://github.com/muquit/mailsend-go/releases/download/v1.0.9/mailsend-go_1.0.9_mac-64bit.tar.gz"
+    sha256 "dfaa1a26630e902f96fe309b6ac5ab42269bc32b096dd19258f1c21ff621bb35"
   elsif OS.linux?
     if Hardware::CPU.intel?
-      url "https://github.com/muquit/mailsend-go/releases/download/v1.0.8/mailsend-go_1.0.8_linux-64bit.tar.gz"
-      sha256 "ef538fbad954f445340c1dc163e6849b7ee08c57a907311d806be6f81c493234"
+      url "https://github.com/muquit/mailsend-go/releases/download/v1.0.9/mailsend-go_1.0.9_linux-64bit.tar.gz"
+      sha256 "39f3ab813cea2690dd507f6d8e3977d8e6af0736a601662aad8e1da637fdeaa1"
     end
   end
 
