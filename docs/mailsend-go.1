@@ -155,7 +155,7 @@ will need required tools of course)
 .IP
 .nf
 \f[C]
- Version: \[at]($) mailsend-go v1.0.8
+ Version: \[at]($) mailsend-go v1.0.9
 
  mailsend-go [options]
   Where the options are:
@@ -206,7 +206,7 @@ Environment variables:
 .fi
 .SH Version
 .PP
-The current version of mailsend-go is 1.0.8, released on Mar-19-2020
+The current version of mailsend-go is 1.0.9, released on Apr-08-2020
 .PP
 Please look at ChangeLog for what has changed in the current version.
 .SH Downloading and Installing
@@ -600,6 +600,16 @@ The command \[lq]attach\[rq] can repeat.
      -msg \[dq]A PDF file is attached\[dq] \[rs]
     attach \[rs]
      -file \[dq]/path/file.pdf\[dq]
+\f[R]
+.fi
+.PP
+The name of the attachment will be file.pdf.
+To change the attachmetn name, use the \f[C]-name\f[R] flag.
+e.g.
+.IP
+.nf
+\f[C]
+    attach -file \[dq]/path/file.pdf\[dq] -name \[dq]report.pdf\[dq]
 \f[R]
 .fi
 .SS Attach a PDF file and an image

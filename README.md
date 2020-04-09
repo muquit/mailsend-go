@@ -81,7 +81,7 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.8
+ Version: @($) mailsend-go v1.0.9
 
  mailsend-go [options]
   Where the options are:
@@ -131,7 +131,7 @@ Environment variables:
 
 ```
 # Version
-The current version of mailsend-go is 1.0.8, released on Mar-19-2020 
+The current version of mailsend-go is 1.0.9, released on Apr-08-2020 
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
@@ -465,8 +465,14 @@ took -file as an arg. The command "attach" can repeat.
      -msg "A PDF file is attached" \
     attach \
      -file "/path/file.pdf"
+```
+The name of the attachment will be file.pdf. To change the attachmetn name,
+use the `-name` flag. e.g.
 
 ```
+    attach -file "/path/file.pdf" -name "report.pdf"
+```
+
 ## Attach a PDF file and an image
 Notice, the "attach" command is repeated here.
 ```

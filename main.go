@@ -49,7 +49,7 @@ import (
 )
 
 const (
-	version = "1.0.8"
+	version = "1.0.9"
 )
 
 var (
@@ -63,6 +63,7 @@ type Attachment struct {
 	MimeType       string
 	EncodingType   string
 	Inline         bool
+	Name           string
 }
 
 // Body ...
@@ -393,7 +394,7 @@ func parseAttachCommandParams(args []string, command string) int {
 	argc := len(args)
 	a := NewAttachment()
 	j := 1
-	max := 5 // update if new options are added
+	max := 6 // update if new options are added
 	for i := 1; i < argc; i++ {
 		arg := args[i]
 		showHelp(arg)
@@ -424,6 +425,15 @@ func parseAttachCommandParams(args []string, command string) int {
 		}
 		if arg == "-inline" || arg == "--inline" {
 			a.Inline = true
+			j = i
+		}
+		if arg == "-name" || arg == "--name" {
+			i++
+			if i == argc {
+				fatalError("Missing value with %s for command %s\n", arg, command)
+			}
+			a.Name = args[i]
+			logDebug("Name: " + a.Name)
 			j = i
 		}
 	}
@@ -696,7 +706,11 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 			mtype := map[string][]string{"Content-Type": {a.MimeType}}
 			if !a.Inline {
 				logDebug("Disposition is attach\n")
-				m.Attach(a.FilePath, gomail.SetHeader(mtype))
+				if len(a.Name) > 0 {
+					m.Attach(a.FilePath, gomail.SetHeader(mtype), gomail.Rename(a.Name))
+				} else {
+					m.Attach(a.FilePath, gomail.SetHeader(mtype))
+				}
 			} else {
 				logDebug("Disposition is inline\n")
 				m.Embed(a.FilePath, gomail.SetHeader(mtype))
@@ -704,7 +718,12 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 		} else {
 			if !a.Inline {
 				logDebug("Attach: %s\n", a.FilePath)
-				m.Attach(a.FilePath)
+				if len(a.Name) > 0 {
+					logDebug("Name: %s\n", a.Name)
+					m.Attach(a.FilePath, gomail.Rename(a.Name))
+				} else {
+					m.Attach(a.FilePath)
+				}
 			} else {
 				logDebug("Inline: %s\n", a.FilePath)
 				m.Embed(a.FilePath)

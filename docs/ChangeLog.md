@@ -1,3 +1,10 @@
+# v1.0.9
+* The implementation of -name for attachment name was missing.
+
+Fix Issue #26
+
+(Apr-08-2020)
+
 # v1.0.8
 * One line message can have embedded new line with \n. If \n is found, it will
 be repalced with real new line. Example: 

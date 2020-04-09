@@ -4,10 +4,9 @@
 # Test STMP info
 # Part of mailsend-go muquit@muquit.com 
 ########################################################################
-
+#
 readonly DIR=$(dirname $0)
 source ${DIR}/env.txt
-
 
 $MAILSEND -smtp $SMTP_SERVER -port $TLS_PORT \
     -debug \
@@ -21,20 +20,21 @@ $MAILSEND -smtp $SMTP_SERVER -port $TLS_PORT \
         <title>This is a Test</title>
     </header>
     <body>
-        <h1>hello, world!</h1>
-        This is the mail body
+        <h1>Hello</h1>
+        Unordered list:
         <ul>
-        <li> PDF file attached
-        <li> Cat embedded
-        <li> flower attached
+            <li>one</li>
+            <li>two</li>
+            <li>three</li>
         </ul>
-        But it is upto the mail reader how they will be displayed!
+        To convert in pdf:
+        <pre>
+pandoc file.html --pdf-engine=pdflatex -o file.pdf
+        </pre>
         <hr>
         The End
     </body>
 </html>
 ' \
-    attach -file "$DIR/file.pdf" \
-    attach -file "$DIR/cat.jpg" -inline \
-    attach -file "$DIR/flower.jpg" -name "FLOWER.JPG"
+    attach -file "$DIR/file.pdf" -name "foo.pdf"
     

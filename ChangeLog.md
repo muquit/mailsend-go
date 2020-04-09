@@ -1,4 +1,5 @@
 ## Contents
+- [v1.0.9](#v109)
 - [v1.0.8](#v108)
 - [v1.0.7](#v107)
 - [v1.0.6](#v106)
@@ -7,6 +8,13 @@
 - [v1.0.3](#v103)
 - [v1.0.2](#v102)
 - [v1.0.1](#v101)
+
+# v1.0.9
+* The implementation of -name for attachment name was missing.
+
+Fix Issue #26
+
+(Apr-08-2020)
 
 # v1.0.8
 * One line message can have embedded new line with \n. If \n is found, it will

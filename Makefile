@@ -66,7 +66,7 @@ pijessie:
 # generate examples.go from examples.txt for -ex flag
 gen: example doc
 
-dev: gen all
+dev: gen all doc
 
 doc:
 	@./scripts/mkdocs.sh

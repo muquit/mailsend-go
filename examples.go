@@ -107,6 +107,11 @@ repeat.
         attach \
          -file "/path/file.pdf"
 
+The name of the attachment will be file.pdf. To change the attachmetn
+name, use the -name flag. e.g.
+
+        attach -file "/path/file.pdf" -name "report.pdf"
+
 Attach a PDF file and an image
 
 Notice, the “attach” command is repeated here.
