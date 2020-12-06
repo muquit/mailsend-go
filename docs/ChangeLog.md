@@ -1,3 +1,16 @@
+# v1.0.10
+* Add flag -use <mail provider> to specify default values for -smtp, -port and
+-ssl for well known mail providers. This works for gmail, yahoo, outlook, 
+gmx, zoho and aol. Thanks to Nikolas Garofil for pull request.
+
+* Add Docket build info. Fix typos in ChangeLog.md.
+  Thanks to Nikolas Garofil for pull request.
+
+* Port is supposed to be optional with default value 587 but was required. 
+  Fix Issue #33.
+
+(Dec-06-2020)
+
 # v1.0.9
 * The implementation of -name for attachment name was missing.
 

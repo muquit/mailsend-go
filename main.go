@@ -49,7 +49,7 @@ import (
 )
 
 const (
-	version = "1.0.9"
+	version = "1.0.10"
 )
 
 var (
@@ -101,7 +101,7 @@ type Options struct {
 	Ipv6                     bool
 	Info                     bool
 	SMTPServer               string `validate:"string,required,N/A,-smtp"`
-	Port                     int    `validate:"number,required,587,1,65535,-port"`
+	Port                     int    `validate:"number,optional,587,1,65535,-port"`
 	Domain                   string `validate:"string,optional,localhost,-domain"`
 	Subject                  string
 	FromName                 string
@@ -239,7 +239,9 @@ func fatalError(format string, a ...interface{}) {
 
 // Validate numeric value
 func (v NumberValidator) Validate(val interface{}) (bool, error) {
+	logDebug("in Numberic validator default: %d\n", v.Default)
 	num := val.(int)
+	logDebug("num: %d\n", num)
 	if num == 0 { // not specified
 		num = v.Default
 	}
@@ -275,6 +277,7 @@ func (v StringValidator) Validate(val interface{}) (bool, error) {
 // Returns validator struct corresponding to validation type
 func getValidator(tag string) Validator {
 	args := strings.Split(tag, ",")
+	logDebug("args length: %d\n", len(args))
 	switch args[0] {
 	case "string":
 		validator := StringValidator{}
@@ -290,7 +293,14 @@ func getValidator(tag string) Validator {
 		if args[1] == "required" {
 			validator.Required = true
 		}
+		logDebug("Flag: %s\n", args[5])
 		fmt.Sscanf(strings.Join(args[2:], ","), "%d,%d,%d", &validator.Default, &validator.Min, &validator.Max)
+		if args[5] == "-port" {
+			if mailsend.options.Port == 0 {
+				// Issue #33
+				mailsend.options.Port = validator.Default
+			}
+		}
 		return validator
 	}
 
@@ -837,7 +847,7 @@ func xprintSMTPInfo() {
 		fatalError("Please specify SMTP server with flag -smtp or set it indirectly with -use")
 	}
 	if mailsend.options.Port == 0 {
-		fatalError("Please specify SMTP server port with flag -port")
+		mailsend.options.Port = 587
 	}
 	logDebug("SMTP Server: %s:%d\n", mailsend.options.SMTPServer, mailsend.options.Port)
 	printSMTPInfo(mailsend.options.SMTPServer, mailsend.options.Port, mailsend.options.Ssl, mailsend.options.VerifyCert)

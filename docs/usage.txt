@@ -12,7 +12,11 @@
   -cc cc,cc..            - carbon copy addresses
   -bcc bcc,bcc..         - blind carbon copy addresses
   -rt rt                 - reply to address
-  -smtp host/IP*         - hostname/IP address of the SMTP server. Required
+  -smtp host/IP          - hostname/IP address of the SMTP server. Required
+                           unless '-use' is set.
+  -use mailprovider      - Arranges -smtp, -port and -ssl for you when using
+                           a well known mailprovider. Allowed values:
+                           gmail, yahoo, outlook, gmx, zoho, aol
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server

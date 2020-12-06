@@ -97,7 +97,11 @@ course)
   -cc cc,cc..            - carbon copy addresses
   -bcc bcc,bcc..         - blind carbon copy addresses
   -rt rt                 - reply to address
-  -smtp host/IP*         - hostname/IP address of the SMTP server. Required
+  -smtp host/IP          - hostname/IP address of the SMTP server. Required
+                           unless '-use' is set.
+  -use mailprovider      - Arranges -smtp, -port and -ssl for you when using
+                           a well known mailprovider. Allowed values:
+                           gmail, yahoo, outlook, gmx, zoho, aol
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server
@@ -133,7 +137,7 @@ Environment variables:
 
 ```
 # Version
-The current version of mailsend-go is 1.0.9, released on Apr-08-2020 
+The current version of mailsend-go is 1.0.10, released on Dec-06-2020 
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
