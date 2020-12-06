@@ -573,7 +573,11 @@ func showUsageAndExit() {
   -cc cc,cc..            - carbon copy addresses
   -bcc bcc,bcc..         - blind carbon copy addresses
   -rt rt                 - reply to address
-  -smtp host/IP*         - hostname/IP address of the SMTP server. Required
+  -smtp host/IP          - hostname/IP address of the SMTP server. Required
+                           unless '-use' is set.
+  -use mailprovider      - Arranges -smtp, -port and -ssl for you when using
+                           a well known mailprovider. Allowed values:
+                           gmail, yahoo, outlook, gmx, zoho, aol
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server
@@ -830,7 +834,7 @@ func contentType(content []byte) string {
 
 func xprintSMTPInfo() {
 	if mailsend.options.SMTPServer == "" {
-		fatalError("Please specify SMTP server with flag -smtp")
+		fatalError("Please specify SMTP server with flag -smtp or set it indirectly with -use")
 	}
 	if mailsend.options.Port == 0 {
 		fatalError("Please specify SMTP server port with flag -port")
@@ -939,6 +943,35 @@ func main() {
 				fatalError("Missing value for %s\n", arg)
 			}
 			mailsend.options.Subject = args[i]
+		} else if arg == "-use" || arg == "--use" {
+			i++
+			if i == argc {
+				fatalError("Missing value for %s\n", arg)
+			}
+			if args[i] == "gmail" {
+				mailsend.options.SMTPServer = "smtp.gmail.com"
+				mailsend.options.Port = 587
+			} else if args[i] == "yahoo" {
+				mailsend.options.SMTPServer = "smtp.mail.yahoo.com"
+				mailsend.options.Port = 465
+				mailsend.options.Ssl = true
+			} else if args[i] == "outlook" {
+				mailsend.options.SMTPServer = "smtp.live.com"
+				mailsend.options.Port = 587
+			} else if args[i] == "gmx" {
+				mailsend.options.SMTPServer = "smtp.gmx.com"
+				mailsend.options.Port = 465
+				mailsend.options.Ssl = true
+			} else if args[i] == "zoho" {
+				mailsend.options.SMTPServer = "smtp.zoho.com"
+				mailsend.options.Port = 465
+				mailsend.options.Ssl = true
+			} else if args[i] == "aol" {
+				mailsend.options.SMTPServer = "smtp.aol.com"
+				mailsend.options.Port = 587
+			} else {
+				fatalError("Mailprovider '%s' not known\n", args[i])
+			}
 		} else if arg == "-smtp" || arg == "--smtp" {
 			i++
 			if i == argc {
