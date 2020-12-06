@@ -18,7 +18,7 @@ Fix Issue #26
 
 # v1.0.8
 * One line message can have embedded new line with \n. If \n is found, it will
-be repalced with real new line. Example: 
+be replaced with real new line. Example: 
   body -msg "This is line1.\nThis is line2." 
 The message will look like:
 ```
@@ -38,7 +38,7 @@ Fix Issue #19
 (Feb-16-2020)
 
 # v1.0.6
-* Add the flag -cs charser to specify a character set for text or HTML.
+* Add the flag -cs charset to specify a character set for text or HTML.
 The default character set is utf-8.
 
 Fix Issue #12
@@ -56,13 +56,13 @@ Fix Issue #5
 
 * The To address specified with -t was ignored when a list file was specified with -list. 
 
-* Start a line with # to specify comment in the adderss list file.
+* Start a line with # to specify comment in the address list file.
 
 Fix Issue #6
 
-* Add binaries for Raspberr pi. Tested on Raspberry pi 3 b+
+* Add binaries for Raspberry pi. Tested on Raspberry pi 3 b+
 
-* Add the flag -rt to specify reply-to header. Thaks to Dominik G.
+* Add the flag -rt to specify reply-to header. Thanks to Dominik G.
 
 (Mar-26-2019)
 
@@ -71,7 +71,7 @@ Fix Issue #6
 * Code for comma separated to, cc and bcc was not there.
 Fix Issue #2
 
-* Remove -tname option for now. It creates trouble if multiple recipients are specifed.
+* Remove -tname option for now. It creates trouble if multiple recipients are specified.
 
 (Feb-20-2019)
 

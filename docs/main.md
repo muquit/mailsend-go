@@ -16,6 +16,8 @@
 
 @[:markdown](compiling.md)
 
+@[:markdown](docker.md)
+
 @[:markdown](examples.md)
 
 @[:markdown](license.md)

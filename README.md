@@ -25,10 +25,12 @@
         - [Uninstall](#uninstall)
       - [Installing Manually](#installing-manually)
 - [Compiling](#compiling)
+- [Docker](#docker)
 - [Examples](#examples)
   - [Show SMTP server information](#show-smtp-server-information)
     - [StartTLS will be used if server supports it](#starttls-will-be-used-if-server-supports-it)
     - [Use SSL. Note the port is different](#use-ssl-note-the-port-is-different)
+    - [Use default settings for well known mail providers](#use-default-settings-for-well-known-mail-providers)
   - [Send mail with a text message](#send-mail-with-a-text-message)
   - [Send mail with a HTML message](#send-mail-with-a-html-message)
   - [Attach a PDF file](#attach-a-pdf-file)
@@ -362,6 +364,12 @@ As mailsend-go uses go modules, it can be built outside $GOPATH e.g.
 Type `make help` for more targets:
 
 
+# Docker
+
+* Building for docker can be done with ```docker build -t mailsend-go .```. This will also fetch the golang image and create a intermediate image (about 820MB in total). If space is a concern for you, remove them with ```docker rmi golang:1.13.7``` and ```docker image prune```
+
+* Running with docker can be done as any other docker image. Everything after the image name will be passed to the program. Example: ```docker run -it --rm mailsend-go -V``` will show the version
+
 # Examples
 
 Each example mailsend-go command is a single line. In Unix back slash \ 
@@ -417,6 +425,13 @@ Certificate of smtp.gmail.com:
 ```
   mailsend-go -info -smtp smtp.gmail.com -port 465 -ssl
 ```
+
+### Use default settings for well known mail providers
+
+Don't worry about the settings of -smtp, -port and -ssl for well known mail
+providers. This works for gmail, yahoo, outlook, gmx, zoho and aol.
+
+      mailsend-go -info -use gmail
 
 ## Send mail with a text message
 
