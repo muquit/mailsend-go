@@ -54,6 +54,13 @@ Certificate of smtp.gmail.com:
   mailsend-go -info -smtp smtp.gmail.com -port 465 -ssl
 ```
 
+### Use default settings for well known mail providers
+
+Don't worry about the settings of -smtp, -port and -ssl for well known mail
+providers. This works for gmail, yahoo, outlook, gmx, zoho and aol.
+
+      mailsend-go -info -use gmail
+
 ## Send mail with a text message
 
 Notice "auth" is a command and it takes -user and -pass arguments. "body" is
