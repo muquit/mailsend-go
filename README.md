@@ -83,7 +83,7 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.9
+ Version: @($) mailsend-go v1.0.10
 
  mailsend-go [options]
   Where the options are:
