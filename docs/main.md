@@ -20,9 +20,9 @@
 
 @[:markdown](examples.md)
 
-@[:markdown](license.md)
-
 @[:markdown](faq.md)
+
+@[:markdown](license.md)
 
 @[:markdown](see_also.md)
 
