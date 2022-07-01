@@ -22,6 +22,8 @@
 
 @[:markdown](license.md)
 
+@[:markdown](faq.md)
+
 @[:markdown](see_also.md)
 
 ---
