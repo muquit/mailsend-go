@@ -1,6 +1,6 @@
 # Frequently Asked Questions (FAQ)
 
-**How to send mail via smtp.gmail.com?**
+**1. How to send mail via smtp.gmail.com?**
 
 From May 30, 2022, Google no longer supports the use of third-party apps to sign in to Google Account using username and password. However, an app-specific password can be set for mailsend-go to send mail via smtp.gmail.com. Here are the steps:
 
