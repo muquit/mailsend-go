@@ -556,7 +556,7 @@ func parseBodyCommandParams(args []string, command string) int {
 		}
 	}
 	if len(body.content) == 0 {
-		fatalError("Path of a text file or a message must be spcified with -file or -msg for command %s\n", command)
+		fatalError("Path of a text file or a message must be specified with -file or -msg for command %s\n", command)
 	}
 	if len(body.mimeType) == 0 {
 		logDebug("Detecting MIME Type....\n")
