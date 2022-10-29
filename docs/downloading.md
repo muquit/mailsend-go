@@ -49,7 +49,9 @@ You will need to install [Homebrew](https://brew.sh/) first.
 First install the custom tap.
 
 ```
-    $ brew tap muquit/mailsend-go https://github.com/muquit/mailsend-go.git
+    $ brew tap
+    $ brew untap muquit/mailsend-go
+    $ brew tap muquit/mailsend-go
     $ brew install mailsend-go
 ```
 
