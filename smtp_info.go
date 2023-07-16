@@ -39,7 +39,7 @@ func smtpAddr(host string, port int) string {
 }
 
 // muquit@muquit.com - 2018-10-26 12:20:59
-func printSMTPInfo(server string, port int, ssl bool, verifyCert bool) {
+func printSMTPInfo(server string, port int, domain string, ssl bool, verifyCert bool) {
 	addr := smtpAddr(server, port)
 	var (
 		conn       net.Conn
@@ -64,6 +64,9 @@ func printSMTPInfo(server string, port int, ssl bool, verifyCert bool) {
 			ServerName:         host,
 		}
 		conn, err = tls.Dial("tcp", addr, tlsConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	text := textproto.NewConn(conn)
@@ -79,7 +82,7 @@ func printSMTPInfo(server string, port int, ssl bool, verifyCert bool) {
 		Text:       text,
 		conn:       conn,
 		serverName: host,
-		localName:  "localhost"}
+		localName:  domain}
 	_, c.tls = conn.(*tls.Conn)
 
 	// HELO

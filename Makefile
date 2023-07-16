@@ -25,6 +25,8 @@ example:
 
 $(PROGNAME) : native
 
+# to strip out debug info: go build -ldflags="-s -w"
+
 linux: 
 	@echo "- Building $(PROGNAME)_linux"
 	@CGO_ENABLED=0 GOOS=linux go build -o $(PROGNAME)_linux
