@@ -28,7 +28,7 @@ CreateExamplesTxt() {
 # much garbage in the binary.
 #
 # Also it gets difficult with vendoring. When used glide it can't find the
-# packr call. When used dep, it pulled tons of garbage in vedor directory.
+# packr call. When used dep, it pulled tons of garbage in vendor directory.
 # WTH?
 # 
 # I don't have time to deal with al the bs.

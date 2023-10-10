@@ -1,7 +1,7 @@
 /*
 mailsend-go is a command line program to send mail via SMTP. It is the
 golang implementation of the origical C mailsend. I wrote it because I was
-getting tired of maintaning versions of Unix and Windows. In go, the binary for
+getting tired of maintaining versions of Unix and Windows. In go, the binary for
 all supported platforms can be cross compiled from one platform, in my case it
 is MacOS.
 
@@ -93,7 +93,7 @@ type Header struct {
 // Use super simple validation:
 // tag is "validate" followed by comma separated fields.
 // for string type, fields are: string,required/optional,default,flag
-// for numberic type, fields are: number,required/optional,default,min,max,flag
+// for numeric type, fields are: number,required/optional,default,min,max,flag
 // for boolean type, fields are:  boolean,required/optional,default,flag
 type Options struct {
 	Copyright                bool
@@ -420,7 +420,7 @@ func parseAttachCommandParams(args []string, command string) int {
 				fatalError("Missing value with %s for command %s\n", arg, command)
 			}
 			if !fileExists(args[i]) {
-				fatalError("Atatchment file %s does not exist\n", args[i])
+				fatalError("Attachment file %s does not exist\n", args[i])
 			}
 			a.FilePath = args[i]
 			j = i
@@ -627,7 +627,7 @@ Environment variables:
 	os.Exit(0)
 }
 
-// create slice of addresses from comma sepearated address
+// create slice of addresses from comma separated address
 func makeRecipientAddresses(to string) []string {
 	var addresses []string
 	addrs := strings.Split(to, ",")
@@ -854,7 +854,7 @@ func xprintSMTPInfo() {
 	printSMTPInfo(mailsend.options.SMTPServer, mailsend.options.Port, mailsend.options.Domain, mailsend.options.Ssl, mailsend.options.VerifyCert)
 }
 
-// Address list file a comma separed Name, Address lines
+// Address list file a comma separated Name, Address lines
 func parseAddressListFile(listFile string) {
 	csvFile, err := os.Open(listFile)
 	if err != nil {
@@ -904,7 +904,7 @@ func main() {
 			debug = true
 		} else if arg == "-h" || arg == "-help" || arg == "--h" || arg == "--help" {
 			showUsageAndExit()
-		} else if arg == "-domain" || arg == "--domian" {
+		} else if arg == "-domain" || arg == "--domain" {
 			i++
 			if i == argc {
 				fatalError("Missing value for %s\n", arg)
