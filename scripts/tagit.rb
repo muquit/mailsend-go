@@ -7,7 +7,7 @@ require "highline/import"
 
 def check_input(input)
   if input.length == 0
-    puts "Nothing pecified. exiting.."
+    puts "Nothing specified. Exiting.."
     exit 1
   end
 end
@@ -34,7 +34,7 @@ begin
   cmd = "git tag -f -a #{tag} -m \"#{comment}\""
   puts "> #{cmd}"
 
-  ans = ask "Presss Enter to continue: "
+  ans = ask "Press Enter to continue: "
   if ans.length > 0
     puts "Exit..."
     exit 1

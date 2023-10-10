@@ -28,7 +28,7 @@ $MAILSEND -smtp $SMTP_SERVER -port $TLS_PORT \
         <li> Cat embedded
         <li> flower attached
         </ul>
-        But it is upto the mail reader how they will be displayed!
+        But it is up to the mail reader how they will be displayed!
         <hr>
         The End
     </body>

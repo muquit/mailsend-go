@@ -55,4 +55,3 @@ As mailsend-go uses go modules, it can be built outside $GOPATH e.g.
     gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 ```
 Type `make help` for more targets:
-

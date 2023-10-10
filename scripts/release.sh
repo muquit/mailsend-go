@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Wrapper for golrealse
+# Wrapper for goreleaser
 # Usage: release.sh   - dryrun
-#        rlease.sh ok - really rlease
+#        release.sh ok - really rlease
 # muquit@muquit.com Jan-20-2019 
 ARGC=$#
 
@@ -10,7 +10,7 @@ TF=$(mktemp)
 create_chl() {
     v=$(git describe --abbrev=0 --tags)
     tag=$(git describe --abbrev=0 --tags|sed -e 's/\.//g')
-    echo "Plese look at [ChangeLog](ChangeLog.md#$tag) for changes in ${v}" > $TF
+    echo "Please look at [ChangeLog](ChangeLog.md#$tag) for changes in ${v}" > $TF
     ./scripts/mk_binlist.rb >> $TF
 }
 create_chl
