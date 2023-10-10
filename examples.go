@@ -2,11 +2,10 @@
 
 package main
 
-
 import "fmt"
 
 const (
-    examples = `
+	examples = `
 
 Examples
 
@@ -243,6 +242,5 @@ The default character set is utf-8
 
 // Print Examples ...
 func PrintExamples() {
-    fmt.Println(examples)
+	fmt.Println(examples)
 }
-
