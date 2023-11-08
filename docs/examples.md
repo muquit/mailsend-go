@@ -57,7 +57,7 @@ Certificate of smtp.gmail.com:
 ### Use default settings for well known mail providers
 
 Don't worry about the settings of -smtp, -port and -ssl for well known mail
-providers. This works for gmail, yahoo, outlook, gmx, zoho and aol.
+providers. This works for gmail, yahoo, office365, outlook, gmx, zoho and aol.
 
       mailsend-go -info -use gmail
 
