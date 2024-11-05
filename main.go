@@ -850,7 +850,7 @@ func xprintSMTPInfo() {
 		mailsend.options.Port = 587
 	}
 	logDebug("SMTP Server: %s:%d\n", mailsend.options.SMTPServer, mailsend.options.Port)
-	logDebug("Domain: %s\n",mailsend.options.Domain)
+	logDebug("Domain: %s\n", mailsend.options.Domain)
 	printSMTPInfo(mailsend.options.SMTPServer, mailsend.options.Port, mailsend.options.Domain, mailsend.options.Ssl, mailsend.options.VerifyCert)
 }
 

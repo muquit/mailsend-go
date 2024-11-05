@@ -10,6 +10,9 @@
 ```
 @[:markdown](usage.txt)
 ```
+
+@[:markdown](vulnerability_check.md)
+
 @[:markdown](version.md)
 
 @[:markdown](downloading.md)
