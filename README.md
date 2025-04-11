@@ -63,6 +63,8 @@ using mailsend-go as no new features will be added to
 If you have any question, request or suggestion, please enter it in the 
 [Issues](https://github.com/muquit/mailsend-go/issues) with appropriate label.
 
+Announcement: (Apr-11-2025) - SMTP XOAUTH2 support is added, will be released
+as soon as I get some time.
 
 # Features
 
