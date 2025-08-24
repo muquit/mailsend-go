@@ -31,8 +31,8 @@ other providers.
 
 (Aug-23-2025)
 
-* Since gomail.v2 is no longer maintained, I forked it to https://github.
-com/muquit/gomail. The main purpose of this fork is to add XOAUTH2 support 
+* Since gomail.v2 is no longer maintained, I forked it to 
+https://github.com/muquit/gomail. The main purpose of this fork is to add XOAUTH2 support 
 Bug #68)
 
 * Initialize EHLO domian to localhost for smtp info
