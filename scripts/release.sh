@@ -4,6 +4,9 @@
 # Usage: release.sh   - dryrun
 #        release.sh ok - really rlease
 # muquit@muquit.com Jan-20-2019 
+
+# This script is obsolete, I do not use goreleaser anymore
+# rather use my go-xbuild-go to release
 ARGC=$#
 
 TF=$(mktemp)

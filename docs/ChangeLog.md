@@ -1,3 +1,31 @@
+# v1.0.11-b1
+* Initial support to send mail via XOAUTH2. The flags are:
+
+   -oauth2 -token "access token"
+
+Or specify the Access token with environament variable **SMTP_OAUTH_TOKEN**
+
+Note: mailsend-go itself does not do any OAUTH flow it just needs the 
+access token, you've to get it from your SMTP email provider and use it 
+with mailsend-go to send mail.
+
+Please look at the following projects on how an Access Token is Obtained - 
+Instructions are for Google and gmail at this time.  But it is similar for 
+other providers.
+
+* [smtp-oauth-setup-guide](https://github.com/muquit/smtp-oauth-setup-guide)
+* [oauth-helper](https://github.com/muquit/oauth-helper)
+
+(Aug-23-2025)
+
+* Since gomail.v2 is no longer maintained, I forked it to https://github.
+com/muquit/gomail. The main purpose of this fork is to add XOAUTH2 support 
+Bug #68)
+
+* Initialize EHLO domian to localhost for smtp info
+
+(Feb-14-2025)
+
 # v1.0.10
 * Add flag -use <mail provider> to specify default values for -smtp, -port and
 -ssl for well known mail providers. This works for gmail, yahoo, outlook, 

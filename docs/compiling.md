@@ -17,41 +17,17 @@ typing `unset GO111MODULE`
 
 To compile yourself:
 
-* If you are using very old version of go, install dependencies by typing:
-
 ```
-    $ git clone https://github.com/muquit/mailsend-go.git
-    $ cd mailsend-go
-    $ make tools
-    $ make
-```
-
-* If you are using go 1.11+, dependencies will be installed via go modules.
-If you cloned mailsend-go inside your $GOPATH, you have to set env var:
-
-```
-    $ export GO111MODULE=on
-```
-* Finally compile mailsend-go by typing:
-
-```
-    $ make
-```
-
-As mailsend-go uses go modules, it can be built outside $GOPATH e.g.
-```
-    $ cd /tmp
     $ git clone https://github.com/muquit/mailsend-go.git
     $ cd mailsend-go
     $ make
     $ ./mailsend-go -V
-    @(#) mailsend-go v1.0.1
 ```
+
 * List the packages used (if you are outside $GOPATH)
 ```
     $ go list -m "all"
     github.com/muquit/mailsend-go
-    gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
-    gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+    github.com/muquit/gomail v0.0.0-20250327010414-6846ede5e07d
+    github.com/muquit/quotedprintable v0.0.0-20250204043250-71206103869d
 ```
-Type `make help` for more targets:

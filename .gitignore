@@ -1,4 +1,9 @@
-mailsend-go
-mailsend-go_linux
-mailsend-go_mac
-mailsend-go.exe
+/mailsend-go
+/mailsend-go_linux
+/mailsend-go_mac
+/mailsend-go.exe
+bin/
+*.bak
+*.json
+*.token
+token*

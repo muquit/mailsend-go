@@ -1,8 +1,7 @@
 module github.com/muquit/mailsend-go
 
-require (
-	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
-	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
-)
+go 1.24.0
 
-go 1.13
+require github.com/muquit/gomail v0.0.0-20250704205629-a34fa7a15a08
+
+require github.com/muquit/quotedprintable v0.0.0-20250204043250-71206103869d // indirect

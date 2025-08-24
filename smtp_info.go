@@ -86,6 +86,9 @@ func printSMTPInfo(server string, port int, domain string, ssl bool, verifyCert 
 	_, c.tls = conn.(*tls.Conn)
 
 	// HELO
+	if len(c.localName) == 0 {
+		c.localName = "localhost"
+	}
 	printMsg("[C] HELO %s\n", c.localName)
 	_, _, err = c.cmd(250, "HELO %s", c.localName)
 	if err != nil {

@@ -36,7 +36,6 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -45,11 +44,11 @@ import (
 	"strconv"
 	"strings"
 
-	gomail "gopkg.in/gomail.v2"
+	gomail "github.com/muquit/gomail"
 )
 
 const (
-	version = "1.0.10"
+	version = "1.0.11-b1"
 )
 
 var (
@@ -79,6 +78,8 @@ type Body struct {
 type Auth struct {
 	Username string
 	Password string
+	OAuth2   bool
+	Token    string
 }
 
 // Header ...
@@ -467,7 +468,7 @@ func showHelp(arg string) {
 func parseAuthCommandParams(args []string, command string) int {
 	argc := len(args)
 	j := 1
-	max := 4
+	max := 8 // Updated to handle OAuth2 flags
 	auth := NewAuth()
 	for i := 1; i < argc; i++ {
 		arg := args[i]
@@ -486,27 +487,85 @@ func parseAuthCommandParams(args []string, command string) int {
 			}
 			auth.Username = args[i]
 			j = i
-		}
-		if arg == "-pass" {
+		} else if arg == "-pass" {
 			i++
 			if i == argc {
 				fatalError("Missing value with %s for command %s\n", arg, command)
 			}
 			auth.Password = args[i]
 			j = i
+		} else if arg == "-oauth2" {
+			auth.OAuth2 = true
+			j = i
+		} else if arg == "-token" {
+			i++
+			if i == argc {
+				fatalError("Missing value with %s for command %s\n", arg, command)
+			}
+			if args[i] == "-" {
+				// Read token from stdin
+				scanner := bufio.NewScanner(os.Stdin)
+				if scanner.Scan() {
+					auth.Token = strings.TrimSpace(scanner.Text())
+				}
+				if err := scanner.Err(); err != nil {
+					fatalError("Error reading token from stdin: %v\n", err)
+				}
+				if auth.Token == "" {
+					fatalError("No token received from stdin for command %s\n", command)
+				}
+			} else {
+				auth.Token = args[i]
+			}
+			j = i
 		}
 	}
+	fmt.Printf("DEBUG: OAuth2=%t, Password='%s', Length=%d\n", auth.OAuth2, auth.Password, len(auth.Password))
+
+	// Validation logic
 	if len(auth.Username) == 0 {
-		fatalError("No auth username specified with -user with command %s\n", command)
+		fatalError("No auth username specified with -user for command %s\n", command)
 	}
+
+	// Check if basic auth is configured
+	passConfigured := len(auth.Password) > 0  // -pass was used with value
 	if len(auth.Password) == 0 {
-		evar := "SMTP_USER_PASS"
-		pass, ok := os.LookupEnv(evar)
-		if !ok {
-			fatalError("No auth password specified with -pass or env variable %s for command %s\n", evar, command)
-		}
-		auth.Password = pass
+		_, passConfigured = os.LookupEnv("SMTP_USER_PASS")  // or env var exists
 	}
+
+	// Check if OAuth2 is configured  
+	oauth2Configured := auth.OAuth2 && (len(auth.Token) > 0 || func() bool {
+		_, exists := os.LookupEnv("SMTP_OAUTH_TOKEN")
+		return exists
+	}())
+
+	// Mutual exclusion check
+	if passConfigured && oauth2Configured {
+		fatalError("Cannot use both basic auth (-pass/SMTP_USER_PASS) and OAuth2 (-oauth2/-token/SMTP_OAUTH_TOKEN) for command %s\n", command)
+	}
+
+	if auth.OAuth2 {
+		// OAuth2 validation
+		if len(auth.Token) == 0 {
+			evar := "SMTP_OAUTH_TOKEN"
+			token, ok := os.LookupEnv(evar)
+			if !ok {
+				fatalError("No OAuth2 token specified with -token or env variable %s for command %s\n", evar, command)
+			}
+			auth.Token = token
+		}
+	} else {
+		// Basic auth validation
+		if len(auth.Password) == 0 {
+			evar := "SMTP_USER_PASS"
+			pass, ok := os.LookupEnv(evar)
+			if !ok {
+				fatalError("No auth password specified with -pass or env variable %s for command %s\n", evar, command)
+			}
+			auth.Password = pass
+		}
+	}
+
 	mailsend.auth = *auth
 	if j > max {
 		j = max
@@ -600,8 +659,12 @@ func showUsageAndExit() {
   -cs charset            - Character set for text/HTML. Default is utf-8
   -V                     - show version and exit
   auth                   - Auth Command
-   -user username*       - username for ESMTP authentication. Required
-   -pass password*       - password for EMSPTP authentication. Required
+   -user username*       - For basic auth: username for ESMTP authentication
+                           For OAuth2: email address of the authenticated account
+                           Required for both auth methods
+   -pass password*       - password for ESMTP authentication. Required for basic auth
+   -oauth2               - Use OAuth2 XOAUTH2 authentication instead of basic auth
+   -token access_token*  - OAuth2 access token. Required when -oauth2 is used
   body                   - body command for attachment for mail body
    -msg msg              - message to show as body 
    -file path            - or path of a text/HTML file
@@ -620,6 +683,7 @@ The options with * are required.
 
 Environment variables:
    SMTP_USER_PASS for auth password (-pass)
+   SMTP_OAUTH_TOKEN for OAuth2 access token (-token)
 `
 
 	usage = strings.Replace(usage, "\t", "    ", -1)
@@ -768,7 +832,20 @@ func sendMail() {
 	logFile("Setting From with name: %s,%s\n", o.From, o.FromName)
 
 	var d *gomail.Dialer
+	/*
 	if mailsend.auth.Username != "" && mailsend.auth.Password != "" {
+		logDebug("Using ESMTP Authentication")
+		d = gomail.NewDialer(o.SMTPServer, o.Port, mailsend.auth.Username, mailsend.auth.Password)
+	} else {
+		logDebug("Not Using ESMTP Authentication")
+		d = &gomail.Dialer{Host: o.SMTPServer, Port: o.Port}
+	}
+	*/
+	// Add XOAUTH2 support Jul-04-2025 
+	if mailsend.auth.OAuth2 {
+		logDebug("Using OAuth2 XOAUTH2 Authentication")
+		d = gomail.NewXOAuth2Dialer(o.SMTPServer, o.Port, mailsend.auth.Username, mailsend.auth.Token)
+	} else if mailsend.auth.Username != "" && mailsend.auth.Password != "" {
 		logDebug("Using ESMTP Authentication")
 		d = gomail.NewDialer(o.SMTPServer, o.Port, mailsend.auth.Username, mailsend.auth.Password)
 	} else {
@@ -777,7 +854,11 @@ func sendMail() {
 	}
 
 	// default is localhost
+	logDebug("MMM domain: '%s'\n", mailsend.options.Domain)
 	d.LocalName = mailsend.options.Domain
+	if len(d.LocalName) == 0 {
+		d.LocalName = "localhost"
+	}
 
 	if mailsend.options.Ssl {
 		d.SSL = true
@@ -831,7 +912,7 @@ func sendMail() {
 // return content of the file as string
 // exit on error
 func readFile(path string) []byte {
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		fatalError("Could not read file %s:%s\n", path, err)
 	}

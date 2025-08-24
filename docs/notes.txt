@@ -15,4 +15,4 @@ My personal note
   - Final publish
   set GITHUB_TOKEN env var and then
   ./scripts/release.sh ok to publish
-  
+* Update github profile repo list  

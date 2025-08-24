@@ -16,9 +16,18 @@ CP= /bin/cp -v
 OS= $(shell go env GOOS)
 
 all:
+	@echo "- Getting go get github.com/muquit/gomail@master ..."
+	go get github.com/muquit/gomail@master
+	go mod tidy
 	@echo "- Compiling ${PROGNAME} ..."
 	go build
+	/bin/ls -lt ${PROGNAME}
 
+# use go-xbuild-go
+build_all:
+	@echo "- Building for all selected platforms ..."
+	/bin/rm -f bin/*
+	go-xbuild-go
 
 example:
 	@./scripts/mkexamples.sh
@@ -70,13 +79,13 @@ gen: example doc
 
 dev: gen all doc
 
+mod_clean:
+	@./scripts/mod_clean.sh
+
 doc:
 	@./scripts/mkdocs.sh
 	@echo " - Generate docs/mailsend-go.1"
 	@pandoc --standalone --to man README.md -o docs/mailsend-go.1
-
-tools:
-	go get gopkg.in/gomail.v2
 
 install: install-bin
 

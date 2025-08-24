@@ -1,4 +1,4 @@
- Version: @($) mailsend-go v1.0.10
+ Version: @($) mailsend-go v1.0.11-b1
 
  mailsend-go [options]
   Where the options are:
@@ -29,8 +29,12 @@
   -cs charset            - Character set for text/HTML. Default is utf-8
   -V                     - show version and exit
   auth                   - Auth Command
-   -user username*       - username for ESMTP authentication. Required
-   -pass password*       - password for EMSPTP authentication. Required
+   -user username*       - For basic auth: username for ESMTP authentication
+                           For OAuth2: email address of the authenticated account
+                           Required for both auth methods
+   -pass password*       - password for ESMTP authentication. Required for basic auth
+   -oauth2               - Use OAuth2 XOAUTH2 authentication instead of basic auth
+   -token access_token*  - OAuth2 access token. Required when -oauth2 is used
   body                   - body command for attachment for mail body
    -msg msg              - message to show as body 
    -file path            - or path of a text/HTML file
@@ -49,4 +53,5 @@ The options with * are required.
 
 Environment variables:
    SMTP_USER_PASS for auth password (-pass)
+   SMTP_OAUTH_TOKEN for OAuth2 access token (-token)
 

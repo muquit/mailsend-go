@@ -52,7 +52,11 @@
 [golang](https://golang.org/) incarnation of my C version of
 [mailsend](https://github.com/muquit/mailsend/). However, this version is much
 simpler and all the heavy lifting is done by the package
-[gomail.v2](https://gopkg.in/gomail.v2)
+[gomail.v2](https://gopkg.in/gomail.v2). 
+
+**Note:** this package is not maintained anymore. Therefore, I forked it to
+[gomail](https://github.com/muquit/gomail) (starting from mailsend-go v1.0.11, Feb-14-2025).
+The main purpose of this fork is to add XOAUTH2 support (Bug #68, TODO).
 
 If you use [mailsend](https://github.com/muquit/mailsend), please consider
 using mailsend-go as no new features will be added to 
@@ -85,7 +89,7 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.10
+ Version: @($) mailsend-go v1.0.11-b1
 
  mailsend-go [options]
   Where the options are:
@@ -116,8 +120,12 @@ course)
   -cs charset            - Character set for text/HTML. Default is utf-8
   -V                     - show version and exit
   auth                   - Auth Command
-   -user username*       - username for ESMTP authentication. Required
-   -pass password*       - password for EMSPTP authentication. Required
+   -user username*       - For basic auth: username for ESMTP authentication
+                           For OAuth2: email address of the authenticated account
+                           Required for both auth methods
+   -pass password*       - password for ESMTP authentication. Required for basic auth
+   -oauth2               - Use OAuth2 XOAUTH2 authentication instead of basic auth
+   -token access_token*  - OAuth2 access token. Required when -oauth2 is used
   body                   - body command for attachment for mail body
    -msg msg              - message to show as body 
    -file path            - or path of a text/HTML file
@@ -136,18 +144,33 @@ The options with * are required.
 
 Environment variables:
    SMTP_USER_PASS for auth password (-pass)
+   SMTP_OAUTH_TOKEN for OAuth2 access token (-token)
 
 ```
 
 # Vulnerability Check
 
 ```
-➤ govulncheck -show verbose ./...
-Scanning your code and 138 packages across 2 dependent modules for known vulnerabilities...
+➤ govulncheck --version
+Go: go1.24.4
+Scanner: govulncheck@v1.1.5-0.20250813145526-b9d319d7ce41
+DB: https://vuln.go.dev
+DB updated: 2025-08-20 17:47:35 +0000 UTC
 
+No vulnerabilities found.
+```
+
+```
+➤ govulncheck -show verbose ./...
 Fetching vulnerabilities from the database...
 
 Checking the code against the vulnerabilities...
+
+The package pattern matched the following root package:
+  github.com/muquit/mailsend-go
+Govulncheck scanned the following 2 modules and the go1.24.4 standard library:
+  github.com/muquit/mailsend-go
+  github.com/muquit/gomail@v0.0.0-20250327010414-6846ede5e07d
 
 === Symbol Results ===
 
@@ -159,35 +182,24 @@ No other vulnerabilities found.
 
 === Module Results ===
 
-Vulnerability #1: GO-2024-3107
-    Stack exhaustion in Parse in go/build/constraint
-  More info: https://pkg.go.dev/vuln/GO-2024-3107
+Vulnerability #1: GO-2025-3849
+    Incorrect results returned from Rows.Scan in database/sql
+  More info: https://pkg.go.dev/vuln/GO-2025-3849
   Standard library
-    Found in: stdlib@go1.22.5
-    Fixed in: stdlib@go1.22.7
-
-Vulnerability #2: GO-2024-3106
-    Stack exhaustion in Decoder.Decode in encoding/gob
-  More info: https://pkg.go.dev/vuln/GO-2024-3106
-  Standard library
-    Found in: stdlib@go1.22.5
-    Fixed in: stdlib@go1.22.7
-
-Vulnerability #3: GO-2024-3105
-    Stack exhaustion in all Parse functions in go/parser
-  More info: https://pkg.go.dev/vuln/GO-2024-3105
-  Standard library
-    Found in: stdlib@go1.22.5
-    Fixed in: stdlib@go1.22.7
+    Found in: stdlib@go1.24.4
+    Fixed in: stdlib@go1.24.6
 
 Your code is affected by 0 vulnerabilities.
-This scan also found 0 vulnerabilities in packages you import and 3
-vulnerabilities in modules you require, but your code doesn't appear to call
-these vulnerabilities.
+This scan also found 0 vulnerabilities in packages you import and 1
+vulnerability in modules you require, but your code doesn't appear to call these
+vulnerabilities.
 ```
 
 # Version
-The current version of mailsend-go is 1.0.10, released on Dec-06-2020 
+The current stable ersion of mailsend-go is 1.0.10, released on Dec-06-2020 
+
+The beta version is v1.0.11-b1, has support for SMTP XOAUTH2, released on
+Aug-23-2025 
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
@@ -385,44 +397,20 @@ typing `unset GO111MODULE`
 
 To compile yourself:
 
-* If you are using very old version of go, install dependencies by typing:
-
 ```
-    $ git clone https://github.com/muquit/mailsend-go.git
-    $ cd mailsend-go
-    $ make tools
-    $ make
-```
-
-* If you are using go 1.11+, dependencies will be installed via go modules.
-If you cloned mailsend-go inside your $GOPATH, you have to set env var:
-
-```
-    $ export GO111MODULE=on
-```
-* Finally compile mailsend-go by typing:
-
-```
-    $ make
-```
-
-As mailsend-go uses go modules, it can be built outside $GOPATH e.g.
-```
-    $ cd /tmp
     $ git clone https://github.com/muquit/mailsend-go.git
     $ cd mailsend-go
     $ make
     $ ./mailsend-go -V
-    @(#) mailsend-go v1.0.1
 ```
+
 * List the packages used (if you are outside $GOPATH)
 ```
     $ go list -m "all"
     github.com/muquit/mailsend-go
-    gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
-    gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+    github.com/muquit/gomail v0.0.0-20250327010414-6846ede5e07d
+    github.com/muquit/quotedprintable v0.0.0-20250204043250-71206103869d
 ```
-Type `make help` for more targets:
 
 # Docker
 
@@ -710,7 +698,7 @@ If there are any gotchas or need more clarification, please send a pull request 
 
 License is MIT
 
-Copyright © 2018-2023 muquit@muquit.com
+Copyright © 2018-2025 muquit@muquit.com
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the "Software"),
