@@ -55,7 +55,7 @@
 [mailsend](https://github.com/muquit/mailsend/). However, this version is much
 simpler and all the heavy lifting is done by the package
 [gomail.v2](https://gopkg.in/gomail.v2). However, this package is not maintained anymore. Therefore, I forked it to
-[gomail](https://github.com/muquit/gomail) (starting from mailsend-go v1.0.11, Feb-14-2025).
+[gomail](https://github.com/muquit/gomail) (starting from mailsend-go v1.0.11-b1 Aug-24-2025).
 The main purpose of this fork is to add XOAUTH2 support (Bug #68)
 
 If you use [mailsend](https://github.com/muquit/mailsend), please consider
