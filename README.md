@@ -54,9 +54,7 @@
 [golang](https://golang.org/) incarnation of my C version of
 [mailsend](https://github.com/muquit/mailsend/). However, this version is much
 simpler and all the heavy lifting is done by the package
-[gomail.v2](https://gopkg.in/gomail.v2). 
-
-**Note:** this package is not maintained anymore. Therefore, I forked it to
+[gomail.v2](https://gopkg.in/gomail.v2). However, this package is not maintained anymore. Therefore, I forked it to
 [gomail](https://github.com/muquit/gomail) (starting from mailsend-go v1.0.11, Feb-14-2025).
 The main purpose of this fork is to add XOAUTH2 support (Bug #68)
 
@@ -67,7 +65,7 @@ using mailsend-go as no new features will be added to
 If you have any question, request or suggestion, please enter it in the 
 [Issues](https://github.com/muquit/mailsend-go/issues) with appropriate label.
 
-XOAUTH2 support is available in v1.0.11-b1
+**NOTE:** XOAUTH2 support is available in v1.0.11-b1 (Released on Aug-24-2025)
 
 # Features
 
