@@ -1,9 +1,9 @@
 First cut to support SMTP XOAUTH2. This version is in beta. Please test and
 give feedback if it works for you.
 
-`mailsend-go` itself does not do any OAUTH2 flow. It only takes the email and
-the access token for authenticate. You have to obtain the access token
-externally. 
+`mailsend-go` itself does not do any OAUTH2 flow. It only takes 
+the access token to authenticate before sending mail.
+You have to obtain the access token externally. 
 
 Please look at the following projects on how an Access Token is Obtained -
 Instructions are for Google and gmail at this time.  But it is similar for
