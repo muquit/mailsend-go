@@ -240,7 +240,7 @@ func fatalError(format string, a ...interface{}) {
 
 // Validate numeric value
 func (v NumberValidator) Validate(val interface{}) (bool, error) {
-	logDebug("in Numberic validator default: %d\n", v.Default)
+	logDebug("in Number validator default: %d\n", v.Default)
 	num := val.(int)
 	logDebug("num: %d\n", num)
 	if num == 0 { // not specified
@@ -646,7 +646,7 @@ func showUsageAndExit() {
                            unless '-use' is set.
   -use mailprovider      - Arranges -smtp, -port and -ssl for you when using
                            a well known mailprovider. Allowed values:
-                           gmail, yahoo, outlook, gmx, zoho, aol
+                           gmail, yahoo, outlook, office365, gmx, zoho, aol
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server
@@ -1047,8 +1047,11 @@ func main() {
 				mailsend.options.SMTPServer = "smtp.mail.yahoo.com"
 				mailsend.options.Port = 465
 				mailsend.options.Ssl = true
+			} else if args[i] == "office365" {
+				mailsend.options.SMTPServer = "smtp.office365.com"
+				mailsend.options.Port = 587
 			} else if args[i] == "outlook" {
-				mailsend.options.SMTPServer = "smtp.live.com"
+				mailsend.options.SMTPServer = "smtp-mail.outlook.com"
 				mailsend.options.Port = 587
 			} else if args[i] == "gmx" {
 				mailsend.options.SMTPServer = "smtp.gmx.com"
@@ -1062,7 +1065,7 @@ func main() {
 				mailsend.options.SMTPServer = "smtp.aol.com"
 				mailsend.options.Port = 587
 			} else {
-				fatalError("Mailprovider '%s' not known\n", args[i])
+				fatalError("Mail provider '%s' not known\n", args[i])
 			}
 		} else if arg == "-smtp" || arg == "--smtp" {
 			i++
