@@ -5,8 +5,8 @@
 ```
 Or specify the Access token with environament variable **SMTP_OAUTH_TOKEN**
 
-Note: mailsend-go itself does not do any OAUTH flow it just needs the 
-access token, you've to get it from your SMTP email provider and use it 
+Note: mailsend-go itself does not do any OAUTH flow. It just needs the 
+OAUTH2 access token. You've to get it from your SMTP email provider and use it 
 with mailsend-go to send mail.
 
 Please look at the following projects on how an Access Token is Obtained - 
