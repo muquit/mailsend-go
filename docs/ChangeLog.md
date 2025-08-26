@@ -1,8 +1,8 @@
 # v1.0.11-b1
 * Initial support to send mail via XOAUTH2. The flags are:
-
-   -oauth2 -token "access token"
-
+```
+   auth -oauth2 -token "access token"
+```
 Or specify the Access token with environament variable **SMTP_OAUTH_TOKEN**
 
 Note: mailsend-go itself does not do any OAUTH flow it just needs the 
