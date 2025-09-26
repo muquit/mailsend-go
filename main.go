@@ -44,11 +44,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/muquit/mailsend-go/pkg/version"
 	gomail "github.com/muquit/gomail"
-)
-
-const (
-	version = "1.0.11-b1"
 )
 
 var (
@@ -120,6 +117,7 @@ type Options struct {
 	Quiet                    bool
 	LogfilePath              string
 	VerifyCert               bool
+	PrintCerts               bool
 	PrintSMTPInfo            bool
 	CharacterSet             string
 }
@@ -629,7 +627,7 @@ func parseBodyCommandParams(args []string, command string) int {
 }
 
 func showUsageAndExit() {
-	v := " Version: @($) mailsend-go v" + version
+	v := " Version: @($) mailsend-go " + version.Get()
 	usage := ` mailsend-go [options]
   Where the options are:
   -debug                 - Print debug messages
@@ -650,6 +648,7 @@ func showUsageAndExit() {
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server
+  -printCerts            - Print Certificates in connection with -info. Default is No
   -ssl                   - SMTP over SSL. Default is StartTLS
   -verifyCert            - Verify Certificate in connection. Default is No
   -ex                    - show examples
@@ -687,7 +686,8 @@ Environment variables:
 `
 
 	usage = strings.Replace(usage, "\t", "    ", -1)
-	fmt.Printf("%s\n\n%s\n", v, usage)
+	compiledWith := " Compiled with go version: " + runtime.Version()
+	fmt.Printf("%s\n%s\n\n%s\n", v, compiledWith, usage)
 	os.Exit(0)
 }
 
@@ -762,7 +762,7 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 	}
 
 	m.SetHeader("Subject", o.Subject)
-	xmailer := fmt.Sprintf(" @(#) mailsend-go v%s, %s", version, runtime.GOOS)
+	xmailer := fmt.Sprintf(" @(#) mailsend-go v%s, %s", version.Get(), runtime.GOOS)
 	m.SetHeader("X-Mailer", xmailer)
 	m.SetHeader("X-Copyright", "MIT. It is illegal to use this software for Spamming")
 
@@ -813,7 +813,7 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 }
 
 func sendMail() {
-	logFile("- mailsend-go v%s starts -\n", version)
+	logFile("- mailsend-go v%s starts -\n", version.Get())
 	o := mailsend.options
 	logDebug("Subject: %s\n", o.Subject)
 	logDebug("From: %s\n", o.From)
@@ -854,7 +854,7 @@ func sendMail() {
 	}
 
 	// default is localhost
-	logDebug("MMM domain: '%s'\n", mailsend.options.Domain)
+	logDebug("domain: '%s'\n", mailsend.options.Domain)
 	d.LocalName = mailsend.options.Domain
 	if len(d.LocalName) == 0 {
 		d.LocalName = "localhost"
@@ -866,9 +866,17 @@ func sendMail() {
 	logDebug("SSL? %t\n", d.SSL)
 	if d.SSL {
 		// always skip verification, it segfaults if the host is an IP address
-		d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+		// d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+		// Issue #71 Sep-26-2025 
+		d.TLSConfig = &tls.Config{
+			ServerName: mailsend.options.SMTPServer,
+			InsecureSkipVerify: !mailsend.options.VerifyCert,
+		}
 	} else {
-		d.TLSConfig = &tls.Config{InsecureSkipVerify: !mailsend.options.VerifyCert}
+		d.TLSConfig = &tls.Config{
+			ServerName: mailsend.options.SMTPServer,
+			InsecureSkipVerify: !mailsend.options.VerifyCert,
+		}
 	}
 	s, err := d.Dial()
 	if err != nil {
@@ -906,7 +914,7 @@ func sendMail() {
 	}
 	logFile("Mail Sent Successfully\n")
 
-	logFile("- mailsend-go v%s ends -\n", version)
+	logFile("- mailsend-go v%s ends -\n", version.Get())
 }
 
 // return content of the file as string
@@ -932,7 +940,7 @@ func xprintSMTPInfo() {
 	}
 	logDebug("SMTP Server: %s:%d\n", mailsend.options.SMTPServer, mailsend.options.Port)
 	logDebug("Domain: %s\n", mailsend.options.Domain)
-	printSMTPInfo(mailsend.options.SMTPServer, mailsend.options.Port, mailsend.options.Domain, mailsend.options.Ssl, mailsend.options.VerifyCert)
+	printSMTPInfo(mailsend.options.SMTPServer, mailsend.options.Port, mailsend.options.Domain, mailsend.options.Ssl, mailsend.options.VerifyCert, mailsend.options.PrintCerts)
 }
 
 // Address list file a comma separated Name, Address lines
@@ -1105,7 +1113,8 @@ func main() {
 			}
 			mailsend.options.CharacterSet = args[i]
 		} else if arg == "-V" || arg == "--V" {
-			fmt.Printf("@(#) mailsend-go v%s\n", version)
+			fmt.Printf("@(#) mailsend-go v%s\n", version.Get())
+			fmt.Printf("Compiled with go version: %s\n", runtime.Version())
 			os.Exit(0)
 		} else if arg == "-info" || arg == "--info" {
 			mailsend.options.PrintSMTPInfo = true
@@ -1113,6 +1122,8 @@ func main() {
 			mailsend.options.Ssl = true
 		} else if arg == "-verifyCert" || arg == "--verifyCert" {
 			mailsend.options.VerifyCert = true
+		} else if arg == "-printCerts" || arg == "--printCerts" {
+			mailsend.options.PrintCerts = true
 		} else if arg == "-q" || arg == "-quiet" || arg == "--q" || arg == "--quiet" {
 			mailsend.options.Quiet = true
 		} else if arg == "body" {
@@ -1132,6 +1143,7 @@ func main() {
 		}
 	}
 	if mailsend.options.PrintSMTPInfo {
+		logDebug("Verify cert: %v\n", mailsend.options.VerifyCert)
 		xprintSMTPInfo()
 		os.Exit(0)
 	}
@@ -1144,7 +1156,7 @@ func main() {
 
 	errors := validateGlobalFlags()
 	if len(errors) > 0 {
-		fmt.Printf("\nmailsend-go v%s\n\n", version)
+		fmt.Printf("\nmailsend-go v%s\n\n", version.Get())
 		for _, err := range errors {
 			fmt.Printf("ERROR: %s\n", err.Error())
 		}

@@ -1,3 +1,15 @@
+# v1.0.11-b2
+
+* ServerName was missing from `tls.Config`, needed for `-verifyCert` option.  Bug #71.
+
+* Added flag `-printCerts` to print details certificate chain during
+displaying  SMTP information with `-info` for SSL or StartTLS
+
+* Use build-time version injection via ldflags instead of hardcoded 
+version in main.go using -X ldflags and VERSION file.
+
+(Sep-26-2025)
+
 # v1.0.11-b1
 * Initial support to send mail via XOAUTH2. The flags are:
 ```

@@ -58,6 +58,9 @@ Use SSL. Note the port is different
 
       mailsend-go -info -smtp smtp.gmail.com -port 465 -ssl
 
+If -printCerts is specified for SSL or StartTLS, the detailed
+certificate information will be printed.
+
 Use default settings for well known mail providers
 
 Don’t worry about the settings of -smtp, -port and -ssl for well known

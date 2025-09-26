@@ -7,8 +7,9 @@ PROGNAME_WIN= $(PROGNAME).exe
 PROGNAME_PI= $(PROGNAME)-raspberry-pi
 PROGNAME_PI_JESSIE= $(PROGNAME)-raspberry-pi-jessie
 DESTDIR=
-VERSION=1.0.1
-BUILD_OPTIONS = -ldflags "-X main.Version=$(VERSION)"
+VERSION := $(shell cat VERSION)
+LDFLAGS := -ldflags "-w -s -X 'github.com/muquit/mailsend-go/pkg/version.Version=$(VERSION)'"
+BUILD_OPTIONS := -trimpath
 BINDIR= /usr/local/bin
 MANPAGE= docs/mailsend-go.1
 MANDIR= /usr/local/share/man/man1
@@ -20,14 +21,14 @@ all:
 	go get github.com/muquit/gomail@master
 	go mod tidy
 	@echo "- Compiling ${PROGNAME} ..."
-	go build
+	go build $(BUILD_OPTIONS) $(LDFLAGS)
 	/bin/ls -lt ${PROGNAME}
 
 # use go-xbuild-go
 build_all:
 	@echo "- Building for all selected platforms ..."
 	/bin/rm -f bin/*
-	go-xbuild-go
+	go-xbuild-go -build-args '$(BUILD_OPTIONS) $(LDFLAGS)'
 
 example:
 	@./scripts/mkexamples.sh
@@ -38,37 +39,37 @@ $(PROGNAME) : native
 
 linux: 
 	@echo "- Building $(PROGNAME)_linux"
-	@CGO_ENABLED=0 GOOS=linux go build -o $(PROGNAME)_linux
+	@CGO_ENABLED=0 GOOS=linux go build $(BUILD_OPTIONS) $(LDFLAGS) -o $(PROGNAME)_linux
 	/bin/ls -lt $(PROGNAME)_linux
 	@echo ""
 
 native:
 	@echo "- Building $(PROGNAME)"
-	@go build -o $(PROGNAME)
+	go build $(BUILD_OPTIONS) $(LDFLAGS) -o $(PROGNAME)
 	/bin/ls -lt $(PROGNAME)
 	@echo ""
 
 windows:
 	@echo "- Building $(PROGNAME_WIN) for Windows amd64"
-	CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -o $(PROGNAME_WIN)
+	CGO_ENABLED=0 GOOS=windows GOARCH=386 go build $(BUILD_OPTIONS) $(LDFLAGS) -o $(PROGNAME_WIN)
 	/bin/ls -lt $(PROGNAME_WIN)
 	@echo ""
 
 mac:
 	@echo "- Building $(PROGNAME) for Mac amd64"
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(PROGNAME)_mac
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build $(BUILD_OPTIONS) $(LDFLAGS) -o $(PROGNAME)_mac
 	/bin/ls -lt $(PROGNAME)_mac
 	@echo ""
 
 pi: 
 	@echo "- Building $(PROGNAME) for raspberry pi"
-	GOOS=linux GOARCH=arm GOARM=7 go build -o $(PROGNAME_PI)
+	GOOS=linux GOARCH=arm GOARM=7 go build $(BUILD_OPTIONS) $(LDFLAGS) -o $(PROGNAME_PI)
 	/bin/ls -lt $(PROGNAME_PI)
 	@echo ""
 
 pijessie: 
 	@echo "- Building $(PROGNAME) for raspberry pi jessie"
-	GOARM=6 GOARCH=arm GOOS=linux go build -o $(PROGNAME_PI_JESSIE)
+	GOARM=6 GOARCH=arm GOOS=linux go build $(BUILD_OPTIONS) $(LDFLAGS) -o $(PROGNAME_PI_JESSIE)
 	/bin/ls -lt $(PROGNAME_PI_JESSIE)
 	@echo ""
 

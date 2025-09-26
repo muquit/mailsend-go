@@ -90,7 +90,8 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.11-b1
+ Version: @($) mailsend-go v1.0.11-b2
+ Compiled with go version: go1.25.1
 
  mailsend-go [options]
   Where the options are:
@@ -112,6 +113,7 @@ course)
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server
+  -printCerts            - Print Certificates in connection with -info. Default is No
   -ssl                   - SMTP over SSL. Default is StartTLS
   -verifyCert            - Verify Certificate in connection. Default is No
   -ex                    - show examples
@@ -153,10 +155,10 @@ Environment variables:
 
 ```
 ➤ govulncheck --version
-Go: go1.24.4
-Scanner: govulncheck@v1.1.5-0.20250813145526-b9d319d7ce41
+Go: go1.25.1
+Scanner: govulncheck@v1.1.4
 DB: https://vuln.go.dev
-DB updated: 2025-08-20 17:47:35 +0000 UTC
+DB updated: 2025-09-24 19:21:41 +0000 UTC
 
 No vulnerabilities found.
 ```
@@ -167,33 +169,14 @@ Fetching vulnerabilities from the database...
 
 Checking the code against the vulnerabilities...
 
-The package pattern matched the following root package:
+The package pattern matched the following 2 root packages:
+  github.com/muquit/mailsend-go/pkg/version
   github.com/muquit/mailsend-go
-Govulncheck scanned the following 2 modules and the go1.24.4 standard library:
+Govulncheck scanned the following 2 modules and the go1.25.1 standard library:
   github.com/muquit/mailsend-go
-  github.com/muquit/gomail@v0.0.0-20250327010414-6846ede5e07d
-
-=== Symbol Results ===
+  github.com/muquit/gomail@v0.0.0-20250704205629-a34fa7a15a08
 
 No vulnerabilities found.
-
-=== Package Results ===
-
-No other vulnerabilities found.
-
-=== Module Results ===
-
-Vulnerability #1: GO-2025-3849
-    Incorrect results returned from Rows.Scan in database/sql
-  More info: https://pkg.go.dev/vuln/GO-2025-3849
-  Standard library
-    Found in: stdlib@go1.24.4
-    Fixed in: stdlib@go1.24.6
-
-Your code is affected by 0 vulnerabilities.
-This scan also found 0 vulnerabilities in packages you import and 1
-vulnerability in modules you require, but your code doesn't appear to call these
-vulnerabilities.
 ```
 
 # Version

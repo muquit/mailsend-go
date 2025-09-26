@@ -1,4 +1,5 @@
- Version: @($) mailsend-go v1.0.11-b1
+ Version: @($) mailsend-go v1.0.11-b2
+ Compiled with go version: go1.25.1
 
  mailsend-go [options]
   Where the options are:
@@ -20,6 +21,7 @@
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server
+  -printCerts            - Print Certificates in connection with -info. Default is No
   -ssl                   - SMTP over SSL. Default is StartTLS
   -verifyCert            - Verify Certificate in connection. Default is No
   -ex                    - show examples
