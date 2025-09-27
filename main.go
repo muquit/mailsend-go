@@ -50,6 +50,7 @@ import (
 
 var (
 	debug = false
+	url = "https://github.com/muquit/mailsend-go"
 )
 
 // Attachment ...
@@ -687,7 +688,7 @@ Environment variables:
 
 	usage = strings.Replace(usage, "\t", "    ", -1)
 	compiledWith := " Compiled with go version: " + runtime.Version()
-	fmt.Printf("%s\n%s\n\n%s\n", v, compiledWith, usage)
+	fmt.Printf("%s\n %s\n%s\n\n%s\n", v, url, compiledWith, usage)
 	os.Exit(0)
 }
 
@@ -1113,7 +1114,7 @@ func main() {
 			}
 			mailsend.options.CharacterSet = args[i]
 		} else if arg == "-V" || arg == "--V" {
-			fmt.Printf("@(#) mailsend-go v%s\n", version.Get())
+			fmt.Printf("@(#) mailsend-go %s\n", version.Get())
 			fmt.Printf("Compiled with go version: %s\n", runtime.Version())
 			os.Exit(0)
 		} else if arg == "-info" || arg == "--info" {

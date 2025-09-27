@@ -1,4 +1,5 @@
  Version: @($) mailsend-go v1.0.11-b2
+ https://github.com/muquit/mailsend-go
  Compiled with go version: go1.25.1
 
  mailsend-go [options]

@@ -14,10 +14,14 @@
 
 # v1.0.11-b2
 
-* ServerName was missing from `tls.Config`, needed for `-verifyCert` option.  Bug #71.
+* `ServerName` was missing from `tls.Config`, needed for `-verifyCert` option.
+Bug #71.
 
 * Added flag `-printCerts` to print details certificate chain during
-displaying  SMTP information with `-info` for SSL or StartTLS
+displaying  SMTP information with `-info` for SSL or StartTLS. The code is
+in `cert_info.go`, created with with Assistance from Claude AI Sonnet 4,
+much better than my original cert info. My version was also wrong, it was 
+printing a intermediate cert as server cert.
 
 * Use build-time version injection via ldflags instead of hardcoded 
 version in main.go using -X ldflags and VERSION file.

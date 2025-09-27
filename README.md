@@ -33,6 +33,7 @@
   - [Show SMTP server information](#show-smtp-server-information)
     - [StartTLS will be used if server supports it](#starttls-will-be-used-if-server-supports-it)
     - [Use SSL. Note the port is different](#use-ssl-note-the-port-is-different)
+    - [Print SMTP server certificate chain](#print-smtp-server-certificate-chain)
     - [Use default settings for well known mail providers](#use-default-settings-for-well-known-mail-providers)
   - [Send mail with a text message](#send-mail-with-a-text-message)
   - [Send mail with a HTML message](#send-mail-with-a-html-message)
@@ -91,6 +92,7 @@ course)
 # Synopsis
 ```
  Version: @($) mailsend-go v1.0.11-b2
+ https://github.com/muquit/mailsend-go
  Compiled with go version: go1.25.1
 
  mailsend-go [options]
@@ -182,8 +184,8 @@ No vulnerabilities found.
 # Version
 The current stable ersion of mailsend-go is 1.0.10, released on Dec-06-2020 
 
-The beta version is v1.0.11-b1, has support for SMTP XOAUTH2, released on
-Aug-23-2025 
+The current beta version is v1.0.11-b2.  Note: v1.0.11-b1 was
+the first cut with support for SMTP XOAUTH2
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
@@ -456,6 +458,216 @@ Certificate of smtp.gmail.com:
 
 ```
   mailsend-go -info -smtp smtp.gmail.com -port 465 -ssl
+```
+
+### Print SMTP server certificate chain
+
+```bash
+  mailsend-go -info -smtp smtp.gmail.com -port 587 -printCerts
+```
+
+```bash
+[S] 220 smtp.gmail.com ESMTP 6a1803df08f44-80166e2f32bsm34741116d6.41 - gsmtp
+[C] HELO localhost
+[C] EHLO localhost
+[S] 250-smtp.gmail.com at your service, [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-SIZE 35882577
+[S] 250-8BITMIME
+[S] 250-STARTTLS
+[S] 250-ENHANCEDSTATUSCODES
+[S] 250-PIPELINING
+[S] 250-CHUNKING
+[S] 250-SMTPUTF8
+[C] STARTTLS
+[S] 220-2.0.0 Ready to start TLS
+[C] EHLO localhost
+[S] 250-smtp.gmail.com at your service, [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-SIZE 35882577
+[S] 250-8BITMIME
+[S] 250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+[S] 250-ENHANCEDSTATUSCODES
+[S] 250-PIPELINING
+[S] 250-CHUNKING
+[S] 250-SMTPUTF8
+[C] QUIT
+[S] 221-2.0.0 closing connection 6a1803df08f44-80166e2f32bsm34741116d6.41 - gsmtp
+
+=== TLS Connection Information ===
+TLS Version: TLS 1.3
+Cipher Suite: 0x1301
+Server Name: smtp.gmail.com
+Negotiated Protocol:
+
+Certificate Chain (3 certificates):
+
+--- Certificate 1 ---
+Subject: CN=smtp.gmail.com
+Issuer: CN=WR2,O=Google Trust Services,C=US
+Serial Number: 14461562026188826353951632455228095006
+Not Before: 2025-09-08T08:36:45Z
+Not After: 2025-12-01T08:36:44Z
+Is CA: false
+DNS Names: smtp.gmail.com
+Key Usage: Digital Signature
+Status: Valid
+
+--- Certificate 2 ---
+Subject: CN=WR2,O=Google Trust Services,C=US
+Issuer: CN=GTS Root R1,O=Google Trust Services LLC,C=US
+Serial Number: 170058220837755766831192027518741805976
+Not Before: 2023-12-13T09:00:00Z
+Not After: 2029-02-20T14:00:00Z
+Is CA: true
+Key Usage: Digital Signature, Certificate Sign, CRL Sign
+Status: Valid
+
+--- Certificate 3 ---
+Subject: CN=GTS Root R1,O=Google Trust Services LLC,C=US
+Issuer: CN=GlobalSign Root CA,OU=Root CA,O=GlobalSign nv-sa,C=BE
+Serial Number: 159159747900478145820483398898491642637
+Not Before: 2020-06-19T00:00:42Z
+Not After: 2028-01-28T00:00:42Z
+Is CA: true
+Key Usage: Digital Signature, Certificate Sign, CRL Sign
+Status: Valid
+
+--- Certificate Fingerprints (Leaf) ---
+SHA-1: 28:88:45:90:10:20:88:BA:87:2E:0E:7C:3A:12:D6:35:EC:26:AE:90
+SHA-256: 6F:F8:E2:F5:D4:AE:5A:FF:92:4A:5F:AC:88:80:14:3A:30:33:7A:CF:EE:33:94:82:EF:2A:93:47:80:E4:18:EF
+=====================================
+```
+
+```bash
+   mailsend-go -info -smtp smtp.gmail.com -port 465 -ssl -printCerts
+```
+
+```bash
+[S] 220 smtp.gmail.com ESMTP 6a1803df08f44-80166781d27sm35134546d6.45 - gsmtp
+[C] HELO localhost
+[C] EHLO localhost
+[S] 250-smtp.gmail.com at your service, [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-SIZE 35882577
+[S] 250-8BITMIME
+[S] 250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+[S] 250-ENHANCEDSTATUSCODES
+[S] 250-PIPELINING
+[S] 250-CHUNKING
+[S] 250-SMTPUTF8
+[C] QUIT
+[S] 221-2.0.0 closing connection 6a1803df08f44-80166781d27sm35134546d6.45 - gsmtp
+
+=== TLS Connection Information ===
+TLS Version: TLS 1.3
+Cipher Suite: 0x1301
+Server Name: smtp.gmail.com
+Negotiated Protocol:
+
+Certificate Chain (3 certificates):
+
+--- Certificate 1 ---
+Subject: CN=smtp.gmail.com
+Issuer: CN=WR2,O=Google Trust Services,C=US
+Serial Number: 14461562026188826353951632455228095006
+Not Before: 2025-09-08T08:36:45Z
+Not After: 2025-12-01T08:36:44Z
+Is CA: false
+DNS Names: smtp.gmail.com
+Key Usage: Digital Signature
+Status: Valid
+
+--- Certificate 2 ---
+Subject: CN=WR2,O=Google Trust Services,C=US
+Issuer: CN=GTS Root R1,O=Google Trust Services LLC,C=US
+Serial Number: 170058220837755766831192027518741805976
+Not Before: 2023-12-13T09:00:00Z
+Not After: 2029-02-20T14:00:00Z
+Is CA: true
+Key Usage: Digital Signature, Certificate Sign, CRL Sign
+Status: Valid
+
+--- Certificate 3 ---
+Subject: CN=GTS Root R1,O=Google Trust Services LLC,C=US
+Issuer: CN=GlobalSign Root CA,OU=Root CA,O=GlobalSign nv-sa,C=BE
+Serial Number: 159159747900478145820483398898491642637
+Not Before: 2020-06-19T00:00:42Z
+Not After: 2028-01-28T00:00:42Z
+Is CA: true
+Key Usage: Digital Signature, Certificate Sign, CRL Sign
+Status: Valid
+
+--- Certificate Fingerprints (Leaf) ---
+SHA-256: 6F:F8:E2:F5:D4:AE:5A:FF:92:4A:5F:AC:88:80:14:3A:30:33:7A:CF:EE:33:94:82:EF:2A:93:47:80:E4:18:EF
+SHA-1: 28:88:45:90:10:20:88:BA:87:2E:0E:7C:3A:12:D6:35:EC:26:AE:90
+=====================================
+```
+
+```bash
+    mailsend-go -info -smtp smtp-mail.outlook.com -port 587 -printCerts
+```
+
+```bash
+[S] 220 MN2PR01CA0065.outlook.office365.com Microsoft ESMTP MAIL Service ready at Sat, 27 Sep 2025 00:29:10 +0000 [08DDFAA3FED0C1E0]
+[C] HELO localhost
+[C] EHLO localhost
+[S] 250-MN2PR01CA0065.outlook.office365.com Hello [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-SIZE 157286400
+[S] 250-PIPELINING
+[S] 250-DSN
+[S] 250-ENHANCEDSTATUSCODES
+[S] 250-STARTTLS
+[S] 250-8BITMIME
+[S] 250-BINARYMIME
+[S] 250-CHUNKING
+[S] 250-SMTPUTF8
+[C] STARTTLS
+[S] 220-2.0.0 SMTP server ready
+[C] EHLO localhost
+[S] 250-MN2PR01CA0065.outlook.office365.com Hello [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-SIZE 157286400
+[S] 250-PIPELINING
+[S] 250-DSN
+[S] 250-ENHANCEDSTATUSCODES
+[S] 250-AUTH LOGIN XOAUTH2
+[S] 250-8BITMIME
+[S] 250-BINARYMIME
+[S] 250-CHUNKING
+[S] 250-SMTPUTF8
+[C] QUIT
+[S] 221-2.0.0 Service closing transmission channel
+
+=== TLS Connection Information ===
+TLS Version: TLS 1.3
+Cipher Suite: 0x1302
+Server Name: smtp-mail.outlook.com
+Negotiated Protocol:
+
+Certificate Chain (2 certificates):
+
+--- Certificate 1 ---
+Subject: CN=outlook.com,O=Microsoft Corporation,L=Redmond,ST=Washington,C=US
+Issuer: CN=DigiCert Cloud Services CA-1,O=DigiCert Inc,C=US
+Serial Number: 10535063011692331098818316272276424549
+Not Before: 2025-03-29T00:00:00Z
+Not After: 2026-03-28T23:59:59Z
+Is CA: false
+DNS Names: *.clo.footprintdns.com, *.hotmail.com, *.internal.outlook.com, *.live.com, *.nrb.footprintdns.com, *.office.com, *.office365.com, *.outlook.com, *.outlook.office365.com, attachment.outlook.live.net, attachment.outlook.office.net, attachment.outlook.officeppe.net, attachments.office.net, attachments-sdf.office.net, ccs.login.microsoftonline.com, ccs-sdf.login.microsoftonline.com, hotmail.com, mail.services.live.com, office365.com, outlook.com, outlook.office.com, substrate.office.com, substrate-sdf.office.com
+Key Usage: Digital Signature, Key Encipherment
+Status: Valid
+
+--- Certificate 2 ---
+Subject: CN=DigiCert Cloud Services CA-1,O=DigiCert Inc,C=US
+Issuer: CN=DigiCert Global Root CA,OU=www.digicert.com,O=DigiCert Inc,C=US
+Serial Number: 20058375873168194746987232153701302504
+Not Before: 2020-09-25T00:00:00Z
+Not After: 2030-09-24T23:59:59Z
+Is CA: true
+Key Usage: Digital Signature, Certificate Sign, CRL Sign
+Status: Valid
+
+--- Certificate Fingerprints (Leaf) ---
+SHA-1: A6:F7:EC:FB:2B:F6:31:B3:A8:4F:EB:B0:9F:FD:BB:4E:3B:0F:42:11
+SHA-256: 4F:94:1A:8E:50:52:5E:09:24:4F:8F:FE:75:65:E1:6A:51:DD:10:47:04:74:94:6A:0F:BA:84:6A:86:E4:DE:8C
+=====================================
 ```
 
 ### Use default settings for well known mail providers
