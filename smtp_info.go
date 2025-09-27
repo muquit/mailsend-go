@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"crypto/tls"
 	"fmt"
 	"log"
@@ -186,6 +187,15 @@ func printMsg(format string, a ...interface{}) {
 	}
 }
 
+// only for me when I generate example doc
+func maskIPAddresses(text string) string {
+    ipv4Pattern := regexp.MustCompile(`\[(\d{1,3}\.){3}\d{1,3}\]`)
+    ipv6Pattern := regexp.MustCompile(`\[([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}\]`)
+    maskedText := ipv4Pattern.ReplaceAllString(text, "[xxx.xxx.xxx.xxx]")
+    maskedText = ipv6Pattern.ReplaceAllString(maskedText, "[xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx]")
+    return maskedText
+}
+
 // ehlo sends the EHLO (extended hello) greeting to the server. It
 // should be the preferred greeting for servers that support it.
 func (c *smtpClient) ehlo() error {
@@ -194,11 +204,16 @@ func (c *smtpClient) ehlo() error {
 	if err != nil {
 		return err
 	}
+	displayMsg := msg
+	if os.Getenv("MAILSEND_MASK_IP") != "" {
+		displayMsg = maskIPAddresses(msg)
+	}
 
 	// msg contains response with new lines. So add the code at the
 	// beginning of each line to make the output looks like mailsend
 	re := regexp.MustCompile(`r?\n`)
-	fmsg := re.ReplaceAllString(msg, "\n[S] 250-")
+	//fmsg := re.ReplaceAllString(msg, "\n[S] 250-")
+	fmsg := re.ReplaceAllString(displayMsg, "\n[S] 250-")
 
 	printMsg("[S] %d-%s\n", code, fmsg)
 	ext := make(map[string]string)
