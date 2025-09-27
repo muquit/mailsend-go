@@ -470,7 +470,7 @@ Certificate of smtp.gmail.com:
 [S] 220 smtp.gmail.com ESMTP 6a1803df08f44-80166e2f32bsm34741116d6.41 - gsmtp
 [C] HELO localhost
 [C] EHLO localhost
-[S] 250-smtp.gmail.com at your service, [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-smtp.gmail.com at your service, [x.x.x.x]
 [S] 250-SIZE 35882577
 [S] 250-8BITMIME
 [S] 250-STARTTLS
@@ -481,7 +481,7 @@ Certificate of smtp.gmail.com:
 [C] STARTTLS
 [S] 220-2.0.0 Ready to start TLS
 [C] EHLO localhost
-[S] 250-smtp.gmail.com at your service, [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-smtp.gmail.com at your service, [x.x.x.x]
 [S] 250-SIZE 35882577
 [S] 250-8BITMIME
 [S] 250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
@@ -545,7 +545,7 @@ SHA-256: 6F:F8:E2:F5:D4:AE:5A:FF:92:4A:5F:AC:88:80:14:3A:30:33:7A:CF:EE:33:94:82
 [S] 220 smtp.gmail.com ESMTP 6a1803df08f44-80166781d27sm35134546d6.45 - gsmtp
 [C] HELO localhost
 [C] EHLO localhost
-[S] 250-smtp.gmail.com at your service, [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-smtp.gmail.com at your service, [x.x.x.x]
 [S] 250-SIZE 35882577
 [S] 250-8BITMIME
 [S] 250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
@@ -609,7 +609,7 @@ SHA-1: 28:88:45:90:10:20:88:BA:87:2E:0E:7C:3A:12:D6:35:EC:26:AE:90
 [S] 220 MN2PR01CA0065.outlook.office365.com Microsoft ESMTP MAIL Service ready at Sat, 27 Sep 2025 00:29:10 +0000 [08DDFAA3FED0C1E0]
 [C] HELO localhost
 [C] EHLO localhost
-[S] 250-MN2PR01CA0065.outlook.office365.com Hello [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-MN2PR01CA0065.outlook.office365.com Hello [x.x.x.x]
 [S] 250-SIZE 157286400
 [S] 250-PIPELINING
 [S] 250-DSN
@@ -622,7 +622,7 @@ SHA-1: 28:88:45:90:10:20:88:BA:87:2E:0E:7C:3A:12:D6:35:EC:26:AE:90
 [C] STARTTLS
 [S] 220-2.0.0 SMTP server ready
 [C] EHLO localhost
-[S] 250-MN2PR01CA0065.outlook.office365.com Hello [2600:4040:7800:5500:ce2:9e71:4c0b:1283]
+[S] 250-MN2PR01CA0065.outlook.office365.com Hello [x.x.x.x]
 [S] 250-SIZE 157286400
 [S] 250-PIPELINING
 [S] 250-DSN
