@@ -116,7 +116,7 @@ course)
                            gmail, yahoo, outlook, gmx, zoho, aol
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
-  -info                  - Print info about SMTP server
+  -info                  - Print info about SMTP server and exit
   -printCerts            - Print Certificates in connection with -info. Default is No
   -ssl                   - SMTP over SSL. Default is StartTLS
   -verifyCert            - Verify Certificate in connection. Default is No
