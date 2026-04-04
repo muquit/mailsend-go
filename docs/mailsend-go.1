@@ -248,7 +248,7 @@ Please look at ChangeLog for what has changed in the current version.
 Pre\-compiled \f[CR]mailsend\-go\f[R] binaries are available for the
 following platforms:
 .IP \(bu 2
-Windows \- 32 and 64 bit (zip, Scoop)
+Windows \- 32 and 64 bit
 .IP \(bu 2
 Linux \- 64 bit (tgz, debian and rpm)
 .IP \(bu 2
@@ -334,6 +334,18 @@ Or use auto\-tap (installs in one command):
 .EX
 brew install muquit/formulae/mailsend\-go
 .EE
+.RS
+.PP
+\f[B]Note:\f[R] If you previously used the old dedicated tap
+(\f[CR]muquit/mailsend\-go\f[R]), you may get an ambiguity error.
+Migrate to the new tap with:
+.IP
+.EX
+brew uninstall mailsend\-go
+brew untap muquit/mailsend\-go
+brew install muquit/formulae/mailsend\-go
+.EE
+.RE
 .SS Updating
 .IP
 .EX

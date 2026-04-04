@@ -198,7 +198,7 @@ Please look at [ChangeLog](ChangeLog.md) for what has changed in the current ver
 
 Pre-compiled `mailsend-go` binaries are available for the following platforms:
 
-* Windows - 32 and 64 bit (zip, Scoop)
+* Windows - 32 and 64 bit
 * Linux - 64 bit (tgz, debian and rpm)
 * MacOS - 64 bit (tgz, Homebrew)
 * Raspberry pi - 32 bit (debian, rpm)
@@ -266,6 +266,14 @@ Or use auto-tap (installs in one command):
 ```bash
 brew install muquit/formulae/mailsend-go
 ```
+
+> **Note:** If you previously used the old dedicated tap (`muquit/mailsend-go`),
+> you may get an ambiguity error. Migrate to the new tap with:
+> ```bash
+> brew uninstall mailsend-go
+> brew untap muquit/mailsend-go
+> brew install muquit/formulae/mailsend-go
+> ```
 
 ### Updating
 ```bash
