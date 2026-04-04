@@ -267,13 +267,14 @@ Or use auto-tap (installs in one command):
 brew install muquit/formulae/mailsend-go
 ```
 
-> **Note:** If you previously used the old dedicated tap (`muquit/mailsend-go`),
-> you may get an ambiguity error. Migrate to the new tap with:
-> ```bash
-> brew uninstall mailsend-go
-> brew untap muquit/mailsend-go
-> brew install muquit/formulae/mailsend-go
-> ```
+**Note:** If you previously used the old dedicated tap (`muquit/mailsend-go`),
+ you may get an ambiguity error. Migrate to the new tap with:
+
+```bash
+ brew uninstall mailsend-go
+ brew untap muquit/mailsend-go
+ brew install muquit/formulae/mailsend-go
+```
 
 ### Updating
 ```bash
