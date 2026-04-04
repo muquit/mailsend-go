@@ -128,7 +128,7 @@ install-bin:
 
 .PHONY: release
 release:
-	go-xbiuld-go --release
+	go-xbuild-go --release
 
 # create formula for homebrew
 .PHONY: brew

@@ -94,7 +94,7 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go 1.0.1
+ Version: @($) mailsend-go v1.0.11
  https://github.com/muquit/mailsend-go
  Compiled with go version: go1.25.1
 
@@ -190,10 +190,7 @@ No vulnerabilities found.
 ```
 
 # Version
-The current stable ersion of mailsend-go is 1.0.10, released on Dec-06-2020 
-
-The current beta version is v1.0.11-b3.  Note: v1.0.11-b1 was
-the first cut with support for SMTP [XOAUTH2](https://developers.google.com/workspace/gmail/imap/xoauth2-protocol)
+The current stable ersion of mailsend-go is 1.0.11, released on Apr-04-2026.
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
