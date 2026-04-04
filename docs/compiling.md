@@ -1,4 +1,4 @@
-# Compiling
+# Compiling from source
 
 Compiling from scratch requires the [Go programming language toolchain](https://golang.org/dl/) and git. Note: *mailsend-go* uses [go modules](https://github.com/golang/go/wiki/Modules) for dependency management.
 

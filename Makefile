@@ -15,8 +15,11 @@ MANPAGE= docs/mailsend-go.1
 MANDIR= /usr/local/share/man/man1
 CP= /bin/cp -v
 OS= $(shell go env GOOS)
+MTOC=markdown-toc-go
+FORMULA_DIR=$(HOME)/gitdev/homebrew-formulae/Formula
+FORMULA_FILE=$(FORMULA_DIR)/mailsend-go.rb
 
-all:
+all: build_all gen
 	@echo "- Getting go get github.com/muquit/gomail@master ..."
 	go get github.com/muquit/gomail@master
 	go mod tidy
@@ -31,6 +34,7 @@ build_all:
 	go-xbuild-go -build-args '$(BUILD_OPTIONS) $(LDFLAGS)'
 
 example:
+	echo "Generating examples ..."
 	@./scripts/mkexamples.sh
 
 $(PROGNAME) : native
@@ -76,20 +80,34 @@ pijessie:
 
 # generate files/examples.txt from docs/examples.md
 # generate examples.go from examples.txt for -ex flag
-gen: example doc
+.PHONY: gen
+gen: example usage docs
 
+.PHONE: usage
+usage:
+	echo "# Synopsis" > docs/usage.md
+	echo '```' >> docs/usage.md
+	@./mailsend-go -h >> docs/usage.md
+	echo '```' >> docs/usage.md
+
+.PHONY: dev
 dev: gen all doc
 
+.PHONY: mod_clean
 mod_clean:
 	@./scripts/mod_clean.sh
 
-doc:
-	@./scripts/mkdocs.sh
-	@echo " - Generate docs/mailsend-go.1"
-	@pandoc --standalone --to man README.md -o docs/mailsend-go.1
+.PHONY: docs
+docs:
+	echo "Generating docs ..."
+	$(MTOC) -i docs/main.md -o ./README.md  --glossary docs/glossary.txt --pre-toc-file docs/badges.md -f
+	$(MTOC) -i docs/ChangeLog.md -o ./ChangeLog.md --glossary docs/glossary.txt -f -no-credit
+	@./scripts/mk_man.sh
 
+.PHONY: install
 install: install-bin
 
+.PHONY: help
 help:
 	@echo "============================================================"
 	@echo " make gen   - assemble document, create usage.txt and examples.
@@ -103,10 +121,25 @@ help:
 	@echo " make clean"
 	@echo "============================================================"
 
+.PHONY: install-bin
 install-bin:
 	$(CP) $(PROGNAME) $(BINDIR)
 	$(CP) $(MANPAGE) $(MANDIR)
 
+.PHONY: release
+release:
+	go-xbiuld-go --release
+
+# create formula for homebrew
+.PHONY: brew
+brew:
+	./scripts/gen_homebrew_formula.rb \
+		--desc "A CLI tool to send mail via SMTP protocol" \
+		--output $(FORMULA_DIR)
+	/bin/ls -lt $(FORMULA_FILE)
+	@echo "*** Do not forget to check-in the formula!"
+
+.PHONY: clean
 clean:
 	/bin/rm -f $(PROGNAME) $(PROGNAME_WIN) $(PROGNAME)_$(OS) $(PROGNAME)_* *.bak \
 		$(PROGNAME)_linux $(PROGNAME)_mac

@@ -616,9 +616,15 @@ func parseBodyCommandParams(args []string, command string) int {
 	if len(body.content) == 0 {
 		fatalError("Path of a text file or a message must be specified with -file or -msg for command %s\n", command)
 	}
+	// Bug #73 Jan-14-2026 
 	if len(body.mimeType) == 0 {
 		logDebug("Detecting MIME Type....\n")
-		body.mimeType = contentType([]byte(body.content))
+		trimmed := strings.TrimSpace(body.content)
+		if strings.HasPrefix(trimmed, "<") {
+			body.mimeType = "text/html"
+		} else {
+			body.mimeType = "text/plain"
+		}
 	}
 	mailsend.body = *body
 	if j > max {
@@ -648,7 +654,7 @@ func showUsageAndExit() {
                            gmail, yahoo, outlook, gmx, zoho, aol
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
-  -info                  - Print info about SMTP server
+  -info                  - Print info about SMTP server and exit
   -printCerts            - Print Certificates in connection with -info. Default is No
   -ssl                   - SMTP over SSL. Default is StartTLS
   -verifyCert            - Verify Certificate in connection. Default is No
@@ -684,6 +690,11 @@ The options with * are required.
 Environment variables:
    SMTP_USER_PASS for auth password (-pass)
    SMTP_OAUTH_TOKEN for OAuth2 access token (-token)
+
+XOAUTH2 helper:
+   Please visit the following link for a tool to help obtain
+   OAuth2 access token for mailsend-go:
+     https://github.com/muquit/oauth-helper
 `
 
 	usage = strings.Replace(usage, "\t", "    ", -1)
@@ -708,10 +719,13 @@ func makeRecipientAddresses(to string) []string {
 
 func constructMail(fromName string, fromAddress string, toName string, toAddress string) *gomail.Message {
 	o := mailsend.options
-	m := gomail.NewMessage()
-
+	var m *gomail.Message
+	// Bug #73 Jan-14-2026 
 	if len(o.CharacterSet) > 0 {
+		logDebug(">>>> Set charset: %s\n", o.CharacterSet)
 		m = gomail.NewMessage(gomail.SetCharset(o.CharacterSet))
+	} else {
+		m = gomail.NewMessage()
 	}
 
 	if len(fromName) > 0 {
@@ -774,6 +788,7 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 
 	if len(mailsend.body.content) > 0 {
 		logDebug("Attach body\n")
+		logDebug(">>>> mimeType value: '%s'\n", mailsend.body.mimeType) 
 		// Replace \n with real new line. Issue #22
 		msg := strings.Replace(mailsend.body.content, `\n`, "\n", -1)
 		m.SetBody(mailsend.body.mimeType, msg)

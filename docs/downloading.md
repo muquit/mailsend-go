@@ -7,10 +7,10 @@ Pre-compiled `mailsend-go` binaries are available for the following platforms:
 * MacOS - 64 bit (tgz, Homebrew)
 * Raspberry pi - 32 bit (debian, rpm)
 
-Please download the binaries from the [releases](https://github.com/muquit/mailsend-go/releases)
+Please download the binaries from the @RELEASES@
 page.  
 
-Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would need binaries for any other         platforms.
+Please add an @ISSUES@ if you would need binaries for any other         platforms.
 
 Before installing, please make sure to verify the checksum.
 
@@ -19,156 +19,69 @@ content.
 
 **Example**
 
-```
-    $ tar -tvf mailsend-go_x.x.x_linux_64-bit.tar.gz
-	-rw-r--r--  0 muquit staff    1081 Jan 26 15:21 mailsend-go-dir/LICENSE.txt
-	-rw-r--r--  0 muquit staff   14242 Jan 27 13:47 mailsend-go-dir/README.md
-	-rw-r--r--  0 muquit staff   16866 Jan 27 13:47 mailsend-go-dir/docs/mailsend-go.1
-	-rwxr-xr-x  0 muquit staff 5052992 Feb  9 19:23 mailsend-go-dir/mailsend-go
+```bash
+➤ tar -tvf bin/mailsend-go-v1.0.11-linux-amd64.d.tar.gz
+-rw-r--r--  0 muquit staff    1084 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/LICENSE.txt
+-rw-r--r--  0 muquit staff   33880 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/README.md
+-rwxr-xr-x  0 muquit staff 5427384 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/mailsend-go-v1.0.11-linux-amd64
+-rw-r--r--  0 muquit staff   34185 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/mailsend-go.1
+-rw-r--r--  0 muquit staff     903 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/platforms.txt
 ```
 
+```bash
+➤ unzip -l bin/mailsend-go-v1.0.11-windows-amd64.d.zip
+Archive:  bin/mailsend-go-v1.0.11-windows-amd64.d.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+     1084  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/LICENSE.txt
+    33880  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/README.md
+  5563904  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/mailsend-go-v1.0.11-windows-amd64.exe
+    34185  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/mailsend-go.1
+      903  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/platforms.txt
+---------                     -------
+  5633956                     5 files
 ```
-	$ unzip -l mailsend-go_x.x.x_windows_64-bit.zip
-	Archive:  mailsend-go_x.x.x_windows_64-bit.zip
-	  Length      Date    Time    Name
-	---------  ---------- -----   ----
-		 1081  01-26-2019 15:21   mailsend-go-dir/LICENSE.txt
-		14242  01-27-2019 13:47   mailsend-go-dir/README.md
-		16866  01-27-2019 13:47   mailsend-go-dir/docs/mailsend-go.1
-	  4933632  02-09-2019 19:23   mailsend-go-dir/mailsend-go.exe
-	---------                     -------
-	  4965821                     4 files
+
+After extracting the archive, copy the binary somewhere in your PATH. 
+Example:
+```bash
+sudo /bin/cp -fv \
+         mailsend-go-v1.0.11-linux-amd64.d/mailsend-go-v1.0.11-linux-amd64 \
+         /usr/local/bin/mailsend-go
+sudo /bin/cp -fv \
+         mailsend-go-v1.0.11-linux-amd64.d/mailsend-go.1 \
+         /usr/share/main/man1
 ```
 
 ## Installing using Homebrew on Mac
 
-You will need to install [Homebrew](https://brew.sh/) first.
+You will need to install @BREW@ first. Note: @BREW@ formula will be availbale
+only for released version of `mailsend-go`
 
-### Install
+### Installing
 
 First install the custom tap.
 
 ```
-    $ brew tap
-    $ brew untap muquit/mailsend-go
-    $ brew tap muquit/mailsend-go
-    $ brew install mailsend-go
+brew tap muquit/formulae
+brew install mailsend-go
+```
+Or use auto-tap (installs in one command):
+```bash
+brew install muquit/formulae/mailsend-go
 ```
 
-### Uninstall
-```
-    $ brew uninstall mailsend-go
-```
-
-
-## Installing the debian package on Ubuntu or Debian or Raspberry pi
-
-### Inspect the package content
-```
-    $ dpkg -c mailsend-go_linux_64-bit.deb
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/docs/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/docs/mailsend-go/
-	-rw-r--r-- 0/0            1081 2019-02-10 20:17 usr/local/share/docs/mailsend-go/LICENSE.txt
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/bin/
-	-rwxr-xr-x 0/0         5052992 2019-02-10 20:17 usr/local/bin/mailsend-go
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/man/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/man/man1/
-	-rw-r--r-- 0/0           20896 2019-02-10 20:17 usr/local/share/man/man1/mailsend-go.1
-	-rw-r--r-- 0/0           19236 2019-02-10 20:17 usr/local/share/docs/mailsend-go/README.md
+### Updating
+```bash
+brew upgrade mailsend-go
 ```
 
-### Install
-
-```
-    $ sudo dpkg -i mailsend-go_linux_64-bit.deb 
-	Selecting previously unselected package mailsend-go.
-	(Reading database ... 4039 files and directories currently installed.)
-	Preparing to unpack mailsend-go_linux_64-bit.deb ...
-	Unpacking mailsend-go (x.x.x) ...
-	Setting up mailsend-go (x.x.x) ...
-    $ mailsend-go -V
-    @(#) mailsend-go vx.x.x
+### Uninstalling
+```bash
+brew uninstall mailsend-go
 ```
 
-### Uninstall
-
+To remove the tap:
+```bash
+brew untap muquit/formulae
 ```
-    $ sudo dpkg -r mailsend-go
-```
-
-## Install the RPM package
-
-### Inspect the package content
-```
-    $ rpm -qlp mailsend-go_linux_64-bit.rpm
-    /usr/local/bin/mailsend-go
-    /usr/local/share/docs/mailsend-go/LICENSE.txt
-    /usr/local/share/docs/mailsend-go/README.md
-    /usr/local/share/man/man1/mailsend-go.1
-```
-### Install/Upgrade
-```
-    # rpm -Uvh mailsend-go_linux_64-bit.rpm
-    # mailsend-go -V
-    @(#) mailsend-go vx.x.x
-```
-### Uninstall
-```
-    # rpm -ev mailsend-go
-```
-
-## Install from archive
-
-### Inspect the content
-```
-    $ tar -tvf mailsend-go_x.x.x_linux_64-bit.tar.gz
-    -rw-r--r--  0 muquit staff    1081 Jan 26 15:21 mailsend-go-dir/LICENSE.txt
-    -rw-r--r--  0 muquit staff   14242 Jan 27 13:47 mailsend-go-dir/README.md
-    -rw-r--r--  0 muquit staff   16866 Jan 27 13:47 mailsend-go-dir/docs/mailsend-go.1
-    -rwxr-xr-x  0 muquit staff 5052992 Feb  9 19:23 mailsend-go-dir/mailsend-go
-```
-
-```
-    $ unzip -l mailsend-go_x.x.x_windows_64-bit.zip
-    Archive:  mailsend-go_x.x.x_windows_64-bit.zip
-      Length      Date    Time    Name
-    ---------  ---------- -----   ----
-     1081  01-26-2019 15:21   mailsend-go-dir/LICENSE.txt
-    14242  01-27-2019 13:47   mailsend-go-dir/README.md
-    16866  01-27-2019 13:47   mailsend-go-dir/docs/mailsend-go.1
-      4933632  02-09-2019 19:23   mailsend-go-dir/mailsend-go.exe
-    ---------                     -------
-      4965821                     4 files
-```
-
-### Install Linux
-```
-    $ tar -xf mailsend-go_x.x.x_linux_64-bit.tar.gz
-    $ sudo cp mailsend-go-dir/mailsend-go /usr/local/bin
-    $ sudo cp mailsend-go-dir/doc/mailsend-go.1 /usr/local/share/man/man1
-```
-
-### Install Windows
-
-#### Installing using Scoop on Windows
-
-You will need to install [Scoop](https://scoop.sh/) first.
-
-##### Install
-
-```batch
-c:\> scoop install mailsend-go
-````
-
-##### Uninstall
-
-```batch
-c:\> scoop uninstall mailsend-go
-````
-
-#### Installing Manually
-
-After [downloading](#downloading-and-installing) the latest .zip file (e.g., mailsend-go_x.x.x_windows_64-bit.zip), unzip it, and copy `mailsend-go-dir\mailsend-go.exe` somewhere in your PATH or run it from the directory.

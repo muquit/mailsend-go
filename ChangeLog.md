@@ -1,4 +1,5 @@
-## Contents
+## Table Of Contents
+- [v1.0.11](#v1011)
 - [v1.0.11-b2](#v1011-b2)
 - [v1.0.11-b1](#v1011-b1)
 - [v1.0.10](#v1010)
@@ -11,6 +12,22 @@
 - [v1.0.3](#v103)
 - [v1.0.2](#v102)
 - [v1.0.1](#v101)
+
+# v1.0.11
+
+* Fixed duplicate charset in Content-Type header (Issue #73).  Resolved 
+issue where http.DetectContentType() was adding charset=utf-8 to the MIME 
+type, causing duplicate charset parameters in headers.  The MIME type 
+detection code now strips charset params, letting gomail handle charset 
+assignment based on the `-cs` flag. Added more test scripts in test/ dir.
+
+(Jan-16-2026)
+
+
+* Update document about [oauth-helper](https://github.com/muquit/oauth-helper). Switch to [markdown-toc-go](https://github.com/muquit/markdown-toc-go)
+from [markdown_helper](https://github.com/BurdetteLamar/markdown_helper) for document generation. Add [oauth-helper](https://github.com/muquit/oauth-helper) link at the end of usage.
+
+(Apr-01-2026)
 
 # v1.0.11-b2
 
@@ -146,5 +163,4 @@ Fix Issue #2
 * Released
 
 (Feb-20-2019)
-
 

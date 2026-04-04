@@ -1,7 +1,7 @@
 [![Downloads](https://img.shields.io/github/downloads/muquit/mailsend-go/total.svg)](https://github.com/muquit/mailsend-go/releases)
-
-## Page Contents
+## Table Of Contents
 - [Introduction](#introduction)
+- [XOAUTH2 support](#xoauth2-support)
 - [Features](#features)
 - [Contributing](#contributing)
 - [Synopsis](#synopsis)
@@ -9,25 +9,10 @@
 - [Version](#version)
 - [Downloading and Installing](#downloading-and-installing)
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
-    - [Install](#install)
-    - [Uninstall](#uninstall)
-  - [Installing the debian package on Ubuntu or Debian or Raspberry pi](#installing-the-debian-package-on-ubuntu-or-debian-or-raspberry-pi)
-    - [Inspect the package content](#inspect-the-package-content)
-    - [Install](#install-1)
-    - [Uninstall](#uninstall-1)
-  - [Install the RPM package](#install-the-rpm-package)
-    - [Inspect the package content](#inspect-the-package-content-1)
-    - [Install/Upgrade](#installupgrade)
-    - [Uninstall](#uninstall-2)
-  - [Install from archive](#install-from-archive)
-    - [Inspect the content](#inspect-the-content)
-    - [Install Linux](#install-linux)
-    - [Install Windows](#install-windows)
-      - [Installing using Scoop on Windows](#installing-using-scoop-on-windows)
-        - [Install](#install-2)
-        - [Uninstall](#uninstall-3)
-      - [Installing Manually](#installing-manually)
-- [Compiling](#compiling)
+    - [Installing](#installing)
+    - [Updating](#updating)
+    - [Uninstalling](#uninstalling)
+- [Compiling from source](#compiling-from-source)
 - [Docker](#docker)
 - [Examples](#examples)
   - [Show SMTP server information](#show-smtp-server-information)
@@ -37,6 +22,7 @@
     - [Use default settings for well known mail providers](#use-default-settings-for-well-known-mail-providers)
   - [Send mail with a text message](#send-mail-with-a-text-message)
   - [Send mail with a HTML message](#send-mail-with-a-html-message)
+  - [Send mail with a HTML message, use XOAUTH2](#send-mail-with-a-html-message-use-xoauth2)
   - [Attach a PDF file](#attach-a-pdf-file)
   - [Attach a PDF file and an image](#attach-a-pdf-file-and-an-image)
   - [Attach a PDF file and embed an image](#attach-a-pdf-file-and-embed-an-image)
@@ -49,19 +35,19 @@
 - [License (is MIT)](#license-is-mit)
 - [See Also](#see-also)
 
+
 # Introduction
 
-`mailsend-go` is a command line tool to send mail via SMTP protocol. This is the
+[mailsend-go](https://github.com/muquit/mailsend-go) is a command line tool to send mail via SMTP protocol. This is the
 [golang](https://golang.org/) incarnation of my C version of
 [mailsend](https://github.com/muquit/mailsend/). However, this version is much
 simpler and all the heavy lifting is done by the package
-[gomail.v2](https://gopkg.in/gomail.v2). However, this package is not maintained anymore. Therefore, I forked it to
+[gomail.v2](https://gopkg.in/gomail.v2) However, this package is not maintained anymore. Therefore, I forked it to
 [gomail](https://github.com/muquit/gomail) (starting from mailsend-go v1.0.11-b1 Aug-24-2025).
-The main purpose of this fork is to add XOAUTH2 support (Bug #68)
+The main purpose of this fork is to add [XOAUTH2](https://developers.google.com/workspace/gmail/imap/xoauth2-protocol) support (Bug #68)
 
-If you use [mailsend](https://github.com/muquit/mailsend), please consider
-using mailsend-go as no new features will be added to 
-[mailsend](https://github.com/muquit/mailsend).
+If you use [mailsend](https://github.com/muquit/mailsend/) , please consider using mailsend-go as no new features will be added to 
+[mailsend](https://github.com/muquit/mailsend/).
 
 If you have any question, request or suggestion, please enter it in the 
 [Issues](https://github.com/muquit/mailsend-go/issues) with appropriate label.
@@ -69,6 +55,22 @@ If you have any question, request or suggestion, please enter it in the
 **NOTE:** XOAUTH2 support is available in v1.0.11-b1 (Released on Aug-24-2025)
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
+
+# XOAUTH2 support
+[XOAUTH2](https://developers.google.com/workspace/gmail/imap/xoauth2-protocol) support is available in v1.0.11-b1 (Released on Aug-24-2025). 
+[mailsend-go](https://github.com/muquit/mailsend-go) itself does not implement full OAuth2 flow because implementing full
+OAuth2 would require managing web browser redirects, secure token storage 
+across different platforms and maintaing state of token refresh cycles.
+
+Therefore, I've created a companion tool called [oauth-helper](https://github.com/muquit/oauth-helper) for token
+management. This separation keeps [mailsend-go](https://github.com/muquit/mailsend-go) simple and secure while
+giving you full control over how tokens are obtained and stored.
+For automation, just pipe token from [oauth-helper](https://github.com/muquit/oauth-helper) directly into [mailsend-go](https://github.com/muquit/mailsend-go).
+
+Please visit [oauth-helper](https://github.com/muquit/oauth-helper) page for details. It has examples on how to 
+integrate with [mailsend-go](https://github.com/muquit/mailsend-go) and [XOAUTH2](https://developers.google.com/workspace/gmail/imap/xoauth2-protocol).
+
+Please create an [Issues](https://github.com/muquit/mailsend-go/issues) if you need help or have any questions.
 
 # Features
 
@@ -78,7 +80,7 @@ Please look at [ChangeLog](ChangeLog.md) for what has changed in the current ver
 * Supports StartTLS and SSL
 * Send mail to a list of users
 * Show SMTP server info
-* Fixes [issues of mailsend](https://github.com/muquit/mailsend#known-issues)
+* Fixes [Issues](https://github.com/muquit/mailsend-go/issues)
 
 # Contributing
 
@@ -86,14 +88,13 @@ Please send a pull request if you add features, fix bugs or update the documenta
 
 If you want to update the documentation, **please do not update README.md directly**, 
 rather update the Markdown files in _docs/_ directory. README.md 
-is generated by [markdown_helper](https://github.com/BurdetteLamar/markdown_helper) ruby gem by
-assembling the individual Markdown files in the _docs/_ directory. If you
+is generated by [markdown-toc-go](https://github.com/muquit/markdown-toc-go) assembling the individual Markdown files in the _docs/_ directory. If you
 would like to generate README.md, type `make gen` (you will need required tools of
 course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.11-b2
+ Version: @($) mailsend-go 1.0.1
  https://github.com/muquit/mailsend-go
  Compiled with go version: go1.25.1
 
@@ -153,6 +154,11 @@ Environment variables:
    SMTP_USER_PASS for auth password (-pass)
    SMTP_OAUTH_TOKEN for OAuth2 access token (-token)
 
+XOAUTH2 helper:
+   Please visit the following link for a tool to help obtain
+   OAuth2 access token for mailsend-go:
+     https://github.com/muquit/oauth-helper
+
 ```
 
 # Vulnerability Check
@@ -186,8 +192,8 @@ No vulnerabilities found.
 # Version
 The current stable ersion of mailsend-go is 1.0.10, released on Dec-06-2020 
 
-The current beta version is v1.0.11-b2.  Note: v1.0.11-b1 was
-the first cut with support for SMTP XOAUTH2
+The current beta version is v1.0.11-b3.  Note: v1.0.11-b1 was
+the first cut with support for SMTP [XOAUTH2](https://developers.google.com/workspace/gmail/imap/xoauth2-protocol)
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
@@ -203,7 +209,7 @@ Pre-compiled `mailsend-go` binaries are available for the following platforms:
 Please download the binaries from the [releases](https://github.com/muquit/mailsend-go/releases)
 page.  
 
-Please add an [issue](https://github.com/muquit/mailsend-go/issues) if you would need binaries for any other         platforms.
+Please add an [Issues](https://github.com/muquit/mailsend-go/issues) if you would need binaries for any other         platforms.
 
 Before installing, please make sure to verify the checksum.
 
@@ -212,161 +218,74 @@ content.
 
 **Example**
 
-```
-    $ tar -tvf mailsend-go_x.x.x_linux_64-bit.tar.gz
-	-rw-r--r--  0 muquit staff    1081 Jan 26 15:21 mailsend-go-dir/LICENSE.txt
-	-rw-r--r--  0 muquit staff   14242 Jan 27 13:47 mailsend-go-dir/README.md
-	-rw-r--r--  0 muquit staff   16866 Jan 27 13:47 mailsend-go-dir/docs/mailsend-go.1
-	-rwxr-xr-x  0 muquit staff 5052992 Feb  9 19:23 mailsend-go-dir/mailsend-go
+```bash
+➤ tar -tvf bin/mailsend-go-v1.0.11-linux-amd64.d.tar.gz
+-rw-r--r--  0 muquit staff    1084 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/LICENSE.txt
+-rw-r--r--  0 muquit staff   33880 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/README.md
+-rwxr-xr-x  0 muquit staff 5427384 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/mailsend-go-v1.0.11-linux-amd64
+-rw-r--r--  0 muquit staff   34185 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/mailsend-go.1
+-rw-r--r--  0 muquit staff     903 Jan 16 20:10 mailsend-go-v1.0.11-linux-amd64.d/platforms.txt
 ```
 
+```bash
+➤ unzip -l bin/mailsend-go-v1.0.11-windows-amd64.d.zip
+Archive:  bin/mailsend-go-v1.0.11-windows-amd64.d.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+     1084  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/LICENSE.txt
+    33880  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/README.md
+  5563904  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/mailsend-go-v1.0.11-windows-amd64.exe
+    34185  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/mailsend-go.1
+      903  01-16-2026 20:10   mailsend-go-v1.0.11-windows-amd64.d/platforms.txt
+---------                     -------
+  5633956                     5 files
 ```
-	$ unzip -l mailsend-go_x.x.x_windows_64-bit.zip
-	Archive:  mailsend-go_x.x.x_windows_64-bit.zip
-	  Length      Date    Time    Name
-	---------  ---------- -----   ----
-		 1081  01-26-2019 15:21   mailsend-go-dir/LICENSE.txt
-		14242  01-27-2019 13:47   mailsend-go-dir/README.md
-		16866  01-27-2019 13:47   mailsend-go-dir/docs/mailsend-go.1
-	  4933632  02-09-2019 19:23   mailsend-go-dir/mailsend-go.exe
-	---------                     -------
-	  4965821                     4 files
+
+After extracting the archive, copy the binary somewhere in your PATH. 
+Example:
+```bash
+sudo /bin/cp -fv \
+         mailsend-go-v1.0.11-linux-amd64.d/mailsend-go-v1.0.11-linux-amd64 \
+         /usr/local/bin/mailsend-go
+sudo /bin/cp -fv \
+         mailsend-go-v1.0.11-linux-amd64.d/mailsend-go.1 \
+         /usr/share/main/man1
 ```
 
 ## Installing using Homebrew on Mac
 
-You will need to install [Homebrew](https://brew.sh/) first.
+You will need to install [Homebrew](https://brew.sh/) first. Note: [Homebrew](https://brew.sh/) formula will be availbale
+only for released version of `mailsend-go`
 
-### Install
+### Installing
 
 First install the custom tap.
 
 ```
-    $ brew tap
-    $ brew untap muquit/mailsend-go
-    $ brew tap muquit/mailsend-go
-    $ brew install mailsend-go
+brew tap muquit/formulae
+brew install mailsend-go
+```
+Or use auto-tap (installs in one command):
+```bash
+brew install muquit/formulae/mailsend-go
 ```
 
-### Uninstall
-```
-    $ brew uninstall mailsend-go
-```
-
-
-## Installing the debian package on Ubuntu or Debian or Raspberry pi
-
-### Inspect the package content
-```
-    $ dpkg -c mailsend-go_linux_64-bit.deb
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/docs/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/docs/mailsend-go/
-	-rw-r--r-- 0/0            1081 2019-02-10 20:17 usr/local/share/docs/mailsend-go/LICENSE.txt
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/bin/
-	-rwxr-xr-x 0/0         5052992 2019-02-10 20:17 usr/local/bin/mailsend-go
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/man/
-	drwxr-xr-x 0/0               0 2019-02-10 20:17 usr/local/share/man/man1/
-	-rw-r--r-- 0/0           20896 2019-02-10 20:17 usr/local/share/man/man1/mailsend-go.1
-	-rw-r--r-- 0/0           19236 2019-02-10 20:17 usr/local/share/docs/mailsend-go/README.md
+### Updating
+```bash
+brew upgrade mailsend-go
 ```
 
-### Install
-
-```
-    $ sudo dpkg -i mailsend-go_linux_64-bit.deb 
-	Selecting previously unselected package mailsend-go.
-	(Reading database ... 4039 files and directories currently installed.)
-	Preparing to unpack mailsend-go_linux_64-bit.deb ...
-	Unpacking mailsend-go (x.x.x) ...
-	Setting up mailsend-go (x.x.x) ...
-    $ mailsend-go -V
-    @(#) mailsend-go vx.x.x
+### Uninstalling
+```bash
+brew uninstall mailsend-go
 ```
 
-### Uninstall
-
-```
-    $ sudo dpkg -r mailsend-go
-```
-
-## Install the RPM package
-
-### Inspect the package content
-```
-    $ rpm -qlp mailsend-go_linux_64-bit.rpm
-    /usr/local/bin/mailsend-go
-    /usr/local/share/docs/mailsend-go/LICENSE.txt
-    /usr/local/share/docs/mailsend-go/README.md
-    /usr/local/share/man/man1/mailsend-go.1
-```
-### Install/Upgrade
-```
-    # rpm -Uvh mailsend-go_linux_64-bit.rpm
-    # mailsend-go -V
-    @(#) mailsend-go vx.x.x
-```
-### Uninstall
-```
-    # rpm -ev mailsend-go
+To remove the tap:
+```bash
+brew untap muquit/formulae
 ```
 
-## Install from archive
-
-### Inspect the content
-```
-    $ tar -tvf mailsend-go_x.x.x_linux_64-bit.tar.gz
-    -rw-r--r--  0 muquit staff    1081 Jan 26 15:21 mailsend-go-dir/LICENSE.txt
-    -rw-r--r--  0 muquit staff   14242 Jan 27 13:47 mailsend-go-dir/README.md
-    -rw-r--r--  0 muquit staff   16866 Jan 27 13:47 mailsend-go-dir/docs/mailsend-go.1
-    -rwxr-xr-x  0 muquit staff 5052992 Feb  9 19:23 mailsend-go-dir/mailsend-go
-```
-
-```
-    $ unzip -l mailsend-go_x.x.x_windows_64-bit.zip
-    Archive:  mailsend-go_x.x.x_windows_64-bit.zip
-      Length      Date    Time    Name
-    ---------  ---------- -----   ----
-     1081  01-26-2019 15:21   mailsend-go-dir/LICENSE.txt
-    14242  01-27-2019 13:47   mailsend-go-dir/README.md
-    16866  01-27-2019 13:47   mailsend-go-dir/docs/mailsend-go.1
-      4933632  02-09-2019 19:23   mailsend-go-dir/mailsend-go.exe
-    ---------                     -------
-      4965821                     4 files
-```
-
-### Install Linux
-```
-    $ tar -xf mailsend-go_x.x.x_linux_64-bit.tar.gz
-    $ sudo cp mailsend-go-dir/mailsend-go /usr/local/bin
-    $ sudo cp mailsend-go-dir/doc/mailsend-go.1 /usr/local/share/man/man1
-```
-
-### Install Windows
-
-#### Installing using Scoop on Windows
-
-You will need to install [Scoop](https://scoop.sh/) first.
-
-##### Install
-
-```batch
-c:\> scoop install mailsend-go
-````
-
-##### Uninstall
-
-```batch
-c:\> scoop uninstall mailsend-go
-````
-
-#### Installing Manually
-
-After [downloading](#downloading-and-installing) the latest .zip file (e.g., mailsend-go_x.x.x_windows_64-bit.zip), unzip it, and copy `mailsend-go-dir\mailsend-go.exe` somewhere in your PATH or run it from the directory.
-
-# Compiling
+# Compiling from source
 
 Compiling from scratch requires the [Go programming language toolchain](https://golang.org/dl/) and git. Note: *mailsend-go* uses [go modules](https://github.com/golang/go/wiki/Modules) for dependency management.
 
@@ -411,7 +330,8 @@ To compile yourself:
 Each example mailsend-go command is a single line. In Unix back slash \ 
 can be used to continue in the next line. Also in Unix, use single quotes 
 instead of double quotes, otherwise if input has any shell character like 
-$ etc, it will get expanded by the shell.
+$ etc, it will get expanded by the shell. The directory test/ has some
+test scripts.
 
 ## Show SMTP server information
 
@@ -711,6 +631,23 @@ The environment variable "SMTP_USER_PASS" can be used instead of the flag
      -msg "<b>hello, world!</b>"
 ```
 
+The environment variable "SMTP_OAUTH_TOKEN" can be used instead of the flag
+`-token`.
+
+## Send mail with a HTML message, use XOAUTH2
+```
+    export SMTP_OAUTH_TOKEN='your_access_token'
+    mailsend-go -sub "Test"  \
+    -smtp smtp.gmail.com -port 587 \
+    auth \
+     -user jsnow@gmail.com \
+     -oauth2 \
+    -from "jsnow@gmail.com"  \
+    -to  "mjane@example.com" -from "jsnow@gmail.com" \
+    body \
+     -msg "<b>hello, world!</b>"
+```
+
 ## Attach a PDF file
 MIME type will be detected. Content-Disposition will be set to "attachment",
 Content-Transfer-Encoding will be "Base64". Notice, "attach" is a command it
@@ -894,9 +831,10 @@ If there are any gotchas or need more clarification, please send a pull request 
 
 # License (is MIT)
 
+```
 License is MIT
 
-Copyright © 2018-2025 muquit@muquit.com
+Copyright © 2018-present muquit@muquit.com
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the "Software"),
@@ -915,11 +853,12 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
 
 # See Also
 
 Original [mailsend](https://github.com/muquit/mailsend) (in C)
 
+
 ---
-* This file is assembled from docs/*.md with [markdown_helper](https://github.com/BurdetteLamar/markdown_helper)
-* The software is released with [go-xbuild-go](https://github.com/muquit/go-xbuild-go)
+<sub>TOC is created by https://github.com/muquit/markdown-toc-go on Apr-04-2026</sub>

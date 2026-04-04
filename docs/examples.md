@@ -3,7 +3,8 @@
 Each example mailsend-go command is a single line. In Unix back slash \ 
 can be used to continue in the next line. Also in Unix, use single quotes 
 instead of double quotes, otherwise if input has any shell character like 
-$ etc, it will get expanded by the shell.
+$ etc, it will get expanded by the shell. The directory test/ has some
+test scripts.
 
 ## Show SMTP server information
 
@@ -297,6 +298,23 @@ The environment variable "SMTP_USER_PASS" can be used instead of the flag
     -smtp smtp.gmail.com -port 587 \
     auth \
      -user jsnow@gmail.com -pass "secret" \
+    -from "jsnow@gmail.com"  \
+    -to  "mjane@example.com" -from "jsnow@gmail.com" \
+    body \
+     -msg "<b>hello, world!</b>"
+```
+
+The environment variable "SMTP_OAUTH_TOKEN" can be used instead of the flag
+`-token`.
+
+## Send mail with a HTML message, use XOAUTH2
+```
+    export SMTP_OAUTH_TOKEN='your_access_token'
+    mailsend-go -sub "Test"  \
+    -smtp smtp.gmail.com -port 587 \
+    auth \
+     -user jsnow@gmail.com \
+     -oauth2 \
     -from "jsnow@gmail.com"  \
     -to  "mjane@example.com" -from "jsnow@gmail.com" \
     body \

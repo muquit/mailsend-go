@@ -1,3 +1,19 @@
+# v1.0.11
+
+* Fixed duplicate charset in Content-Type header (Issue #73).  Resolved 
+issue where http.DetectContentType() was adding charset=utf-8 to the MIME 
+type, causing duplicate charset parameters in headers.  The MIME type 
+detection code now strips charset params, letting gomail handle charset 
+assignment based on the `-cs` flag. Added more test scripts in test/ dir.
+
+(Jan-16-2026)
+
+
+* Update document about @OAUTH_HELPER@. Switch to @MARKDOWN_TOC@
+from @MARKDOWN_HELPER@ for document generation. Add @OAUTH_HELPER@ link at the end of usage.
+
+(Apr-01-2026)
+
 # v1.0.11-b2
 
 * `ServerName` was missing from `tls.Config`, needed for `-verifyCert` option.
