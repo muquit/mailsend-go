@@ -14,6 +14,6 @@ If you use @MS@ , please consider using mailsend-go as no new features will be a
 If you have any question, request or suggestion, please enter it in the 
 @ISSUES@ with appropriate label.
 
-**NOTE:** XOAUTH2 support is available in v1.0.11-b1 (Released on Aug-24-2025)
+**NOTE:** XOAUTH2 support was added in v1.0.11-b1 (Released on Aug-24-2025)
 
 Please look at @CHANGELOG@ for what has changed in the current version.

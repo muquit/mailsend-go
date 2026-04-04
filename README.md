@@ -52,7 +52,7 @@ If you use [mailsend](https://github.com/muquit/mailsend/) , please consider usi
 If you have any question, request or suggestion, please enter it in the 
 [Issues](https://github.com/muquit/mailsend-go/issues) with appropriate label.
 
-**NOTE:** XOAUTH2 support is available in v1.0.11-b1 (Released on Aug-24-2025)
+**NOTE:** XOAUTH2 support was added in v1.0.11-b1 (Released on Aug-24-2025)
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
