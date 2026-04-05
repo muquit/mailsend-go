@@ -13,7 +13,6 @@
     - [Updating](#updating)
     - [Uninstalling](#uninstalling)
 - [Compiling from source](#compiling-from-source)
-- [Docker](#docker)
 - [Examples](#examples)
   - [Show SMTP server information](#show-smtp-server-information)
     - [StartTLS will be used if server supports it](#starttls-will-be-used-if-server-supports-it)
@@ -324,12 +323,6 @@ To compile yourself:
     github.com/muquit/gomail v0.0.0-20250327010414-6846ede5e07d
     github.com/muquit/quotedprintable v0.0.0-20250204043250-71206103869d
 ```
-
-# Docker
-
-* Building for docker can be done with ```docker build -t mailsend-go .```. This will also fetch the golang image and create a intermediate image (about 820MB in total). If space is a concern for you, remove them with ```docker rmi golang:1.13.7``` and ```docker image prune```
-
-* Running with docker can be done as any other docker image. Everything after the image name will be passed to the program. Example: ```docker run -it --rm mailsend-go -V``` will show the version
 
 # Examples
 

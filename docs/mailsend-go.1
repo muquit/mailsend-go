@@ -402,19 +402,6 @@ List the packages used (if you are outside $GOPATH)
     github.com/muquit/gomail v0.0.0\-20250327010414\-6846ede5e07d
     github.com/muquit/quotedprintable v0.0.0\-20250204043250\-71206103869d
 .EE
-.SH Docker
-.IP \(bu 2
-Building for docker can be done with
-\f[CR]docker build \-t mailsend\-go .\f[R].
-This will also fetch the golang image and create a intermediate image
-(about 820MB in total).
-If space is a concern for you, remove them with
-\f[CR]docker rmi golang:1.13.7\f[R] and \f[CR]docker image prune\f[R]
-.IP \(bu 2
-Running with docker can be done as any other docker image.
-Everything after the image name will be passed to the program.
-Example: \f[CR]docker run \-it \-\-rm mailsend\-go \-V\f[R] will show
-the version
 .SH Examples
 Each example mailsend\-go command is a single line.
 In Unix back slash \  can be used to continue in the next line.

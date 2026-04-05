@@ -8,7 +8,6 @@
 @[:markdown](version.md)
 @[:markdown](downloading.md)
 @[:markdown](compiling.md)
-@[:markdown](docker.md)
 @[:markdown](examples.md)
 @[:markdown](faq.md)
 @[:markdown](license.md)
