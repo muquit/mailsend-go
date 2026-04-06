@@ -6,7 +6,7 @@
 - [Contributing](#contributing)
 - [Synopsis](#synopsis)
 - [Vulnerability Check](#vulnerability-check)
-- [Version](#version)
+- [Version 1.0.11 (Apr-04-2026)](#version-1011-apr-04-2026)
 - [Downloading and Installing](#downloading-and-installing)
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
     - [Installing](#installing)
@@ -188,7 +188,7 @@ Govulncheck scanned the following 2 modules and the go1.25.1 standard library:
 No vulnerabilities found.
 ```
 
-# Version
+# Version 1.0.11 (Apr-04-2026)
 The current stable ersion of mailsend-go is 1.0.11, released on Apr-04-2026.
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
@@ -198,9 +198,9 @@ Please look at [ChangeLog](ChangeLog.md) for what has changed in the current ver
 Pre-compiled `mailsend-go` binaries are available for the following platforms:
 
 * Windows - 32 and 64 bit
-* Linux - 64 bit (tgz, debian and rpm)
+* Linux - 64 bit (tgz)
 * MacOS - 64 bit (tgz, Homebrew)
-* Raspberry pi - 32 bit (debian, rpm)
+* Raspberry pi - 32 bit (tgz)
 
 Please download the binaries from the [releases](https://github.com/muquit/mailsend-go/releases)
 page.  
@@ -860,4 +860,4 @@ Original [mailsend](https://github.com/muquit/mailsend) (in C)
 
 
 ---
-<sub>TOC is created by https://github.com/muquit/markdown-toc-go on Apr-04-2026</sub>
+<sub>TOC is created by https://github.com/muquit/markdown-toc-go on Apr-05-2026</sub>
