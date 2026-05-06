@@ -1,4 +1,4 @@
-github.com/muquit/gomail v0.0.0-20250704205629-a34fa7a15a08 h1:ckrCew8u4boC/bkZEwN1nuTbojRk0d76gIRckEfGltg=
-github.com/muquit/gomail v0.0.0-20250704205629-a34fa7a15a08/go.mod h1:T5JnNPiCihCfjyizcDuGU7UcxrzoDLLHDVQM2avXsuo=
+github.com/muquit/gomail v1.0.2 h1:n7JdPC3Bfshim8SBcQ0Sepm8C0C4fWECIwqzfFink8c=
+github.com/muquit/gomail v1.0.2/go.mod h1:Dc/G6cYwASW7rWI7kRjndzHVm49N7+5PgH8ADE3NuD8=
 github.com/muquit/quotedprintable v0.0.0-20250204043250-71206103869d h1:9VVrA0eeIBiOB7URlpaC+xxKNzS4sG+ktKepfbTbzEE=
 github.com/muquit/quotedprintable v0.0.0-20250204043250-71206103869d/go.mod h1:iSWuGIASzcWWZBgwtpv7LhWZBm5rh89F28HkKyOL6g8=
