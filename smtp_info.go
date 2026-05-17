@@ -62,7 +62,7 @@ func printSMTPInfo(server string, port int, domain string, ssl bool, verifyCert 
 		}
 	} else {
 		tlsConfig := &tls.Config{
-			InsecureSkipVerify: true, // always skip
+			InsecureSkipVerify: !verifyCert,
 			ServerName:         host,
 		}
 		conn, err = tls.Dial("tcp", addr, tlsConfig)
@@ -115,6 +115,9 @@ func printSMTPInfo(server string, port int, domain string, ssl bool, verifyCert 
 	}
 
 	if ssl || startTLS {
+		if !verifyCert {
+			fmt.Fprintf(os.Stderr, "WARNING: TLS certificate verification is disabled. Use -verifyCert to enable.\n")
+		}
 		cs, _ := c.TLSConnectionState()
 		if printCerts {
 			// collect cert info, otherwise the output gets

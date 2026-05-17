@@ -1,4 +1,5 @@
 ## Table Of Contents
+- [v1.0.12](#v1012)
 - [v1.0.11](#v1011)
 - [v1.0.11-b2](#v1011-b2)
 - [v1.0.11-b1](#v1011-b1)
@@ -12,6 +13,23 @@
 - [v1.0.3](#v103)
 - [v1.0.2](#v102)
 - [v1.0.1](#v101)
+
+# v1.0.12
+
+* Add STARTTLS downgrade protection. A MITM attacker can strip STARTTLS
+from the server's EHLO response, causing the client to send credentials in
+plaintext. The bug is not in `mailsend-go` itself, rather it is in the
+[gomail.v2](https://gopkg.in/gomail.v2).  The fix is in my fork of [gomail](https://github.com/muquit/gomail) via the new `RequireSTARTTLS` 
+field on the `Dialer`. `mailsend-go` sets it when credentials are provided 
+and SSL is not in use, so the connection returns an error instead of 
+falling back to plaintext.
+
+* Remove unconditional debug print that leaked SMTP password to stdout.
+
+* A warning is now printed to stderr when TLS certificate verification is
+disabled. Use `-verifyCert` if desired.
+
+(May-16-2026)
 
 # v1.0.11
 

@@ -6,7 +6,8 @@
 simpler and all the heavy lifting is done by the package
 @GOMAILV2@ However, this package is not maintained anymore. Therefore, I forked it to
 @GOMAIL@ (starting from mailsend-go v1.0.11-b1 Aug-24-2025).
-The main purpose of this fork is to add @XOAUTH2@ support (Bug #68)
+The main purpose of this fork is to add @XOAUTH2@ support (Bug #68) but it
+also contains a security fix to prevent STARTTLS downgrade attack.
 
 If you use @MS@ , please consider using mailsend-go as no new features will be added to 
 @MS@.

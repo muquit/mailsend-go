@@ -1,6 +1,6 @@
 module github.com/muquit/mailsend-go
 
-go 1.25.1
+go 1.26
 
 require github.com/muquit/gomail v1.0.2
 

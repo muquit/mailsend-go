@@ -6,7 +6,7 @@
 - [Contributing](#contributing)
 - [Synopsis](#synopsis)
 - [Vulnerability Check](#vulnerability-check)
-- [Version 1.0.11 (Apr-04-2026)](#version-1011-apr-04-2026)
+- [Version 1.0.12 (May-16-2026)](#version-1012-may-16-2026)
 - [Downloading and Installing](#downloading-and-installing)
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
     - [Installing](#installing)
@@ -43,7 +43,8 @@
 simpler and all the heavy lifting is done by the package
 [gomail.v2](https://gopkg.in/gomail.v2) However, this package is not maintained anymore. Therefore, I forked it to
 [gomail](https://github.com/muquit/gomail) (starting from mailsend-go v1.0.11-b1 Aug-24-2025).
-The main purpose of this fork is to add [XOAUTH2](https://developers.google.com/workspace/gmail/imap/xoauth2-protocol) support (Bug #68)
+The main purpose of this fork is to add [XOAUTH2](https://developers.google.com/workspace/gmail/imap/xoauth2-protocol) support (Bug #68) but it
+also contains a security fix to prevent STARTTLS downgrade attack.
 
 If you use [mailsend](https://github.com/muquit/mailsend/) , please consider using mailsend-go as no new features will be added to 
 [mailsend](https://github.com/muquit/mailsend/).
@@ -79,7 +80,7 @@ Please create an [Issues](https://github.com/muquit/mailsend-go/issues) if you n
 * Supports StartTLS and SSL
 * Send mail to a list of users
 * Show SMTP server info
-* Fixes [Issues](https://github.com/muquit/mailsend-go/issues)
+etc.
 
 # Contributing
 
@@ -93,9 +94,9 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.11
+ Version: @($) mailsend-go v1.0.12
  https://github.com/muquit/mailsend-go
- Compiled with go version: go1.25.1
+ Compiled with go version: go1.26.3
 
  mailsend-go [options]
   Where the options are:
@@ -164,12 +165,10 @@ XOAUTH2 helper:
 
 ```
 ➤ govulncheck --version
-Go: go1.25.1
-Scanner: govulncheck@v1.1.4
+Go: go1.26.3
+Scanner: govulncheck@v1.3.1-0.20260508232743-57fb27ec3243
 DB: https://vuln.go.dev
-DB updated: 2025-09-24 19:21:41 +0000 UTC
-
-No vulnerabilities found.
+DB updated: 2026-05-07 19:21:40 +0000 UTC
 ```
 
 ```
@@ -181,15 +180,18 @@ Checking the code against the vulnerabilities...
 The package pattern matched the following 2 root packages:
   github.com/muquit/mailsend-go/pkg/version
   github.com/muquit/mailsend-go
-Govulncheck scanned the following 2 modules and the go1.25.1 standard library:
+Govulncheck scanned the following 2 modules and the go1.26.3 standard library:
   github.com/muquit/mailsend-go
-  github.com/muquit/gomail@v0.0.0-20250704205629-a34fa7a15a08
+  github.com/muquit/gomail@v1.0.2
 
 No vulnerabilities found.
 ```
 
-# Version 1.0.11 (Apr-04-2026)
-The current stable ersion of mailsend-go is 1.0.11, released on Apr-04-2026.
+--
+updated: May-16-2026 
+
+# Version 1.0.12 (May-16-2026)
+The current stable ersion of mailsend-go is 1.0.12, released on May-16-2026.
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
@@ -250,8 +252,8 @@ sudo /bin/cp -fv \
 
 ## Installing using Homebrew on Mac
 
-You will need to install [Homebrew](https://brew.sh/) first. Note: [Homebrew](https://brew.sh/) formula will be availbale
-only for released version of `mailsend-go`
+You will need to install [Homebrew](https://brew.sh/) first. Note: [Homebrew](https://brew.sh/) formula will be avilable
+only for released versions of `mailsend-go`
 
 ### Installing
 
@@ -261,7 +263,9 @@ First install the custom tap.
 brew tap muquit/formulae
 brew install mailsend-go
 ```
+
 Or use auto-tap (installs in one command):
+
 ```bash
 brew install muquit/formulae/mailsend-go
 ```
@@ -270,60 +274,68 @@ brew install muquit/formulae/mailsend-go
  you may get an ambiguity error. Migrate to the new tap with:
 
 ```bash
- brew uninstall mailsend-go
- brew untap muquit/mailsend-go
- brew install muquit/formulae/mailsend-go
+brew uninstall mailsend-go
+brew untap muquit/mailsend-go
+brew install muquit/formulae/mailsend-go
 ```
 
 ### Updating
+
 ```bash
 brew upgrade mailsend-go
 ```
 
 ### Uninstalling
+
 ```bash
 brew uninstall mailsend-go
 ```
 
 To remove the tap:
+
 ```bash
 brew untap muquit/formulae
 ```
 
 # Compiling from source
 
-Compiling from scratch requires the [Go programming language toolchain](https://golang.org/dl/) and git. Note: *mailsend-go* uses [go modules](https://github.com/golang/go/wiki/Modules) for dependency management.
+Requires the [Go programming language toolchain](https://golang.org/dl/) and git.
+*mailsend-go* uses [Go modules](https://github.com/golang/go/wiki/Modules) for dependency management.
 
 To install the binary:
 
 ```
-    $ go install github.com/muquit/mailsend-go@latest
+$ go install github.com/muquit/mailsend-go@latest
 ```
-The binary will be installed at $GOPATH/bin/ directory.
 
-
-If you see the error message `go: cannot find main module; see 'go help
-modules'`, make sure GO111MODULE environment variable is not set to on. Unset it by
-typing `unset GO111MODULE`
-
+The binary will be installed in `$GOPATH/bin/`.
 
 To compile yourself:
 
 ```
-    $ git clone https://github.com/muquit/mailsend-go.git
-    $ cd mailsend-go
-    $ make
-    $ ./mailsend-go -V
+$ git clone https://github.com/muquit/mailsend-go.git
+$ cd mailsend-go
+$ go build .
 ```
 
-* List the packages used (if you are outside $GOPATH)
+Or for platform-specific builds:
+
 ```
-    $ go list -m "all"
-    github.com/muquit/mailsend-go
-    github.com/muquit/gomail v0.0.0-20250327010414-6846ede5e07d
-    github.com/muquit/quotedprintable v0.0.0-20250204043250-71206103869d
+$ make linux
+$ make mac
+$ make windows
 ```
 
+Run `make help` for all available targets.
+
+To list the packages used:
+
+```
+$ go list -m "all"
+github.com/muquit/mailsend-go
+github.com/muquit/gomail v1.0.2
+github.com/muquit/quotedprintable v0.0.0-20250204043250-71206103869d
+```
 # Examples
 
 Each example mailsend-go command is a single line. In Unix back slash \ 
@@ -860,4 +872,4 @@ Original [mailsend](https://github.com/muquit/mailsend) (in C)
 
 
 ---
-<sub>TOC is created by https://github.com/muquit/markdown-toc-go on Apr-05-2026</sub>
+<sub>TOC is created by https://github.com/muquit/markdown-toc-go on May-17-2026</sub>

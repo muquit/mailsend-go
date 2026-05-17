@@ -7,7 +7,7 @@ is MacOS.
 
 License is MIT
 
-Copyright © 2018 muquit@muquit.com
+Copyright © 2018 - 2026 muquit@muquit.com
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the "Software"),
@@ -519,8 +519,6 @@ func parseAuthCommandParams(args []string, command string) int {
 			j = i
 		}
 	}
-	fmt.Printf("DEBUG: OAuth2=%t, Password='%s', Length=%d\n", auth.OAuth2, auth.Password, len(auth.Password))
-
 	// Validation logic
 	if len(auth.Username) == 0 {
 		fatalError("No auth username specified with -user for command %s\n", command)
@@ -777,7 +775,7 @@ func constructMail(fromName string, fromAddress string, toName string, toAddress
 	}
 
 	m.SetHeader("Subject", o.Subject)
-	xmailer := fmt.Sprintf(" @(#) mailsend-go v%s, %s", version.Get(), runtime.GOOS)
+	xmailer := fmt.Sprintf(" @(#) mailsend-go %s, %s", version.Get(), runtime.GOOS)
 	m.SetHeader("X-Mailer", xmailer)
 	m.SetHeader("X-Copyright", "MIT. It is illegal to use this software for Spamming")
 
@@ -857,16 +855,22 @@ func sendMail() {
 		d = &gomail.Dialer{Host: o.SMTPServer, Port: o.Port}
 	}
 	*/
+
+//	d.RequireSTARTTLS = !d.SSL
+//	logDebug("SSL? %t\n", d.SSL)
 	// Add XOAUTH2 support Jul-04-2025 
 	if mailsend.auth.OAuth2 {
 		logDebug("Using OAuth2 XOAUTH2 Authentication")
 		d = gomail.NewXOAuth2Dialer(o.SMTPServer, o.Port, mailsend.auth.Username, mailsend.auth.Token)
+		d.RequireSTARTTLS = !mailsend.options.Ssl
 	} else if mailsend.auth.Username != "" && mailsend.auth.Password != "" {
 		logDebug("Using ESMTP Authentication")
 		d = gomail.NewDialer(o.SMTPServer, o.Port, mailsend.auth.Username, mailsend.auth.Password)
+		d.RequireSTARTTLS = !mailsend.options.Ssl
 	} else {
 		logDebug("Not Using ESMTP Authentication")
 		d = &gomail.Dialer{Host: o.SMTPServer, Port: o.Port}
+		d.RequireSTARTTLS = false
 	}
 
 	// default is localhost
@@ -879,7 +883,6 @@ func sendMail() {
 	if mailsend.options.Ssl {
 		d.SSL = true
 	}
-	logDebug("SSL? %t\n", d.SSL)
 	if d.SSL {
 		// always skip verification, it segfaults if the host is an IP address
 		// d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
@@ -892,6 +895,11 @@ func sendMail() {
 		d.TLSConfig = &tls.Config{
 			ServerName: mailsend.options.SMTPServer,
 			InsecureSkipVerify: !mailsend.options.VerifyCert,
+		}
+	}
+	if !mailsend.options.VerifyCert {
+		if d.RequireSTARTTLS || d.SSL {
+			fmt.Fprintf(os.Stderr, "WARNING: TLS certificate verification is disabled. Use -verifyCert to enable.\n")
 		}
 	}
 	s, err := d.Dial()
