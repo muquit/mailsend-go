@@ -1,4 +1,4 @@
-## Table Of Contents
+# Table Of Contents
 - [v1.0.12](#v1012)
 - [v1.0.11](#v1011)
 - [v1.0.11-b2](#v1011-b2)

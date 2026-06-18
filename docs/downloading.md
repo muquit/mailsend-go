@@ -2,7 +2,7 @@
 
 Pre-compiled `mailsend-go` binaries are available for the following platforms:
 
-* Windows - 32 and 64 bit
+* Windows - 32 and 64 bit (zip, Scoop)
 * Linux - 64 bit (tgz)
 * MacOS - 64 bit (tgz, Homebrew)
 * Raspberry pi - 32 bit (tgz)
@@ -51,6 +51,44 @@ sudo /bin/cp -fv \
 sudo /bin/cp -fv \
          mailsend-go-v1.0.11-linux-amd64.d/mailsend-go.1 \
          /usr/share/main/man1
+```
+
+## Installing using Scoop on Windows
+
+If you don't have Scoop installed, run in PowerShell:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+```
+
+For more information, see https://scoop.sh
+
+* Install 
+
+```
+scoop install mailsend-go
+```
+
+* Update
+
+```
+scoop update mailsend-go
+```
+
+* Remove
+
+```
+scoop uninstall mailsend-go
+```
+
+* Misc
+
+```
+scoop list
+scoop status
+scoop info mailsend-go
+scoop cat mailsend-go
 ```
 
 ## Installing using Homebrew on Mac
