@@ -268,7 +268,7 @@ SHA-256: 4F:94:1A:8E:50:52:5E:09:24:4F:8F:FE:75:65:E1:6A:51:DD:10:47:04:74:94:6A
 ### Use default settings for well known mail providers
 
 Don't worry about the settings of -smtp, -port and -ssl for well known mail
-providers. This works for gmail, yahoo, outlook, gmx, zoho and aol.
+providers. This works for gmail, yahoo, office365, outlook, gmx, zoho and aol.
 
       mailsend-go -info -use gmail
 
