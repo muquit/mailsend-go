@@ -2,7 +2,7 @@
 
 Pre-compiled `mailsend-go` binaries are available for the following platforms:
 
-* Windows - 32 and 64 bit (zip, Scoop)
+* Windows - 32 and 64 bit (zip, Scoop, Winget)
 * Linux - 64 bit (tgz)
 * MacOS - 64 bit (tgz, Homebrew)
 * Raspberry pi - 32 bit (tgz)
@@ -89,6 +89,14 @@ scoop list
 scoop status
 scoop info mailsend-go
 scoop cat mailsend-go
+```
+
+## Installing using Winget on Windows
+
+You can install `mailsend-go` with @WINGET@ on Windows:
+
+```powershell
+winget install muquit.mailsend-go
 ```
 
 ## Installing using Homebrew on Mac

@@ -9,6 +9,7 @@
 - [Version 1.0.12 (May-16-2026)](#version-1012-may-16-2026)
 - [Downloading and Installing](#downloading-and-installing)
   - [Installing using Scoop on Windows](#installing-using-scoop-on-windows)
+  - [Installing using Winget on Windows](#installing-using-winget-on-windows)
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
     - [Installing](#installing)
     - [Updating](#updating)
@@ -200,7 +201,7 @@ Please look at [ChangeLog](ChangeLog.md) for what has changed in the current ver
 
 Pre-compiled `mailsend-go` binaries are available for the following platforms:
 
-* Windows - 32 and 64 bit (zip, Scoop)
+* Windows - 32 and 64 bit (zip, Scoop, Winget)
 * Linux - 64 bit (tgz)
 * MacOS - 64 bit (tgz, Homebrew)
 * Raspberry pi - 32 bit (tgz)
@@ -287,6 +288,14 @@ scoop list
 scoop status
 scoop info mailsend-go
 scoop cat mailsend-go
+```
+
+## Installing using Winget on Windows
+
+You can install `mailsend-go` with [Winget](https://learn.microsoft.com/windows/package-manager/winget/) on Windows:
+
+```powershell
+winget install muquit.mailsend-go
 ```
 
 ## Installing using Homebrew on Mac
@@ -911,4 +920,4 @@ Original [mailsend](https://github.com/muquit/mailsend) (in C)
 
 
 ---
-<sub>TOC is created by https://github.com/muquit/markdown-toc-go on Jun-17-2026</sub>
+<sub>TOC is created by https://github.com/muquit/markdown-toc-go on Jun-21-2026</sub>
