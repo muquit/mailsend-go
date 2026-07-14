@@ -329,7 +329,7 @@ repeat.
         attach \
          -file "/path/file.pdf"
 
-The name of the attachment will be file.pdf. To change the attachmetn
+The name of the attachment will be file.pdf. To change the attachment
 name, use the -name flag. e.g.
 
         attach -file "/path/file.pdf" -name "report.pdf"
