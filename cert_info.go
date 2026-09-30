@@ -154,7 +154,7 @@ func printCollectedCertInfo(certInfo *CertInfo) {
 		}
 	}
 	
-	fmt.Println("=====================================\n")
+	fmt.Print("=====================================\n\n")
 }
 
 // Helper function to get TLS version string

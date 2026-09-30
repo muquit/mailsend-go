@@ -4,7 +4,6 @@
 # requires go-build-go, markdown-toc-go to build everything
 
 PROGNAME := mailsend-go
-GO_VERSION := 1.26
 PROGNAME_WIN := $(PROGNAME).exe
 PROGNAME_PI := $(PROGNAME)-raspberry-pi
 PROGNAME_PI_JESSIE := $(PROGNAME)-raspberry-pi-jessie
@@ -20,9 +19,10 @@ OS= $(shell go env GOOS)
 MTOC=markdown-toc-go
 FORMULA_DIR=$(HOME)/gitdev/homebrew-formulae/Formula
 FORMULA_FILE=$(FORMULA_DIR)/mailsend-go.rb
+VULN_DOC=docs/vulnerability_check.md
 
 .PHONY: all build_all example gen usage dev mod_clean docs install install-bin \
-        release brew check_github_token tidy clean help
+        release brew check_github_token tidy vulncheck-install vulncheck clean help
 
 all: build_all gen
 	@echo "- Getting go get github.com/muquit/gomail@master ..."
@@ -104,6 +104,7 @@ docs:
 	$(MTOC) -i docs/main.md -o ./README.md  --glossary docs/glossary.txt --pre-toc-file docs/badges.md -f
 	$(MTOC) -i docs/ChangeLog.md -o ./ChangeLog.md --glossary docs/glossary.txt -f -no-credit
 	@./scripts/mk_man.sh
+	$(MAKE) vulncheck
 
 install: install-bin
 
@@ -132,7 +133,26 @@ check_github_token:
 		https://api.github.com/user | grep -i x-oauth-scopes
 
 tidy:
-	go mod tidy -go=$(GO_VERSION)
+	go mod tidy
+
+# install/rebuild govulncheck with the current Go toolchain. Must be rerun
+# after upgrading Go, otherwise govulncheck fails to load packages
+vulncheck-install:
+	go install golang.org/x/vuln/cmd/govulncheck@latest
+	govulncheck --version
+
+# run govulncheck and generate docs/vulnerability_check.md
+vulncheck:
+	@command -v govulncheck >/dev/null || \
+		{ echo "govulncheck not found, run: make vulncheck-install"; exit 1; }
+	@echo "- Generating $(VULN_DOC) ..."
+	@{ \
+	echo '# Vulnerability Check'; echo; \
+	echo '```'; echo '➤ govulncheck --version'; govulncheck --version; echo '```'; echo; \
+	echo '```'; echo '➤ govulncheck -show verbose ./...'; govulncheck -show verbose ./... 2>&1; echo '```'; echo; \
+	echo '--'; echo "updated: $$(date '+%b-%d-%Y')"; \
+	} > $(VULN_DOC)
+	@cat $(VULN_DOC)
 
 help:
 	@echo "============================================================"
@@ -145,6 +165,8 @@ help:
 	@echo " make release  - I use this to release using go-xbuild-go"
 	@echo " make brew     - I use this to generate homebrew formula"
 	@echo " make gen      - I use this to assemble README.md using markdown-toc-go"
+	@echo " make vulncheck-install - install/rebuild govulncheck with current Go"
+	@echo " make vulncheck         - run govulncheck, generate $(VULN_DOC)"
 	@echo " make clean"
 	@echo "============================================================"
 

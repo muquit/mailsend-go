@@ -443,7 +443,7 @@ func parseAttachCommandParams(args []string, command string) int {
 				fatalError("Missing value with %s for command %s\n", arg, command)
 			}
 			a.Name = args[i]
-			logDebug("Name: " + a.Name)
+			logDebug("Name: %s", a.Name)
 			j = i
 		}
 	}
@@ -636,6 +636,7 @@ func showUsageAndExit() {
 	usage := ` mailsend-go [options]
   Where the options are:
   -debug                 - Print debug messages
+  -verbose               - Equivalent to -debug -printCerts -verifyCert
   -sub subject           - Subject
   -t to,to..*            - email address/es of the recipient/s. Required
   -list file             - file with list of email addresses. 
@@ -653,7 +654,8 @@ func showUsageAndExit() {
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server and exit
-  -printCerts            - Print Certificates in connection with -info. Default is No
+  -printCerts            - Print Certificates when connecting over TLS/SSL,
+                           with -info or when sending mail. Default is No
   -ssl                   - SMTP over SSL. Default is StartTLS
   -verifyCert            - Verify Certificate in connection. Default is No
   -ex                    - show examples
@@ -906,6 +908,17 @@ func sendMail() {
 	if err != nil {
 		fatalError("%s\n", err)
 	}
+
+	if mailsend.options.PrintCerts {
+		if tc, ok := s.(interface {
+			TLSConnectionState() (tls.ConnectionState, bool)
+		}); ok {
+			if state, ok := tc.TLSConnectionState(); ok {
+				printCollectedCertInfo(collectTLSConnectionInfo(state))
+			}
+		}
+	}
+
 	logDebug("Sending mail...")
 	logFile("Sending mail...")
 
@@ -1147,6 +1160,10 @@ func main() {
 		} else if arg == "-verifyCert" || arg == "--verifyCert" {
 			mailsend.options.VerifyCert = true
 		} else if arg == "-printCerts" || arg == "--printCerts" {
+			mailsend.options.PrintCerts = true
+		} else if arg == "-verbose" || arg == "--verbose" {
+			debug = true
+			mailsend.options.VerifyCert = true
 			mailsend.options.PrintCerts = true
 		} else if arg == "-q" || arg == "-quiet" || arg == "--q" || arg == "--quiet" {
 			mailsend.options.Quiet = true

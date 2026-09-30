@@ -10,7 +10,7 @@ Pre-compiled `mailsend-go` binaries are available for the following platforms:
 Please download the binaries from the @RELEASES@
 page.  
 
-Please add an @ISSUES@ if you would need binaries for any other         platforms.
+Please add an @ISSUES@ if you would need binaries for any other platforms.
 
 Before installing, please make sure to verify the checksum.
 
@@ -51,6 +51,52 @@ sudo /bin/cp -fv \
 sudo /bin/cp -fv \
          mailsend-go-v1.0.11-linux-amd64.d/mailsend-go.1 \
          /usr/share/main/man1
+```
+## Installing using Homebrew on Mac
+
+You will need to install @BREW@ first. Note: @BREW@ formula will be avilable
+only for released versions of `mailsend-go`
+
+### Installing
+
+First install the custom tap.
+
+```
+brew tap muquit/formulae
+brew install mailsend-go
+```
+
+Or use auto-tap (installs in one command):
+
+```bash
+brew install muquit/formulae/mailsend-go
+```
+
+**Note:** If you previously used the old dedicated tap (`muquit/mailsend-go`),
+ you may get an ambiguity error. Migrate to the new tap with:
+
+```bash
+brew uninstall mailsend-go
+brew untap muquit/mailsend-go
+brew install muquit/formulae/mailsend-go
+```
+
+### Updating
+
+```bash
+brew upgrade mailsend-go
+```
+
+### Uninstalling
+
+```bash
+brew uninstall mailsend-go
+```
+
+To remove the tap:
+
+```bash
+brew untap muquit/formulae
 ```
 
 ## Installing using Scoop on Windows
@@ -99,49 +145,4 @@ You can install `mailsend-go` with @WINGET@ on Windows:
 winget install muquit.mailsend-go
 ```
 
-## Installing using Homebrew on Mac
 
-You will need to install @BREW@ first. Note: @BREW@ formula will be avilable
-only for released versions of `mailsend-go`
-
-### Installing
-
-First install the custom tap.
-
-```
-brew tap muquit/formulae
-brew install mailsend-go
-```
-
-Or use auto-tap (installs in one command):
-
-```bash
-brew install muquit/formulae/mailsend-go
-```
-
-**Note:** If you previously used the old dedicated tap (`muquit/mailsend-go`),
- you may get an ambiguity error. Migrate to the new tap with:
-
-```bash
-brew uninstall mailsend-go
-brew untap muquit/mailsend-go
-brew install muquit/formulae/mailsend-go
-```
-
-### Updating
-
-```bash
-brew upgrade mailsend-go
-```
-
-### Uninstalling
-
-```bash
-brew uninstall mailsend-go
-```
-
-To remove the tap:
-
-```bash
-brew untap muquit/formulae
-```

@@ -58,7 +58,7 @@ echo '`
 
 // Print Examples ...
 func PrintExamples() {
-    fmt.Println(examples)
+    fmt.Print(examples, "\n")
 }
 '
 }

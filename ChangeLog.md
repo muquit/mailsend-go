@@ -1,4 +1,5 @@
 # Table Of Contents
+- [v1.0.13](#v1013)
 - [v1.0.12](#v1012)
 - [v1.0.11](#v1011)
 - [v1.0.11-b2](#v1011-b2)
@@ -13,6 +14,23 @@
 - [v1.0.3](#v103)
 - [v1.0.2](#v102)
 - [v1.0.1](#v101)
+
+# v1.0.13
+
+* Fix [Issue #76](https://github.com/muquit/mailsend-go/issues/76). The options `-printCerts` and `-verifyCert` now take effect while
+sending mail, not just with `-info`. Added `-verbose` as a shortcut for
+`-debug -printCerts -verifyCert` together.
+
+No need to update unless you need certificate details or verification 
+while sending mail.
+
+(Sep-29-2026)
+
+* Some code cleanup, use go 1.27 to compile, tagged `quotedprintable` to
+v1.0.1. Updated `gomail` v1.0.4 to use `quotedprintable` v1.0.1.
+
+(Sep-29-2026)
+
 
 # v1.0.12
 

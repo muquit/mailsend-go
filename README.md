@@ -6,14 +6,14 @@
 - [Contributing](#contributing)
 - [Synopsis](#synopsis)
 - [Vulnerability Check](#vulnerability-check)
-- [Version 1.0.12 (May-16-2026)](#version-1012-may-16-2026)
+- [Version 1.0.13 (Sep-29-2026)](#version-1013-sep-29-2026)
 - [Downloading and Installing](#downloading-and-installing)
-  - [Installing using Scoop on Windows](#installing-using-scoop-on-windows)
-  - [Installing using Winget on Windows](#installing-using-winget-on-windows)
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
     - [Installing](#installing)
     - [Updating](#updating)
     - [Uninstalling](#uninstalling)
+  - [Installing using Scoop on Windows](#installing-using-scoop-on-windows)
+  - [Installing using Winget on Windows](#installing-using-winget-on-windows)
 - [Compiling from source](#compiling-from-source)
 - [Examples](#examples)
   - [Show SMTP server information](#show-smtp-server-information)
@@ -96,13 +96,14 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.12
+ Version: @($) mailsend-go v1.0.13
  https://github.com/muquit/mailsend-go
- Compiled with go version: go1.26.3
+ Compiled with go version: go1.27.0
 
  mailsend-go [options]
   Where the options are:
   -debug                 - Print debug messages
+  -verbose               - Equivalent to -debug -printCerts -verifyCert
   -sub subject           - Subject
   -t to,to..*            - email address/es of the recipient/s. Required
   -list file             - file with list of email addresses. 
@@ -120,7 +121,8 @@ course)
   -port port             - port of SMTP server. Default is 587
   -domain domain         - domain name for SMTP HELO. Default is localhost
   -info                  - Print info about SMTP server and exit
-  -printCerts            - Print Certificates in connection with -info. Default is No
+  -printCerts            - Print Certificates when connecting over TLS/SSL,
+                           with -info or when sending mail. Default is No
   -ssl                   - SMTP over SSL. Default is StartTLS
   -verifyCert            - Verify Certificate in connection. Default is No
   -ex                    - show examples
@@ -167,10 +169,11 @@ XOAUTH2 helper:
 
 ```
 ➤ govulncheck --version
-Go: go1.26.3
-Scanner: govulncheck@v1.3.1-0.20260508232743-57fb27ec3243
+Go: go1.27.0
+Scanner: govulncheck@v1.8.0
 DB: https://vuln.go.dev
-DB updated: 2026-05-07 19:21:40 +0000 UTC
+DB updated: 2026-09-28 16:43:40 +0000 UTC
+
 ```
 
 ```
@@ -182,18 +185,18 @@ Checking the code against the vulnerabilities...
 The package pattern matched the following 2 root packages:
   github.com/muquit/mailsend-go/pkg/version
   github.com/muquit/mailsend-go
-Govulncheck scanned the following 2 modules and the go1.26.3 standard library:
+Govulncheck scanned the following 2 modules and the go1.27.0 standard library:
   github.com/muquit/mailsend-go
-  github.com/muquit/gomail@v1.0.2
+  github.com/muquit/gomail@v1.0.4
 
 No vulnerabilities found.
 ```
 
 --
-updated: May-16-2026 
+updated: Sep-29-2026
 
-# Version 1.0.12 (May-16-2026)
-The current stable ersion of mailsend-go is 1.0.12, released on May-16-2026.
+# Version 1.0.13 (Sep-29-2026)
+The current stable version of mailsend-go is 1.0.13, released on Sep-29-2026.
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
@@ -209,7 +212,7 @@ Pre-compiled `mailsend-go` binaries are available for the following platforms:
 Please download the binaries from the [releases](https://github.com/muquit/mailsend-go/releases)
 page.  
 
-Please add an [Issues](https://github.com/muquit/mailsend-go/issues) if you would need binaries for any other         platforms.
+Please add an [Issues](https://github.com/muquit/mailsend-go/issues) if you would need binaries for any other platforms.
 
 Before installing, please make sure to verify the checksum.
 
@@ -250,6 +253,52 @@ sudo /bin/cp -fv \
 sudo /bin/cp -fv \
          mailsend-go-v1.0.11-linux-amd64.d/mailsend-go.1 \
          /usr/share/main/man1
+```
+## Installing using Homebrew on Mac
+
+You will need to install [Homebrew](https://brew.sh/) first. Note: [Homebrew](https://brew.sh/) formula will be avilable
+only for released versions of `mailsend-go`
+
+### Installing
+
+First install the custom tap.
+
+```
+brew tap muquit/formulae
+brew install mailsend-go
+```
+
+Or use auto-tap (installs in one command):
+
+```bash
+brew install muquit/formulae/mailsend-go
+```
+
+**Note:** If you previously used the old dedicated tap (`muquit/mailsend-go`),
+ you may get an ambiguity error. Migrate to the new tap with:
+
+```bash
+brew uninstall mailsend-go
+brew untap muquit/mailsend-go
+brew install muquit/formulae/mailsend-go
+```
+
+### Updating
+
+```bash
+brew upgrade mailsend-go
+```
+
+### Uninstalling
+
+```bash
+brew uninstall mailsend-go
+```
+
+To remove the tap:
+
+```bash
+brew untap muquit/formulae
 ```
 
 ## Installing using Scoop on Windows
@@ -298,52 +347,7 @@ You can install `mailsend-go` with [Winget](https://learn.microsoft.com/windows/
 winget install muquit.mailsend-go
 ```
 
-## Installing using Homebrew on Mac
 
-You will need to install [Homebrew](https://brew.sh/) first. Note: [Homebrew](https://brew.sh/) formula will be avilable
-only for released versions of `mailsend-go`
-
-### Installing
-
-First install the custom tap.
-
-```
-brew tap muquit/formulae
-brew install mailsend-go
-```
-
-Or use auto-tap (installs in one command):
-
-```bash
-brew install muquit/formulae/mailsend-go
-```
-
-**Note:** If you previously used the old dedicated tap (`muquit/mailsend-go`),
- you may get an ambiguity error. Migrate to the new tap with:
-
-```bash
-brew uninstall mailsend-go
-brew untap muquit/mailsend-go
-brew install muquit/formulae/mailsend-go
-```
-
-### Updating
-
-```bash
-brew upgrade mailsend-go
-```
-
-### Uninstalling
-
-```bash
-brew uninstall mailsend-go
-```
-
-To remove the tap:
-
-```bash
-brew untap muquit/formulae
-```
 
 # Compiling from source
 
@@ -920,4 +924,4 @@ Original [mailsend](https://github.com/muquit/mailsend) (in C)
 
 
 ---
-<sub>TOC is created by https://github.com/muquit/markdown-toc-go on Jun-21-2026</sub>
+<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.6 on Sep-29-2026</sub>
