@@ -301,6 +301,7 @@ To remove the tap:
 brew untap muquit/formulae
 ```
 
+
 ## Installing using Scoop on Windows
 
 If you don't have Scoop installed, run in PowerShell:
@@ -924,4 +925,4 @@ Original [mailsend](https://github.com/muquit/mailsend) (in C)
 
 
 ---
-<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.6 on Sep-29-2026</sub>
+<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.6 on Sep-30-2026</sub>
