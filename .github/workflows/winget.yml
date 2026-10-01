@@ -1,0 +1,15 @@
+name: Publish to Winget
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: vedantmgoyal9/winget-releaser@main
+        with:
+          identifier: muquit.mailsend-go
+          installers-regex: 'windows-\w+\.d\.zip$'
+          token: ${{ secrets.WINGET_TOKEN }}
