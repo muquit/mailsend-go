@@ -1,18 +1,28 @@
 My personal note
 ================
-* Update version in code
-* Update latest version in markdown docs/version.md
-* Update docs/ChangeLog.md
-* Generate docs, Update usage (make dev;make clean;make)
-* Compile
+Release checklist for mailsend-go
+
+* If go was upgraded since the last release:
+  make vulncheck-install   (rebuild govulncheck with the new go)
+  Update the go directive in go.mod if needed, then: make tidy
+* Update version in VERSION (injected into the binary via -ldflags)
+* Update latest version in docs/version.md
+* Update docs/ChangeLog.md (ChangeLog.md is generated from it)
+* Build everything and regenerate docs:
+  make clean; make
+  This builds native + all platforms with go-xbuild-go into bin/,
+  generates the homebrew formula, examples, docs/usage.md,
+  README.md, ChangeLog.md, man page and docs/vulnerability_check.md
+* Check the version: ./mailsend-go -V
 * Test
 * commit
 * push
-* tag and push tag by running ./scripts/tagit.sh
+* tag and push tag by running ./scripts/tagit.rb
   It will force push the tag. Go and remove tag from github if needed.
 * Release
-  ./scripts/release.sh snap - to test
-  - Final publish
-  set GITHUB_TOKEN env var and then
-  ./scripts/release.sh ok to publish
-* Update github profile repo list  
+  set GITHUB_TOKEN env var, verify with: make check_github_token
+  make release
+  This also checks in and pushes the homebrew formula in
+  ~/gitdev/homebrew-formulae. If that push fails, fix it and run:
+  make brew-push
+* Update github profile repo list

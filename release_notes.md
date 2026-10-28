@@ -1,15 +1,8 @@
-This release fixes [Issue #76](https://github.com/muquit/mailsend-go/issues/76).
-The options `-printCerts` and `-verifyCert` now take effect while sending 
-mail, not just with `-info`. Added `-verbose` as a shortcut for
-`-debug -printCerts -verifyCert` together.
-
-No need to update unless you need certificate details or verification
-while sending mail.
+No code change. Rebuilt binaries with go 1.27.3 for [CVE-2026-111943](https://nvd.nist.gov/vuln/detail/cve-2026-111943)
 
 Please look at [ChangeLog](ChangeLog.md) for details.
 
-The binaries are cross-compiled with 
-[go-xbuild-go](https://github.com/muquit/go-xbuild-go)
+The binaries are cross-compiled with [go-xbuild-go](https://github.com/muquit/go-xbuild-go)
 
 Do not forget to check checksums of the archives before using.
 

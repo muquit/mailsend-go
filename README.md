@@ -6,7 +6,7 @@
 - [Contributing](#contributing)
 - [Synopsis](#synopsis)
 - [Vulnerability Check](#vulnerability-check)
-- [Version 1.0.13 (Sep-29-2026)](#version-1013-sep-29-2026)
+- [Version 1.0.14 (Oct-28-2026)](#version-1014-oct-28-2026)
 - [Downloading and Installing](#downloading-and-installing)
   - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
     - [Installing](#installing)
@@ -96,9 +96,9 @@ course)
 
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.13
+ Version: @($) mailsend-go v1.0.14
  https://github.com/muquit/mailsend-go
- Compiled with go version: go1.27.0
+ Compiled with go version: go1.27.3
 
  mailsend-go [options]
   Where the options are:
@@ -169,10 +169,10 @@ XOAUTH2 helper:
 
 ```
 ➤ govulncheck --version
-Go: go1.27.0
+Go: go1.27.3
 Scanner: govulncheck@v1.8.0
 DB: https://vuln.go.dev
-DB updated: 2026-09-28 16:43:40 +0000 UTC
+DB updated: 2026-10-27 21:16:18 +0000 UTC
 
 ```
 
@@ -185,7 +185,7 @@ Checking the code against the vulnerabilities...
 The package pattern matched the following 2 root packages:
   github.com/muquit/mailsend-go/pkg/version
   github.com/muquit/mailsend-go
-Govulncheck scanned the following 2 modules and the go1.27.0 standard library:
+Govulncheck scanned the following 2 modules and the go1.27.3 standard library:
   github.com/muquit/mailsend-go
   github.com/muquit/gomail@v1.0.4
 
@@ -193,10 +193,10 @@ No vulnerabilities found.
 ```
 
 --
-updated: Sep-29-2026
+updated: Oct-28-2026
 
-# Version 1.0.13 (Sep-29-2026)
-The current stable version of mailsend-go is 1.0.13, released on Sep-29-2026.
+# Version 1.0.14 (Oct-28-2026)
+The current stable version of mailsend-go is 1.0.14, released on Oct-28-2026.
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
 
@@ -925,4 +925,4 @@ Original [mailsend](https://github.com/muquit/mailsend) (in C)
 
 
 ---
-<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.6 on Sep-30-2026</sub>
+<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.6 on Oct-27-2026</sub>

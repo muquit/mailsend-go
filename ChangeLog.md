@@ -1,4 +1,5 @@
 # Table Of Contents
+- [v1.0.14](#v1014)
 - [v1.0.13](#v1013)
 - [v1.0.12](#v1012)
 - [v1.0.11](#v1011)
@@ -14,6 +15,26 @@
 - [v1.0.3](#v103)
 - [v1.0.2](#v102)
 - [v1.0.1](#v101)
+
+# v1.0.14
+
+> [!NOTE]
+> In October 2026, eight intermediate CA certificates operated by
+> eMudhra under its emSign PKI were found to have private keys that
+> could be derived by anyone.
+> go 1.26.10 and 1.27.3 now reject certificate chains containing
+> these intermediate CA keys.
+> See [golang/go#82345](https://github.com/golang/go/issues/82345).
+
+* **No code change**. Rebuilt the binaries with go 1.27.3 to pick up the crypto/x509 fix
+for [CVE-2026-111943](https://nvd.nist.gov/vuln/detail/cve-2026-111943).
+With `-verifyCert`, certificate chains containing the blocked intermediate
+CA keys are now rejected, so SMTP servers whose chain uses one of them
+will fail TLS verification.
+
+* `go.mod` updated to require go 1.27.3 or later for building from source.
+
+(Oct-28-2026)
 
 # v1.0.13
 

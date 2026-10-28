@@ -1,8 +1,8 @@
 # Synopsis
 ```
- Version: @($) mailsend-go v1.0.13
+ Version: @($) mailsend-go v1.0.14
  https://github.com/muquit/mailsend-go
- Compiled with go version: go1.27.0
+ Compiled with go version: go1.27.3
 
  mailsend-go [options]
   Where the options are:
