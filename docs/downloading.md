@@ -99,5 +99,15 @@ You can install `mailsend-go` with @WINGET@ on Windows:
 ```powershell
 winget install muquit.mailsend-go
 ```
+To upgrade:
+
+```
+winget upgrade muquit.mailsend-go
+```
+
+**New releases reach winget after Microsoft reviews the submission, which
+can take a few days. If the latest version is not on winget yet, use
+[Scoop](#installing-using-scoop-on-windows) or download the zip from the
+[releases](https://github.com/muquit/mailsend-go/releases) page.**
 
 
