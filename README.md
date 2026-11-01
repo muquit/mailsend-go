@@ -8,6 +8,10 @@
 - [Vulnerability Check](#vulnerability-check)
 - [Version 1.0.14 (Oct-28-2026)](#version-1014-oct-28-2026)
 - [Downloading and Installing](#downloading-and-installing)
+  - [Installing using Homebrew on Mac](#installing-using-homebrew-on-mac)
+    - [Installing](#installing)
+    - [Updating](#updating)
+    - [Uninstalling](#uninstalling)
   - [Installing using Scoop on Windows](#installing-using-scoop-on-windows)
   - [Installing using Winget on Windows](#installing-using-winget-on-windows)
 - [Compiling from source](#compiling-from-source)
@@ -250,7 +254,53 @@ sudo /bin/cp -fv \
          mailsend-go-v1.0.11-linux-amd64.d/mailsend-go.1 \
          /usr/share/main/man1
 ```
-@[:markdown](brew.md)
+## Installing using Homebrew on Mac
+
+You will need to install [Homebrew](https://brew.sh/) first. Note: [Homebrew](https://brew.sh/) formula will be avilable
+only for released versions of `mailsend-go`
+
+### Installing
+
+First install the custom tap.
+
+```
+brew tap muquit/formulae
+brew install mailsend-go
+```
+
+Or use auto-tap (installs in one command):
+
+```bash
+brew install muquit/formulae/mailsend-go
+```
+
+**Note:** If you previously used the old dedicated tap (`muquit/mailsend-go`),
+ you may get an ambiguity error. Migrate to the new tap with:
+
+```bash
+brew uninstall mailsend-go
+brew untap muquit/mailsend-go
+brew install muquit/formulae/mailsend-go
+```
+
+### Updating
+
+```bash
+brew upgrade mailsend-go
+```
+
+### Uninstalling
+
+```bash
+brew uninstall mailsend-go
+```
+
+To remove the tap:
+
+```bash
+brew untap muquit/formulae
+```
+
 
 ## Installing using Scoop on Windows
 
@@ -885,4 +935,4 @@ Original [mailsend](https://github.com/muquit/mailsend) (in C)
 
 
 ---
-<sub>TOC is created by https://github.com/muquit/markdown-toc-go on Oct-30-2026</sub>
+<sub>TOC/glossary expansion by https://github.com/muquit/markdown-toc-go v1.0.6 on Oct-31-2026</sub>
